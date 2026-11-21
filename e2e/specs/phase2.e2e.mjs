@@ -5,7 +5,7 @@ import { AxeBuilder } from "@axe-core/webdriverio";
 
 describe("v1 desktop accessibility and workflow smoke", () => {
   it("connects to the Rust core and exposes the expected landmarks and output table", async () => {
-    const heading = await $("h1=Imaguncula");
+    const heading = await $('h1[aria-label="Imaguncula"]');
     await heading.waitForDisplayed();
     await browser.waitUntil(async () => (await $(".core-status").getText()).includes("connected"), {
       timeoutMsg: "desktop core did not connect",

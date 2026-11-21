@@ -813,12 +813,17 @@
 </svelte:head>
 
 <header class="app-header">
-  <div class="brand">
-    <img class="brand-mark" src="/logo.svg" alt="" />
-    <div>
-      <p class="eyebrow">Offline icon asset generator</p>
-      <h1>Imaguncula</h1>
-    </div>
+  <div>
+    <p class="eyebrow">Offline icon asset generator</p>
+    <h1 aria-label="Imaguncula">
+      <img class="wordmark-initial" src="/logo.svg" alt="" /><span aria-hidden="true">
+        maguncula<sup class="name-note-marker">*</sup>
+      </span>
+    </h1>
+    <p class="name-note">
+      <span aria-hidden="true">*</span> Imaguncula is Latin for “little image.” Give it one master artwork
+      and it renders every icon size your platforms need, entirely on your computer.
+    </p>
   </div>
   <nav aria-label="Project actions">
     <button type="button" onclick={createProject} disabled={busy}>New</button>
@@ -1477,15 +1482,30 @@
     padding-top: clamp(2rem, 5vw, 4rem);
   }
 
-  .brand {
+  .app-header h1 {
     display: flex;
-    align-items: center;
-    gap: 1.1rem;
+    align-items: baseline;
   }
 
-  .brand-mark {
+  .wordmark-initial {
     width: auto;
-    height: clamp(4.6rem, 10vw, 7rem);
+    height: 0.96em;
+    margin-right: 0.02em;
+  }
+
+  .name-note-marker {
+    margin-left: 0.06em;
+    color: #4e654c;
+    font-size: 0.32em;
+    vertical-align: super;
+  }
+
+  .name-note {
+    max-width: 34rem;
+    margin: 0.9rem 0 0;
+    color: #4e654c;
+    font-size: 0.86rem;
+    line-height: 1.45;
   }
 
   .app-header,
