@@ -6,7 +6,7 @@
     {
       "role": "master",
       "path": "../src-tauri/icons/icon.png",
-      "contentHash": "273cd669e07c455ad1c7c095890a37984652157cee73128a867300067dfb80e7"
+      "contentHash": "3d1dc527decceb36be69ee48d21d018b58907044640eca5ffaeef599e9ff55f7"
     }
   ],
   "selectedPresets": [{ "id": "windows-desktop", "version": 2 }],

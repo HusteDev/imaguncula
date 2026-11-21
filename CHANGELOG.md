@@ -4,7 +4,7 @@ All notable changes are documented here. This project uses Semantic Versioning.
 
 ## [Unreleased]
 
-## [1.0.0-beta.1] - 2026-11-20
+## [1.0.0-beta.1] - 2026-11-21
 
 First public beta. All desktop and CLI artifacts are unsigned and unnotarized; the release notes state the exact trust boundary.
 
@@ -18,6 +18,7 @@ First public beta. All desktop and CLI artifacts are unsigned and unnotarized; t
 - Schema-v2 portable project files with exact preset pinning and reviewed preset migration fingerprints.
 - Hostile-input corpus, property tests, four fuzz targets, stress limits, and staging-escape regression coverage.
 - Three checked-in example projects, generated CLI reference, user/security/accessibility/distribution documentation, and release automation.
+- Brand artwork: a mosaic app icon for the window, taskbar, and installers, the "I" wordmark in the app header, and a short note explaining the name.
 
 ### Changed
 
