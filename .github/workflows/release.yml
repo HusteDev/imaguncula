@@ -25,7 +25,7 @@ jobs:
           cargo package --locked --list -p imaguncula-presets
           cargo package --locked --list -p imaguncula-core
           cargo package --locked --list -p imaguncula-cli
-          cargo test --locked --workspace
+          cargo test --locked -p imaguncula-presets -p imaguncula-core -p imaguncula-cli
 
   build:
     name: Build ${{ matrix.label }}
@@ -259,7 +259,11 @@ jobs:
           GH_TOKEN: ${{ github.token }}
         run: |
           if ! gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
-            gh release create "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --verify-tag --generate-notes --title "Imaguncula $GITHUB_REF_NAME"
+            prerelease=()
+            if [[ "$GITHUB_REF_NAME" == *-* ]]; then
+              prerelease=(--prerelease)
+            fi
+            gh release create "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --verify-tag --generate-notes --title "Imaguncula $GITHUB_REF_NAME" "${prerelease[@]}"
           fi
           gh release upload "$GITHUB_REF_NAME" dist/* --repo "$GITHUB_REPOSITORY" --clobber
 
