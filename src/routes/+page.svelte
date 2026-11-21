@@ -814,7 +814,7 @@
 
 <header class="app-header">
   <div class="brand">
-    <img class="brand-mark" src="/favicon.svg" alt="" />
+    <img class="brand-mark" src="/logo.svg" alt="" />
     <div>
       <p class="eyebrow">Offline icon asset generator</p>
       <h1>Imaguncula</h1>
@@ -831,7 +831,7 @@
   <section class="workspace" aria-labelledby="project-heading">
     <div class="section-heading">
       <div>
-        <p class="section-label">Project file · schema v{project.schemaVersion}</p>
+        <p class="section-label">Project file</p>
         <h2 id="project-heading">Project identity</h2>
       </div>
       <p class="path" title={currentPath ?? "Not saved"}>
@@ -1484,8 +1484,8 @@
   }
 
   .brand-mark {
-    width: 3.4rem;
-    height: 3.4rem;
+    width: auto;
+    height: clamp(4.6rem, 10vw, 7rem);
   }
 
   .app-header,
