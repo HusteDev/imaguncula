@@ -821,8 +821,8 @@
       </span>
     </h1>
     <p class="name-note">
-      <span aria-hidden="true">*</span> Imaguncula is Latin for “little image.” Give it one master artwork
-      and it renders every icon size your platforms need, entirely on your computer.
+      <span aria-hidden="true">*</span> Imaguncula is Latin for “little image.” It turns one piece of
+      artwork into every icon size your app needs, without anything leaving your computer.
     </p>
   </div>
   <nav aria-label="Project actions">
