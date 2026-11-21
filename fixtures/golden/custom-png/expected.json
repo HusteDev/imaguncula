@@ -1,0 +1,16 @@
+{
+  "files": [
+    {
+      "outputId": "square-16",
+      "path": "custom/square-16.png",
+      "width": 16,
+      "height": 16
+    },
+    {
+      "outputId": "wide-32x20",
+      "path": "custom/wide-32x20.png",
+      "width": 32,
+      "height": 20
+    }
+  ]
+}

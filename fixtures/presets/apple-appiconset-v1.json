@@ -1,0 +1,79 @@
+{
+  "schemaVersion": 1,
+  "id": "apple-appiconset-fixture",
+  "version": 1,
+  "displayName": "Apple AppIcon schema fixture",
+  "description": "Exercises an asset-catalog directory and generated Contents.json metadata.",
+  "platform": "ios",
+  "lastReviewed": "2026-07-31",
+  "specSources": ["https://developer.apple.com/documentation/xcode/configuring-your-app-icon"],
+  "sourceRoles": [
+    {
+      "role": "master",
+      "required": true,
+      "description": "Primary App Store icon artwork."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "app-store-1024",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 1024,
+      "height": 1024,
+      "usage": "App Store marketing icon source.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    }
+  ],
+  "packages": [
+    {
+      "kind": "directory",
+      "id": "appiconset",
+      "root": "{base}.appiconset",
+      "files": [
+        {
+          "output": "app-store-1024",
+          "path": "icon-1024.png"
+        }
+      ]
+    },
+    {
+      "kind": "metadata",
+      "id": "contents-json",
+      "format": "json",
+      "path": "{base}.appiconset/Contents.json",
+      "template": "{\n  \"images\": [\n    { \"filename\": \"{{app-store-icon}}\", \"idiom\": \"universal\", \"platform\": \"ios\", \"size\": \"1024x1024\" }\n  ],\n  \"info\": { \"author\": \"xcode\", \"version\": 1 }\n}\n",
+      "references": [
+        {
+          "name": "app-store-icon",
+          "package": "appiconset",
+          "output": "app-store-1024"
+        }
+      ]
+    }
+  ],
+  "validationRules": [
+    {
+      "rule": "square-source",
+      "severity": "error",
+      "sourceRole": "master"
+    },
+    {
+      "rule": "no-upscale",
+      "severity": "error",
+      "sourceRole": "master"
+    },
+    {
+      "rule": "minimum-source-size",
+      "severity": "error",
+      "sourceRole": "master",
+      "width": 1024,
+      "height": 1024
+    }
+  ],
+  "optionalOutputGroups": []
+}

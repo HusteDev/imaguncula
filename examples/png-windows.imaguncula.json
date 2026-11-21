@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 2,
+  "projectName": "PNG Windows Desktop",
+  "baseFilename": "png-windows",
+  "sources": [
+    {
+      "role": "master",
+      "path": "../src-tauri/icons/icon.png",
+      "contentHash": "273cd669e07c455ad1c7c095890a37984652157cee73128a867300067dfb80e7"
+    }
+  ],
+  "selectedPresets": [{ "id": "windows-desktop", "version": 2 }],
+  "enabledOutputs": [
+    "icon-16",
+    "icon-20",
+    "icon-24",
+    "icon-30",
+    "icon-32",
+    "icon-36",
+    "icon-40",
+    "icon-42",
+    "icon-48",
+    "icon-60",
+    "icon-64",
+    "icon-72",
+    "icon-80",
+    "icon-96",
+    "icon-256"
+  ],
+  "customOutputs": [],
+  "outputOverrides": {},
+  "exportSettings": { "createCombinedZip": true, "overwriteConfirmed": false },
+  "acceptedWarnings": [],
+  "presetMigrations": []
+}

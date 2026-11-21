@@ -1,0 +1,114 @@
+{
+  "schemaVersion": 1,
+  "id": "apple-macos-icns",
+  "version": 1,
+  "displayName": "Apple macOS conventional ICNS",
+  "description": "A conventional multi-resolution ICNS generated from independent source renders.",
+  "platform": "macos",
+  "lastReviewed": "2026-07-31",
+  "specSources": [
+    "https://developer.apple.com/documentation/xcode/configuring-your-app-icon/",
+    "https://developer.apple.com/library/archive/documentation/Xcode/Reference/xcode_ref-Asset_Catalog_Format/IconSetType.html"
+  ],
+  "sourceRoles": [
+    {
+      "role": "master",
+      "required": true,
+      "description": "Square artwork used to render every ICNS representation independently."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "mac-icns-16",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 16,
+      "height": 16,
+      "usage": "16-pixel ICNS representation.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "mac-icns-32",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 32,
+      "height": 32,
+      "usage": "32-pixel ICNS representation.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "mac-icns-64",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 64,
+      "height": 64,
+      "usage": "64-pixel ICNS representation.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "mac-icns-128",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 128,
+      "height": 128,
+      "usage": "128-pixel ICNS representation.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "mac-icns-256",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 256,
+      "height": 256,
+      "usage": "256-pixel ICNS representation.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "mac-icns-512",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 512,
+      "height": 512,
+      "usage": "512-pixel ICNS representation.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "mac-icns-1024",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 1024,
+      "height": 1024,
+      "usage": "1024-pixel Retina ICNS representation.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    }
+  ],
+  "packages": [
+    {
+      "kind": "container",
+      "id": "macos-icns",
+      "format": "icns",
+      "path": "{base}.icns",
+      "entries": [
+        { "output": "mac-icns-16", "encoding": "png" },
+        { "output": "mac-icns-32", "encoding": "png" },
+        { "output": "mac-icns-64", "encoding": "png" },
+        { "output": "mac-icns-128", "encoding": "png" },
+        { "output": "mac-icns-256", "encoding": "png" },
+        { "output": "mac-icns-512", "encoding": "png" },
+        { "output": "mac-icns-1024", "encoding": "png" }
+      ]
+    }
+  ],
+  "validationRules": [
+    { "rule": "square-source", "severity": "error", "sourceRole": "master" },
+    { "rule": "no-upscale", "severity": "error", "sourceRole": "master" },
+    {
+      "rule": "minimum-source-size",
+      "severity": "warning",
+      "sourceRole": "master",
+      "width": 1024,
+      "height": 1024
+    }
+  ],
+  "optionalOutputGroups": []
+}

@@ -1,0 +1,43 @@
+[package]
+name = "imaguncula-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2024"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = "0.4"
+imaguncula-core = { path = "../crates/imaguncula-core" }
+
+[[bin]]
+name = "svg_preflight"
+path = "fuzz_targets/svg_preflight.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "relative_path"
+path = "fuzz_targets/relative_path.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "ico_encoder"
+path = "fuzz_targets/ico_encoder.rs"
+test = false
+doc = false
+bench = false
+
+[[bin]]
+name = "icns_encoder"
+path = "fuzz_targets/icns_encoder.rs"
+test = false
+doc = false
+bench = false
+
+[workspace]
+members = ["."]

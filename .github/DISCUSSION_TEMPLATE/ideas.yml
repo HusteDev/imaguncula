@@ -1,0 +1,25 @@
+title: "[Idea] "
+labels: [ideas]
+body:
+  - type: markdown
+    attributes:
+      value: Describe the workflow problem and required outcome. Do not attach confidential artwork or disclose vulnerabilities.
+  - type: textarea
+    id: problem
+    attributes:
+      label: Workflow problem
+      description: State what is difficult or impossible today.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Required outcome
+      description: State the observable result without prescribing implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Platform evidence
+      description: Link authoritative vendor requirements when the idea changes output sizes, names, metadata, or packaging.

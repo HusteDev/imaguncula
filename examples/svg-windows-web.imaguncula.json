@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 2,
+  "projectName": "SVG Windows and Web",
+  "baseFilename": "svg-windows-web",
+  "sources": [
+    {
+      "role": "master",
+      "path": "../fixtures/sources/asymmetric.svg",
+      "contentHash": "1e36d7b0ba7b36c461f49a58e3d9381c1afa2b405fa57db5cc335ab387f57f9c"
+    }
+  ],
+  "selectedPresets": [
+    { "id": "windows-desktop", "version": 2 },
+    { "id": "web-pwa", "version": 1 }
+  ],
+  "enabledOutputs": [
+    "apple-touch-180",
+    "favicon-16",
+    "favicon-32",
+    "favicon-48",
+    "favicon-svg",
+    "icon-16",
+    "icon-20",
+    "icon-24",
+    "icon-30",
+    "icon-32",
+    "icon-36",
+    "icon-40",
+    "icon-42",
+    "icon-48",
+    "icon-60",
+    "icon-64",
+    "icon-72",
+    "icon-80",
+    "icon-96",
+    "icon-256",
+    "pwa-192",
+    "pwa-512",
+    "pwa-maskable-512"
+  ],
+  "customOutputs": [],
+  "outputOverrides": {},
+  "exportSettings": { "createCombinedZip": true, "overwriteConfirmed": false },
+  "acceptedWarnings": [],
+  "presetMigrations": []
+}

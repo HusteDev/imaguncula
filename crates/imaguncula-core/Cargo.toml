@@ -1,0 +1,35 @@
+[package]
+name = "imaguncula-core"
+description = "Pure icon-processing core for Imaguncula"
+version.workspace = true
+edition.workspace = true
+rust-version.workspace = true
+authors.workspace = true
+license.workspace = true
+repository = "https://github.com/HusteDev/imaguncula"
+readme = "../../README.md"
+keywords = ["icons", "image-processing", "favicon", "desktop"]
+categories = ["multimedia::images"]
+
+[lints]
+workspace = true
+
+[dependencies]
+fast_image_resize = "=6.1.0"
+ico = "=0.5.0"
+icns = { version = "=0.4.0", default-features = false, features = ["pngio"] }
+imaguncula-presets = { version = "=1.0.0-beta.1", path = "../imaguncula-presets" }
+image = { version = "=0.25.10", default-features = false, features = ["png"] }
+quick-xml = "=0.41.0"
+resvg = { version = "=0.47.0", default-features = false }
+png = "=0.18.1"
+serde = { version = "=1.0.229", features = ["derive"] }
+serde_json = "=1.0.151"
+sha2 = "=0.10.9"
+tempfile = "=3.27.0"
+thiserror = "=2.0.19"
+usvg = { version = "=0.47.0", default-features = false }
+zip = { version = "=8.6.0", default-features = false, features = ["deflate"] }
+
+[dev-dependencies]
+proptest = "=1.9.0"

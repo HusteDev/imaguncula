@@ -1,0 +1,136 @@
+{
+  "schemaVersion": 1,
+  "id": "linux-hicolor",
+  "version": 1,
+  "displayName": "Linux hicolor application icon",
+  "description": "Fixed PNG application icons and an optional scalable SVG arranged for the freedesktop.org hicolor fallback theme.",
+  "platform": "linux",
+  "lastReviewed": "2026-07-31",
+  "specSources": ["https://specifications.freedesktop.org/icon-theme/latest/"],
+  "sourceRoles": [
+    {
+      "role": "master",
+      "required": true,
+      "description": "The original square icon artwork used for every hicolor output."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "linux-16",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 16,
+      "height": 16,
+      "usage": "Small hicolor application icon.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "linux-24",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 24,
+      "height": 24,
+      "usage": "Compact hicolor application icon.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "linux-32",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 32,
+      "height": 32,
+      "usage": "Standard small hicolor application icon.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "linux-48",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 48,
+      "height": 48,
+      "usage": "Minimum freedesktop.org application icon size.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "linux-64",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 64,
+      "height": 64,
+      "usage": "Medium hicolor application icon.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "linux-128",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 128,
+      "height": 128,
+      "usage": "Large hicolor application icon.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "linux-256",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 256,
+      "height": 256,
+      "usage": "High-resolution hicolor application icon.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "linux-512",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 512,
+      "height": 512,
+      "usage": "Maximum conventional fixed-size hicolor application icon.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "linux-scalable",
+      "sourceRole": "master",
+      "format": "svg",
+      "usage": "Scalable hicolor application icon retained from the sanitized SVG source.",
+      "encoder": { "type": "svg", "mode": "sanitized-source" }
+    }
+  ],
+  "packages": [
+    {
+      "kind": "directory",
+      "id": "hicolor-tree",
+      "root": "hicolor",
+      "files": [
+        { "output": "linux-16", "path": "16x16/apps/{base}.png" },
+        { "output": "linux-24", "path": "24x24/apps/{base}.png" },
+        { "output": "linux-32", "path": "32x32/apps/{base}.png" },
+        { "output": "linux-48", "path": "48x48/apps/{base}.png" },
+        { "output": "linux-64", "path": "64x64/apps/{base}.png" },
+        { "output": "linux-128", "path": "128x128/apps/{base}.png" },
+        { "output": "linux-256", "path": "256x256/apps/{base}.png" },
+        { "output": "linux-512", "path": "512x512/apps/{base}.png" },
+        { "output": "linux-scalable", "path": "scalable/apps/{base}.svg" }
+      ]
+    }
+  ],
+  "validationRules": [
+    { "rule": "square-source", "severity": "error", "sourceRole": "master" },
+    { "rule": "no-upscale", "severity": "error", "sourceRole": "master" },
+    {
+      "rule": "minimum-source-size",
+      "severity": "warning",
+      "sourceRole": "master",
+      "width": 512,
+      "height": 512
+    }
+  ],
+  "optionalOutputGroups": [
+    {
+      "id": "scalable-svg",
+      "displayName": "Scalable SVG",
+      "description": "Include the sanitized SVG in hicolor/scalable/apps when the master is SVG.",
+      "defaultEnabled": true,
+      "outputs": ["linux-scalable"]
+    }
+  ]
+}

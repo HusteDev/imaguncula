@@ -1,0 +1,91 @@
+{
+  "schemaVersion": 1,
+  "id": "apple-icon-composer-guidance",
+  "version": 1,
+  "displayName": "Apple Icon Composer source package",
+  "description": "Validated foreground and background source layers plus instructions for completing a layered .icon in Apple's Icon Composer.",
+  "platform": "macos",
+  "lastReviewed": "2026-07-31",
+  "specSources": [
+    "https://developer.apple.com/documentation/Xcode/creating-your-app-icon-using-icon-composer"
+  ],
+  "sourceRoles": [
+    {
+      "role": "foreground",
+      "required": true,
+      "description": "Square transparent foreground artwork."
+    },
+    { "role": "background", "required": true, "description": "Square background artwork." }
+  ],
+  "outputs": [
+    {
+      "id": "icon-composer-foreground",
+      "sourceRole": "foreground",
+      "format": "png",
+      "width": 1024,
+      "height": 1024,
+      "usage": "Foreground layer to import into Icon Composer.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "icon-composer-background",
+      "sourceRole": "background",
+      "format": "png",
+      "width": 1024,
+      "height": 1024,
+      "usage": "Background layer to import into Icon Composer.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    }
+  ],
+  "packages": [
+    {
+      "kind": "directory",
+      "id": "icon-composer-layers",
+      "root": "IconComposerSources",
+      "files": [
+        { "output": "icon-composer-foreground", "path": "foreground.png" },
+        { "output": "icon-composer-background", "path": "background.png" }
+      ]
+    },
+    {
+      "kind": "metadata",
+      "id": "icon-composer-instructions",
+      "format": "text",
+      "path": "IconComposerSources/README.txt",
+      "template": "Apple Icon Composer source package\n\n1. Open Icon Composer on macOS.\n2. Create a new icon and import {{background}} as the bottom layer.\n3. Import {{foreground}} above it.\n4. Adjust platform, appearance, depth, translucency, and responsive behavior in Icon Composer.\n5. Save the result as an Apple .icon document and validate it in Xcode.\n\nImaguncula intentionally does not fabricate a flattened .icon. The final layered document is authored and validated by Apple's tool.\n",
+      "references": [
+        {
+          "name": "foreground",
+          "package": "icon-composer-layers",
+          "output": "icon-composer-foreground"
+        },
+        {
+          "name": "background",
+          "package": "icon-composer-layers",
+          "output": "icon-composer-background"
+        }
+      ]
+    }
+  ],
+  "validationRules": [
+    { "rule": "square-source", "severity": "error", "sourceRole": "foreground" },
+    { "rule": "square-source", "severity": "error", "sourceRole": "background" },
+    { "rule": "no-upscale", "severity": "error", "sourceRole": "foreground" },
+    { "rule": "no-upscale", "severity": "error", "sourceRole": "background" },
+    {
+      "rule": "minimum-source-size",
+      "severity": "error",
+      "sourceRole": "foreground",
+      "width": 1024,
+      "height": 1024
+    },
+    {
+      "rule": "minimum-source-size",
+      "severity": "error",
+      "sourceRole": "background",
+      "width": 1024,
+      "height": 1024
+    }
+  ],
+  "optionalOutputGroups": []
+}

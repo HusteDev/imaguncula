@@ -1,0 +1,73 @@
+name: Bug report
+description: Report reproducible incorrect behavior in Imaguncula.
+title: "[Bug]: "
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Do not report vulnerabilities or attach confidential artwork here. Follow SECURITY.md for private reporting and use synthetic fixtures when possible.
+  - type: input
+    id: version
+    attributes:
+      label: Version or commit
+      description: Provide the release version or commit SHA.
+      placeholder: 0.1.0 or abc1234
+    validations:
+      required: true
+  - type: dropdown
+    id: operating-system
+    attributes:
+      label: Operating system
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - Other
+    validations:
+      required: true
+  - type: input
+    id: architecture
+    attributes:
+      label: Architecture
+      placeholder: x86_64, arm64, or other
+    validations:
+      required: true
+  - type: textarea
+    id: reproduction
+    attributes:
+      label: Reproduction steps
+      description: Give the smallest deterministic sequence that triggers the problem.
+      placeholder: |
+        1. Open ...
+        2. Select ...
+        3. Observe ...
+    validations:
+      required: true
+  - type: textarea
+    id: expected
+    attributes:
+      label: Expected behavior
+    validations:
+      required: true
+  - type: textarea
+    id: actual
+    attributes:
+      label: Actual behavior
+    validations:
+      required: true
+  - type: textarea
+    id: diagnostics
+    attributes:
+      label: Diagnostics
+      description: Add relevant logs, generated reports, or a synthetic fixture. Remove secrets and personal data first.
+      render: shell
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Submission checks
+      options:
+        - label: I searched existing issues for this problem.
+          required: true
+        - label: This report does not disclose a suspected vulnerability, credentials, confidential artwork, or personal data.
+          required: true

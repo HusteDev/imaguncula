@@ -1,0 +1,36 @@
+name: Fuzz smoke
+
+on:
+  schedule:
+    - cron: "17 4 * * 1"
+  workflow_dispatch:
+  pull_request:
+    paths:
+      - ".github/workflows/fuzz.yml"
+      - "crates/imaguncula-core/**"
+      - "fuzz/**"
+
+permissions:
+  contents: read
+
+jobs:
+  bounded-fuzz-smoke:
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@nightly
+        with:
+          toolchain: nightly-2026-07-30
+      - uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: fuzz -> fuzz/target
+      - run: cargo install cargo-fuzz --version 0.13.2 --locked
+      - name: Run bounded fuzz targets
+        shell: bash
+        working-directory: fuzz
+        run: |
+          cargo fuzz run svg_preflight -- -runs=2500 -max_len=1048576
+          cargo fuzz run relative_path -- -runs=10000 -max_len=1024
+          cargo fuzz run ico_encoder -- -runs=1000 -max_len=4096
+          cargo fuzz run icns_encoder -- -runs=400 -max_len=4096

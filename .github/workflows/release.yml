@@ -1,0 +1,299 @@
+name: Release
+
+on:
+  push:
+    tags: ["v*"]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package-crates:
+    name: Verify crates.io packages
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: 1.94.1
+      - name: Build registry archives and inspect contents
+        shell: bash
+        run: |
+          cargo package --locked -p imaguncula-presets
+          cargo package --locked --list -p imaguncula-presets
+          cargo package --locked --list -p imaguncula-core
+          cargo package --locked --list -p imaguncula-cli
+          cargo test --locked --workspace
+
+  build:
+    name: Build ${{ matrix.label }}
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            label: windows-x64
+            bundles: msi,nsis
+          - os: ubuntu-22.04
+            label: linux-x64
+            bundles: appimage
+          - os: macos-latest
+            label: macos-native
+            bundles: dmg
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@v7
+      - name: Install Linux bundle dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf
+      - uses: pnpm/action-setup@v4
+        with:
+          version: 11.9.0
+          run_install: false
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+      - uses: dtolnay/rust-toolchain@stable
+        with:
+          toolchain: 1.94.1
+      - uses: Swatinem/rust-cache@v2
+      - run: pnpm install --frozen-lockfile
+      - name: Verify release version matches tag
+        if: startsWith(github.ref, 'refs/tags/v')
+        shell: pwsh
+        run: |
+          $tagVersion = $env:GITHUB_REF_NAME.TrimStart("v")
+          $cargoVersion = (cargo metadata --no-deps --format-version 1 | ConvertFrom-Json).packages |
+            Where-Object name -eq "imaguncula-cli" |
+            Select-Object -ExpandProperty version
+          if ($tagVersion -ne $cargoVersion) {
+            throw "Tag version $tagVersion does not match workspace version $cargoVersion."
+          }
+      - name: Build CLI and desktop bundles
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo build --locked --release -p imaguncula-cli
+          bundles="${{ matrix.bundles }}"
+          pkgid="$(cargo pkgid -p imaguncula-cli)"
+          version="${pkgid##*#}"
+          version="${version##*@}"
+          if [[ "${{ runner.os }}" == "Windows" && "$version" == *-* ]]; then
+            # Tauri's MSI target rejects non-numeric semver pre-release
+            # identifiers, so pre-release Windows builds ship NSIS only.
+            bundles="nsis"
+          fi
+          pnpm tauri build --bundles "$bundles"
+      - name: Stage Windows artifacts
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          $version = (cargo metadata --no-deps --format-version 1 | ConvertFrom-Json).packages |
+            Where-Object name -eq "imaguncula-cli" |
+            Select-Object -ExpandProperty version
+          New-Item -ItemType Directory -Force dist | Out-Null
+          tar -czf "dist/imaguncula-cli-$version-x86_64-pc-windows-msvc.tar.gz" -C target/release imaguncula.exe
+          New-Item -ItemType Directory -Force target/portable | Out-Null
+          Copy-Item target/release/imaguncula-desktop.exe target/portable/Imaguncula.exe
+          Copy-Item LICENSE-MIT,LICENSE-APACHE target/portable
+          Compress-Archive target/portable/* "dist/Imaguncula-$version-windows-x64-portable.zip"
+          if (Test-Path target/release/bundle/msi) { Copy-Item target/release/bundle/msi/*.msi dist }
+          Copy-Item target/release/bundle/nsis/*-setup.exe dist
+          Get-ChildItem dist -File | ForEach-Object {
+            "{0}  {1}" -f (Get-FileHash $_.FullName -Algorithm SHA256).Hash.ToLowerInvariant(), $_.Name
+          } | Set-Content dist/SHA256SUMS-windows-x64.txt
+      - name: Stage Unix artifacts
+        if: runner.os != 'Windows'
+        shell: bash
+        run: |
+          set -euo pipefail
+          version="$(cargo metadata --no-deps --format-version 1 | python3 -c 'import json,sys; print(next(p["version"] for p in json.load(sys.stdin)["packages"] if p["name"] == "imaguncula-cli"))')"
+          target="$(rustc -vV | sed -n 's/^host: //p')"
+          mkdir -p dist
+          tar -czf "dist/imaguncula-cli-${version}-${target}.tar.gz" -C target/release imaguncula
+          if [[ "${{ runner.os }}" == "Linux" ]]; then
+            cp target/release/bundle/appimage/*.AppImage dist/
+          else
+            cp target/release/bundle/dmg/*.dmg dist/
+          fi
+          (cd dist && shasum -a 256 * > "SHA256SUMS-${{ matrix.label }}.txt")
+      - uses: actions/upload-artifact@v4
+        with:
+          name: release-${{ matrix.label }}
+          path: dist/*
+          if-no-files-found: error
+
+  smoke:
+    name: Clean-runner smoke ${{ matrix.label }}
+    needs: [package-crates, build]
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: windows-latest
+            label: windows-x64
+          - os: ubuntu-22.04
+            label: linux-x64
+          - os: macos-latest
+            label: macos-native
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/download-artifact@v5
+        with:
+          name: release-${{ matrix.label }}
+          path: artifacts
+      - name: Smoke Windows CLI, portable app, MSI, and NSIS
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          function Get-ImagunculaExecutable {
+            $uninstallRoots = @(
+              'HKCU:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*',
+              'HKLM:\Software\Microsoft\Windows\CurrentVersion\Uninstall\*',
+              'HKLM:\Software\WOW6432Node\Microsoft\Windows\CurrentVersion\Uninstall\*'
+            )
+            $entries = Get-ItemProperty $uninstallRoots -ErrorAction SilentlyContinue |
+              Where-Object DisplayName -eq 'Imaguncula'
+            foreach ($entry in $entries) {
+              if ($entry.DisplayIcon) {
+                $candidate = ($entry.DisplayIcon -replace ',\d+$', '').Trim('"')
+                if (Test-Path -LiteralPath $candidate) { return $candidate }
+              }
+              if ($entry.InstallLocation -and (Test-Path -LiteralPath $entry.InstallLocation)) {
+                $candidate = Get-ChildItem -LiteralPath $entry.InstallLocation -File -Filter '*.exe' |
+                  Where-Object Name -NotLike 'unins*.exe' |
+                  Select-Object -First 1 -ExpandProperty FullName
+                if ($candidate) { return $candidate }
+              }
+            }
+            throw 'The installer succeeded but the installed Imaguncula executable was not registered.'
+          }
+
+          function Assert-DesktopLaunch([string] $Executable, [string] $Artifact) {
+            $process = Start-Process -FilePath $Executable -PassThru
+            Start-Sleep -Seconds 4
+            if ($process.HasExited) { throw "$Artifact desktop exited during launch smoke." }
+            Stop-Process -Id $process.Id
+          }
+
+          $cliArchive = Get-ChildItem artifacts/imaguncula-cli-*.tar.gz | Select-Object -First 1
+          New-Item -ItemType Directory -Force smoke/cli | Out-Null
+          tar -xzf $cliArchive.FullName -C smoke/cli
+          & smoke/cli/imaguncula.exe --help
+          New-Item -ItemType Directory -Force smoke/output | Out-Null
+          & smoke/cli/imaguncula.exe quick fixtures/sources/asymmetric.svg --preset windows-desktop --output smoke/output --no-zip
+          $portable = Get-ChildItem artifacts/*portable.zip | Select-Object -First 1
+          Expand-Archive $portable.FullName smoke/portable
+          Assert-DesktopLaunch (Resolve-Path smoke/portable/Imaguncula.exe).Path 'Portable'
+          $msi = Get-ChildItem artifacts -Filter *.msi -ErrorAction SilentlyContinue | Select-Object -First 1
+          if ($msi) {
+            $install = Start-Process msiexec.exe -ArgumentList "/i",$msi.FullName,"/quiet","/norestart" -Wait -PassThru
+            if ($install.ExitCode -notin 0,1641,3010) { throw "MSI smoke failed: $($install.ExitCode)" }
+            Assert-DesktopLaunch (Get-ImagunculaExecutable) 'MSI-installed'
+            $uninstall = Start-Process msiexec.exe -ArgumentList "/x",$msi.FullName,"/quiet","/norestart" -Wait -PassThru
+            if ($uninstall.ExitCode -notin 0,1641,3010) { throw "MSI uninstall failed: $($uninstall.ExitCode)" }
+          }
+          $nsis = Get-ChildItem artifacts/*-setup.exe | Select-Object -First 1
+          $install = Start-Process $nsis.FullName -ArgumentList "/S" -Wait -PassThru
+          if ($install.ExitCode -ne 0) { throw "NSIS smoke failed: $($install.ExitCode)" }
+          Assert-DesktopLaunch (Get-ImagunculaExecutable) 'NSIS-installed'
+      - name: Smoke Linux CLI and AppImage
+        if: runner.os == 'Linux'
+        shell: bash
+        run: |
+          set -euo pipefail
+          sudo apt-get update
+          sudo apt-get install --yes xvfb libwebkit2gtk-4.1-0 libappindicator3-1
+          mkdir -p smoke/cli smoke/output
+          tar -xzf artifacts/imaguncula-cli-*.tar.gz -C smoke/cli
+          smoke/cli/imaguncula --help
+          smoke/cli/imaguncula quick fixtures/sources/asymmetric.svg --preset windows-desktop --output smoke/output --no-zip
+          chmod +x artifacts/*.AppImage
+          set +e
+          APPIMAGE_EXTRACT_AND_RUN=1 timeout 12s xvfb-run artifacts/*.AppImage
+          status=$?
+          set -e
+          [[ $status -eq 124 ]]
+      - name: Smoke macOS CLI and DMG
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p smoke/cli smoke/output smoke/mount
+          tar -xzf artifacts/imaguncula-cli-*.tar.gz -C smoke/cli
+          smoke/cli/imaguncula --help
+          smoke/cli/imaguncula quick fixtures/sources/asymmetric.svg --preset windows-desktop --output smoke/output --no-zip
+          hdiutil attach artifacts/*.dmg -mountpoint smoke/mount -nobrowse
+          app="$(find smoke/mount -maxdepth 1 -name '*.app' -print -quit)"
+          test -n "$app"
+          executable="$(/usr/libexec/PlistBuddy -c 'Print :CFBundleExecutable' "$app/Contents/Info.plist")"
+          open "$app"
+          sleep 5
+          pgrep -x "$executable"
+          pkill -x "$executable"
+          hdiutil detach smoke/mount
+
+  publish-release:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: smoke
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - uses: actions/download-artifact@634f93cb2916e3fdff6788551b99b062d0335ce0 # v5
+        with:
+          pattern: release-*
+          path: dist
+          merge-multiple: true
+      - name: Create release and upload verified artifacts
+        shell: bash
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          if ! gh release view "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" >/dev/null 2>&1; then
+            gh release create "$GITHUB_REF_NAME" --repo "$GITHUB_REPOSITORY" --verify-tag --generate-notes --title "Imaguncula $GITHUB_REF_NAME"
+          fi
+          gh release upload "$GITHUB_REF_NAME" dist/* --repo "$GITHUB_REPOSITORY" --clobber
+
+  publish-crates:
+    if: startsWith(github.ref, 'refs/tags/v')
+    needs: smoke
+    runs-on: ubuntu-latest
+    environment: crates-io
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: dtolnay/rust-toolchain@683b588c487a69d01f6c6ddf40f036ff682cc2c8 # 2026-03 master
+        with:
+          toolchain: 1.94.1
+      - name: Publish library and CLI crates in dependency order
+        shell: bash
+        env:
+          CARGO_REGISTRY_TOKEN: ${{ secrets.CRATES_IO_TOKEN }}
+        run: |
+          set -euo pipefail
+          version="$(cargo metadata --no-deps --format-version 1 | python3 -c 'import json,sys; print(next(p["version"] for p in json.load(sys.stdin)["packages"] if p["name"] == "imaguncula-cli"))')"
+          wait_for_crate() {
+            local crate="$1"
+            for attempt in $(seq 1 20); do
+              if cargo search "$crate" --limit 10 | grep -F "$crate = \"$version\""; then
+                return 0
+              fi
+              echo "Waiting for $crate $version to propagate to crates.io ($attempt/20)."
+              sleep 15
+            done
+            echo "$crate $version did not propagate to crates.io within five minutes." >&2
+            return 1
+          }
+          cargo publish --locked -p imaguncula-presets
+          wait_for_crate imaguncula-presets
+          cargo publish --locked -p imaguncula-core
+          wait_for_crate imaguncula-core
+          cargo publish --locked -p imaguncula-cli

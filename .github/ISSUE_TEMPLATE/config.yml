@@ -1,0 +1,8 @@
+blank_issues_enabled: false
+contact_links:
+  - name: Questions and usage discussions
+    url: https://github.com/HusteDev/imaguncula/discussions
+    about: Use Discussions for support questions and workflow ideas that are not confirmed defects.
+  - name: Private vulnerability report
+    url: https://github.com/HusteDev/imaguncula/security/advisories/new
+    about: Report suspected vulnerabilities privately. Do not open a public issue.

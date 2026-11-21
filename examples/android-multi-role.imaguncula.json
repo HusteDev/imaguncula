@@ -1,0 +1,46 @@
+{
+  "schemaVersion": 2,
+  "projectName": "Android Multi-role",
+  "baseFilename": "android-multi-role",
+  "sources": [
+    {
+      "role": "master",
+      "path": "../fixtures/sources/asymmetric.svg",
+      "contentHash": "1e36d7b0ba7b36c461f49a58e3d9381c1afa2b405fa57db5cc335ab387f57f9c"
+    },
+    {
+      "role": "foreground",
+      "path": "../fixtures/sources/asymmetric.svg",
+      "contentHash": "1e36d7b0ba7b36c461f49a58e3d9381c1afa2b405fa57db5cc335ab387f57f9c"
+    },
+    {
+      "role": "background",
+      "path": "../fixtures/sources/asymmetric.svg",
+      "contentHash": "1e36d7b0ba7b36c461f49a58e3d9381c1afa2b405fa57db5cc335ab387f57f9c"
+    }
+  ],
+  "selectedPresets": [{ "id": "android-launcher", "version": 1 }],
+  "enabledOutputs": [
+    "android-background-hdpi",
+    "android-background-mdpi",
+    "android-background-xhdpi",
+    "android-background-xxhdpi",
+    "android-background-xxxhdpi",
+    "android-foreground-hdpi",
+    "android-foreground-mdpi",
+    "android-foreground-xhdpi",
+    "android-foreground-xxhdpi",
+    "android-foreground-xxxhdpi",
+    "android-legacy-hdpi",
+    "android-legacy-mdpi",
+    "android-legacy-xhdpi",
+    "android-legacy-xxhdpi",
+    "android-legacy-xxxhdpi",
+    "android-play-store-512"
+  ],
+  "customOutputs": [],
+  "outputOverrides": {},
+  "exportSettings": { "createCombinedZip": true, "overwriteConfirmed": false },
+  "acceptedWarnings": [],
+  "presetMigrations": []
+}

@@ -1,0 +1,323 @@
+{
+  "schemaVersion": 1,
+  "id": "apple-ios-compatibility",
+  "version": 1,
+  "displayName": "Apple iOS/iPadOS AppIcon — compatibility",
+  "description": "Legacy-compatible iPhone, iPad, and App Store AppIcon asset catalog with explicit point-size and scale slots.",
+  "exclusiveGroup": "apple-ios-appicon-mode",
+  "platform": "ios",
+  "lastReviewed": "2026-07-31",
+  "specSources": [
+    "https://developer.apple.com/documentation/xcode/configuring-your-app-icon/",
+    "https://developer.apple.com/library/archive/documentation/Xcode/Reference/xcode_ref-Asset_Catalog_Format/IconSetType.html"
+  ],
+  "sourceRoles": [
+    {
+      "role": "master",
+      "required": true,
+      "description": "Opaque square 1024-pixel App Store artwork used for every compatibility slot."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "ios-compat-iphone-20-2x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 40,
+      "height": 40,
+      "usage": "iPhone notification icon, 20 points at 2x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "ios-compat-iphone-20-3x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 60,
+      "height": 60,
+      "usage": "iPhone notification icon, 20 points at 3x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "ios-compat-iphone-29-2x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 58,
+      "height": 58,
+      "usage": "iPhone settings icon, 29 points at 2x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "ios-compat-iphone-29-3x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 87,
+      "height": 87,
+      "usage": "iPhone settings icon, 29 points at 3x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "ios-compat-iphone-40-2x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 80,
+      "height": 80,
+      "usage": "iPhone Spotlight icon, 40 points at 2x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "ios-compat-iphone-40-3x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 120,
+      "height": 120,
+      "usage": "iPhone Spotlight icon, 40 points at 3x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "ios-compat-iphone-60-2x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 120,
+      "height": 120,
+      "usage": "iPhone app icon, 60 points at 2x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "ios-compat-iphone-60-3x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 180,
+      "height": 180,
+      "usage": "iPhone app icon, 60 points at 3x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "ios-compat-ipad-20-1x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 20,
+      "height": 20,
+      "usage": "iPad notification icon, 20 points at 1x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "ios-compat-ipad-20-2x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 40,
+      "height": 40,
+      "usage": "iPad notification icon, 20 points at 2x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "ios-compat-ipad-29-1x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 29,
+      "height": 29,
+      "usage": "iPad settings icon, 29 points at 1x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "ios-compat-ipad-29-2x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 58,
+      "height": 58,
+      "usage": "iPad settings icon, 29 points at 2x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "ios-compat-ipad-40-1x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 40,
+      "height": 40,
+      "usage": "iPad Spotlight icon, 40 points at 1x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "ios-compat-ipad-40-2x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 80,
+      "height": 80,
+      "usage": "iPad Spotlight icon, 40 points at 2x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "ios-compat-ipad-76-1x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 76,
+      "height": 76,
+      "usage": "iPad app icon, 76 points at 1x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "ios-compat-ipad-76-2x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 152,
+      "height": 152,
+      "usage": "iPad app icon, 76 points at 2x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "ios-compat-ipad-83-5-2x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 167,
+      "height": 167,
+      "usage": "iPad Pro app icon, 83.5 points at 2x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "ios-compat-marketing-1024",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 1024,
+      "height": 1024,
+      "usage": "App Store marketing icon, 1024 points at 1x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    }
+  ],
+  "packages": [
+    {
+      "kind": "directory",
+      "id": "ios-compat-appiconset",
+      "root": "AppIcon.appiconset",
+      "files": [
+        { "output": "ios-compat-iphone-20-2x", "path": "iphone-20@2x.png" },
+        { "output": "ios-compat-iphone-20-3x", "path": "iphone-20@3x.png" },
+        { "output": "ios-compat-iphone-29-2x", "path": "iphone-29@2x.png" },
+        { "output": "ios-compat-iphone-29-3x", "path": "iphone-29@3x.png" },
+        { "output": "ios-compat-iphone-40-2x", "path": "iphone-40@2x.png" },
+        { "output": "ios-compat-iphone-40-3x", "path": "iphone-40@3x.png" },
+        { "output": "ios-compat-iphone-60-2x", "path": "iphone-60@2x.png" },
+        { "output": "ios-compat-iphone-60-3x", "path": "iphone-60@3x.png" },
+        { "output": "ios-compat-ipad-20-1x", "path": "ipad-20.png" },
+        { "output": "ios-compat-ipad-20-2x", "path": "ipad-20@2x.png" },
+        { "output": "ios-compat-ipad-29-1x", "path": "ipad-29.png" },
+        { "output": "ios-compat-ipad-29-2x", "path": "ipad-29@2x.png" },
+        { "output": "ios-compat-ipad-40-1x", "path": "ipad-40.png" },
+        { "output": "ios-compat-ipad-40-2x", "path": "ipad-40@2x.png" },
+        { "output": "ios-compat-ipad-76-1x", "path": "ipad-76.png" },
+        { "output": "ios-compat-ipad-76-2x", "path": "ipad-76@2x.png" },
+        { "output": "ios-compat-ipad-83-5-2x", "path": "ipad-83.5@2x.png" },
+        { "output": "ios-compat-marketing-1024", "path": "ios-marketing-1024.png" }
+      ]
+    },
+    {
+      "kind": "metadata",
+      "id": "ios-compat-contents",
+      "format": "json",
+      "path": "AppIcon.appiconset/Contents.json",
+      "template": "{\n  \"images\": [\n    { \"filename\": \"{{iphone-20-2x}}\", \"idiom\": \"iphone\", \"scale\": \"2x\", \"size\": \"20x20\" },\n    { \"filename\": \"{{iphone-20-3x}}\", \"idiom\": \"iphone\", \"scale\": \"3x\", \"size\": \"20x20\" },\n    { \"filename\": \"{{iphone-29-2x}}\", \"idiom\": \"iphone\", \"scale\": \"2x\", \"size\": \"29x29\" },\n    { \"filename\": \"{{iphone-29-3x}}\", \"idiom\": \"iphone\", \"scale\": \"3x\", \"size\": \"29x29\" },\n    { \"filename\": \"{{iphone-40-2x}}\", \"idiom\": \"iphone\", \"scale\": \"2x\", \"size\": \"40x40\" },\n    { \"filename\": \"{{iphone-40-3x}}\", \"idiom\": \"iphone\", \"scale\": \"3x\", \"size\": \"40x40\" },\n    { \"filename\": \"{{iphone-60-2x}}\", \"idiom\": \"iphone\", \"scale\": \"2x\", \"size\": \"60x60\" },\n    { \"filename\": \"{{iphone-60-3x}}\", \"idiom\": \"iphone\", \"scale\": \"3x\", \"size\": \"60x60\" },\n    { \"filename\": \"{{ipad-20-1x}}\", \"idiom\": \"ipad\", \"scale\": \"1x\", \"size\": \"20x20\" },\n    { \"filename\": \"{{ipad-20-2x}}\", \"idiom\": \"ipad\", \"scale\": \"2x\", \"size\": \"20x20\" },\n    { \"filename\": \"{{ipad-29-1x}}\", \"idiom\": \"ipad\", \"scale\": \"1x\", \"size\": \"29x29\" },\n    { \"filename\": \"{{ipad-29-2x}}\", \"idiom\": \"ipad\", \"scale\": \"2x\", \"size\": \"29x29\" },\n    { \"filename\": \"{{ipad-40-1x}}\", \"idiom\": \"ipad\", \"scale\": \"1x\", \"size\": \"40x40\" },\n    { \"filename\": \"{{ipad-40-2x}}\", \"idiom\": \"ipad\", \"scale\": \"2x\", \"size\": \"40x40\" },\n    { \"filename\": \"{{ipad-76-1x}}\", \"idiom\": \"ipad\", \"scale\": \"1x\", \"size\": \"76x76\" },\n    { \"filename\": \"{{ipad-76-2x}}\", \"idiom\": \"ipad\", \"scale\": \"2x\", \"size\": \"76x76\" },\n    { \"filename\": \"{{ipad-83-5-2x}}\", \"idiom\": \"ipad\", \"scale\": \"2x\", \"size\": \"83.5x83.5\" },\n    { \"filename\": \"{{ios-marketing}}\", \"idiom\": \"ios-marketing\", \"scale\": \"1x\", \"size\": \"1024x1024\" }\n  ],\n  \"info\": { \"author\": \"xcode\", \"version\": 1 }\n}\n",
+      "references": [
+        {
+          "name": "iphone-20-2x",
+          "package": "ios-compat-appiconset",
+          "output": "ios-compat-iphone-20-2x"
+        },
+        {
+          "name": "iphone-20-3x",
+          "package": "ios-compat-appiconset",
+          "output": "ios-compat-iphone-20-3x"
+        },
+        {
+          "name": "iphone-29-2x",
+          "package": "ios-compat-appiconset",
+          "output": "ios-compat-iphone-29-2x"
+        },
+        {
+          "name": "iphone-29-3x",
+          "package": "ios-compat-appiconset",
+          "output": "ios-compat-iphone-29-3x"
+        },
+        {
+          "name": "iphone-40-2x",
+          "package": "ios-compat-appiconset",
+          "output": "ios-compat-iphone-40-2x"
+        },
+        {
+          "name": "iphone-40-3x",
+          "package": "ios-compat-appiconset",
+          "output": "ios-compat-iphone-40-3x"
+        },
+        {
+          "name": "iphone-60-2x",
+          "package": "ios-compat-appiconset",
+          "output": "ios-compat-iphone-60-2x"
+        },
+        {
+          "name": "iphone-60-3x",
+          "package": "ios-compat-appiconset",
+          "output": "ios-compat-iphone-60-3x"
+        },
+        {
+          "name": "ipad-20-1x",
+          "package": "ios-compat-appiconset",
+          "output": "ios-compat-ipad-20-1x"
+        },
+        {
+          "name": "ipad-20-2x",
+          "package": "ios-compat-appiconset",
+          "output": "ios-compat-ipad-20-2x"
+        },
+        {
+          "name": "ipad-29-1x",
+          "package": "ios-compat-appiconset",
+          "output": "ios-compat-ipad-29-1x"
+        },
+        {
+          "name": "ipad-29-2x",
+          "package": "ios-compat-appiconset",
+          "output": "ios-compat-ipad-29-2x"
+        },
+        {
+          "name": "ipad-40-1x",
+          "package": "ios-compat-appiconset",
+          "output": "ios-compat-ipad-40-1x"
+        },
+        {
+          "name": "ipad-40-2x",
+          "package": "ios-compat-appiconset",
+          "output": "ios-compat-ipad-40-2x"
+        },
+        {
+          "name": "ipad-76-1x",
+          "package": "ios-compat-appiconset",
+          "output": "ios-compat-ipad-76-1x"
+        },
+        {
+          "name": "ipad-76-2x",
+          "package": "ios-compat-appiconset",
+          "output": "ios-compat-ipad-76-2x"
+        },
+        {
+          "name": "ipad-83-5-2x",
+          "package": "ios-compat-appiconset",
+          "output": "ios-compat-ipad-83-5-2x"
+        },
+        {
+          "name": "ios-marketing",
+          "package": "ios-compat-appiconset",
+          "output": "ios-compat-marketing-1024"
+        }
+      ]
+    }
+  ],
+  "validationRules": [
+    { "rule": "square-source", "severity": "error", "sourceRole": "master" },
+    { "rule": "no-upscale", "severity": "error", "sourceRole": "master" },
+    {
+      "rule": "minimum-source-size",
+      "severity": "error",
+      "sourceRole": "master",
+      "width": 1024,
+      "height": 1024
+    }
+  ],
+  "optionalOutputGroups": []
+}

@@ -1,0 +1,491 @@
+{
+  "schemaVersion": 1,
+  "id": "android-launcher",
+  "version": 1,
+  "displayName": "Android launcher and Play Store",
+  "description": "Legacy density icons, optional round variants, adaptive foreground/background resources, optional monochrome resources, and flattened Play Store artwork.",
+  "platform": "android",
+  "lastReviewed": "2026-07-31",
+  "specSources": [
+    "https://developer.android.com/studio/write/create-app-icons",
+    "https://developer.android.com/develop/ui/compose/system/icon_design_adaptive",
+    "https://support.google.com/googleplay/android-developer/answer/9866151"
+  ],
+  "sourceRoles": [
+    {
+      "role": "master",
+      "required": true,
+      "description": "Flat square artwork for legacy launcher and Play Store outputs."
+    },
+    {
+      "role": "foreground",
+      "required": true,
+      "description": "Adaptive foreground artwork laid out in a square 108-dp canvas."
+    },
+    {
+      "role": "background",
+      "required": true,
+      "description": "Adaptive full-bleed background artwork."
+    },
+    {
+      "role": "monochrome",
+      "required": false,
+      "description": "Optional single-color themed-icon artwork in a square 108-dp canvas."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "android-legacy-mdpi",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 48,
+      "height": 48,
+      "usage": "Legacy launcher icon at mdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "android-legacy-hdpi",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 72,
+      "height": 72,
+      "usage": "Legacy launcher icon at hdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "android-legacy-xhdpi",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 96,
+      "height": 96,
+      "usage": "Legacy launcher icon at xhdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "android-legacy-xxhdpi",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 144,
+      "height": 144,
+      "usage": "Legacy launcher icon at xxhdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "android-legacy-xxxhdpi",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 192,
+      "height": 192,
+      "usage": "Legacy launcher icon at xxxhdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+
+    {
+      "id": "android-round-mdpi",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 48,
+      "height": 48,
+      "usage": "Optional round launcher fallback at mdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "android-round-hdpi",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 72,
+      "height": 72,
+      "usage": "Optional round launcher fallback at hdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "android-round-xhdpi",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 96,
+      "height": 96,
+      "usage": "Optional round launcher fallback at xhdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "android-round-xxhdpi",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 144,
+      "height": 144,
+      "usage": "Optional round launcher fallback at xxhdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "android-round-xxxhdpi",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 192,
+      "height": 192,
+      "usage": "Optional round launcher fallback at xxxhdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+
+    {
+      "id": "android-foreground-mdpi",
+      "sourceRole": "foreground",
+      "format": "png",
+      "width": 108,
+      "height": 108,
+      "usage": "Adaptive foreground layer at mdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "android-foreground-hdpi",
+      "sourceRole": "foreground",
+      "format": "png",
+      "width": 162,
+      "height": 162,
+      "usage": "Adaptive foreground layer at hdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "android-foreground-xhdpi",
+      "sourceRole": "foreground",
+      "format": "png",
+      "width": 216,
+      "height": 216,
+      "usage": "Adaptive foreground layer at xhdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "android-foreground-xxhdpi",
+      "sourceRole": "foreground",
+      "format": "png",
+      "width": 324,
+      "height": 324,
+      "usage": "Adaptive foreground layer at xxhdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "android-foreground-xxxhdpi",
+      "sourceRole": "foreground",
+      "format": "png",
+      "width": 432,
+      "height": 432,
+      "usage": "Adaptive foreground layer at xxxhdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+
+    {
+      "id": "android-background-mdpi",
+      "sourceRole": "background",
+      "format": "png",
+      "width": 108,
+      "height": 108,
+      "usage": "Adaptive background layer at mdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "android-background-hdpi",
+      "sourceRole": "background",
+      "format": "png",
+      "width": 162,
+      "height": 162,
+      "usage": "Adaptive background layer at hdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "android-background-xhdpi",
+      "sourceRole": "background",
+      "format": "png",
+      "width": 216,
+      "height": 216,
+      "usage": "Adaptive background layer at xhdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "android-background-xxhdpi",
+      "sourceRole": "background",
+      "format": "png",
+      "width": 324,
+      "height": 324,
+      "usage": "Adaptive background layer at xxhdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "android-background-xxxhdpi",
+      "sourceRole": "background",
+      "format": "png",
+      "width": 432,
+      "height": 432,
+      "usage": "Adaptive background layer at xxxhdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+
+    {
+      "id": "android-monochrome-mdpi",
+      "sourceRole": "monochrome",
+      "format": "png",
+      "width": 108,
+      "height": 108,
+      "usage": "Optional themed monochrome layer at mdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "android-monochrome-hdpi",
+      "sourceRole": "monochrome",
+      "format": "png",
+      "width": 162,
+      "height": 162,
+      "usage": "Optional themed monochrome layer at hdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "android-monochrome-xhdpi",
+      "sourceRole": "monochrome",
+      "format": "png",
+      "width": 216,
+      "height": 216,
+      "usage": "Optional themed monochrome layer at xhdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "android-monochrome-xxhdpi",
+      "sourceRole": "monochrome",
+      "format": "png",
+      "width": 324,
+      "height": 324,
+      "usage": "Optional themed monochrome layer at xxhdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "android-monochrome-xxxhdpi",
+      "sourceRole": "monochrome",
+      "format": "png",
+      "width": 432,
+      "height": 432,
+      "usage": "Optional themed monochrome layer at xxxhdpi.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+
+    {
+      "id": "android-play-store-512",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 512,
+      "height": 512,
+      "maximumBytes": 1048576,
+      "usage": "Opaque final Google Play Store listing artwork.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive",
+        "flattenColor": { "red": 255, "green": 255, "blue": 255 }
+      }
+    }
+  ],
+  "packages": [
+    {
+      "kind": "directory",
+      "id": "android-res",
+      "root": "res",
+      "files": [
+        { "output": "android-legacy-mdpi", "path": "mipmap-mdpi/ic_launcher.png" },
+        { "output": "android-legacy-hdpi", "path": "mipmap-hdpi/ic_launcher.png" },
+        { "output": "android-legacy-xhdpi", "path": "mipmap-xhdpi/ic_launcher.png" },
+        { "output": "android-legacy-xxhdpi", "path": "mipmap-xxhdpi/ic_launcher.png" },
+        { "output": "android-legacy-xxxhdpi", "path": "mipmap-xxxhdpi/ic_launcher.png" },
+        { "output": "android-round-mdpi", "path": "mipmap-mdpi/ic_launcher_round.png" },
+        { "output": "android-round-hdpi", "path": "mipmap-hdpi/ic_launcher_round.png" },
+        { "output": "android-round-xhdpi", "path": "mipmap-xhdpi/ic_launcher_round.png" },
+        { "output": "android-round-xxhdpi", "path": "mipmap-xxhdpi/ic_launcher_round.png" },
+        { "output": "android-round-xxxhdpi", "path": "mipmap-xxxhdpi/ic_launcher_round.png" },
+        { "output": "android-foreground-mdpi", "path": "mipmap-mdpi/ic_launcher_foreground.png" },
+        { "output": "android-foreground-hdpi", "path": "mipmap-hdpi/ic_launcher_foreground.png" },
+        { "output": "android-foreground-xhdpi", "path": "mipmap-xhdpi/ic_launcher_foreground.png" },
+        {
+          "output": "android-foreground-xxhdpi",
+          "path": "mipmap-xxhdpi/ic_launcher_foreground.png"
+        },
+        {
+          "output": "android-foreground-xxxhdpi",
+          "path": "mipmap-xxxhdpi/ic_launcher_foreground.png"
+        },
+        { "output": "android-background-mdpi", "path": "mipmap-mdpi/ic_launcher_background.png" },
+        { "output": "android-background-hdpi", "path": "mipmap-hdpi/ic_launcher_background.png" },
+        { "output": "android-background-xhdpi", "path": "mipmap-xhdpi/ic_launcher_background.png" },
+        {
+          "output": "android-background-xxhdpi",
+          "path": "mipmap-xxhdpi/ic_launcher_background.png"
+        },
+        {
+          "output": "android-background-xxxhdpi",
+          "path": "mipmap-xxxhdpi/ic_launcher_background.png"
+        },
+        { "output": "android-monochrome-mdpi", "path": "mipmap-mdpi/ic_launcher_monochrome.png" },
+        { "output": "android-monochrome-hdpi", "path": "mipmap-hdpi/ic_launcher_monochrome.png" },
+        { "output": "android-monochrome-xhdpi", "path": "mipmap-xhdpi/ic_launcher_monochrome.png" },
+        {
+          "output": "android-monochrome-xxhdpi",
+          "path": "mipmap-xxhdpi/ic_launcher_monochrome.png"
+        },
+        {
+          "output": "android-monochrome-xxxhdpi",
+          "path": "mipmap-xxxhdpi/ic_launcher_monochrome.png"
+        }
+      ]
+    },
+    {
+      "kind": "files",
+      "id": "android-play-store",
+      "files": [{ "output": "android-play-store-512", "path": "play-store/icon-512.png" }]
+    },
+    {
+      "kind": "metadata",
+      "id": "android-adaptive-standard",
+      "format": "xml",
+      "path": "res/mipmap-anydpi-v26/ic_launcher.xml",
+      "template": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<adaptive-icon xmlns:android=\"http://schemas.android.com/apk/res/android\">\n  <background android:drawable=\"@mipmap/{{background}}\" />\n  <foreground android:drawable=\"@mipmap/{{foreground}}\" />\n</adaptive-icon>\n",
+      "references": [
+        {
+          "name": "background",
+          "package": "android-res",
+          "output": "android-background-xxxhdpi",
+          "value": "resource-name"
+        },
+        {
+          "name": "foreground",
+          "package": "android-res",
+          "output": "android-foreground-xxxhdpi",
+          "value": "resource-name"
+        }
+      ],
+      "requiresOutputs": [
+        "android-foreground-mdpi",
+        "android-foreground-hdpi",
+        "android-foreground-xhdpi",
+        "android-foreground-xxhdpi",
+        "android-foreground-xxxhdpi",
+        "android-background-mdpi",
+        "android-background-hdpi",
+        "android-background-xhdpi",
+        "android-background-xxhdpi",
+        "android-background-xxxhdpi"
+      ]
+    },
+    {
+      "kind": "metadata",
+      "id": "android-adaptive-themed",
+      "format": "xml",
+      "path": "res/mipmap-anydpi-v33/ic_launcher.xml",
+      "template": "<?xml version=\"1.0\" encoding=\"utf-8\"?>\n<adaptive-icon xmlns:android=\"http://schemas.android.com/apk/res/android\">\n  <background android:drawable=\"@mipmap/{{background}}\" />\n  <foreground android:drawable=\"@mipmap/{{foreground}}\" />\n  <monochrome android:drawable=\"@mipmap/{{monochrome}}\" />\n</adaptive-icon>\n",
+      "references": [
+        {
+          "name": "background",
+          "package": "android-res",
+          "output": "android-background-xxxhdpi",
+          "value": "resource-name"
+        },
+        {
+          "name": "foreground",
+          "package": "android-res",
+          "output": "android-foreground-xxxhdpi",
+          "value": "resource-name"
+        },
+        {
+          "name": "monochrome",
+          "package": "android-res",
+          "output": "android-monochrome-xxxhdpi",
+          "value": "resource-name"
+        }
+      ],
+      "requiresOutputs": [
+        "android-monochrome-mdpi",
+        "android-monochrome-hdpi",
+        "android-monochrome-xhdpi",
+        "android-monochrome-xxhdpi",
+        "android-monochrome-xxxhdpi"
+      ]
+    }
+  ],
+  "validationRules": [
+    { "rule": "square-source", "severity": "error", "sourceRole": "master" },
+    { "rule": "square-source", "severity": "error", "sourceRole": "foreground" },
+    { "rule": "square-source", "severity": "error", "sourceRole": "background" },
+    { "rule": "square-source", "severity": "error", "sourceRole": "monochrome" },
+    { "rule": "no-upscale", "severity": "error", "sourceRole": "master" },
+    { "rule": "no-upscale", "severity": "error", "sourceRole": "foreground" },
+    { "rule": "no-upscale", "severity": "error", "sourceRole": "background" },
+    { "rule": "no-upscale", "severity": "error", "sourceRole": "monochrome" },
+    {
+      "rule": "minimum-source-size",
+      "severity": "error",
+      "sourceRole": "master",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "rule": "minimum-source-size",
+      "severity": "error",
+      "sourceRole": "foreground",
+      "width": 432,
+      "height": 432
+    },
+    {
+      "rule": "minimum-source-size",
+      "severity": "error",
+      "sourceRole": "background",
+      "width": 432,
+      "height": 432
+    },
+    {
+      "rule": "minimum-source-size",
+      "severity": "error",
+      "sourceRole": "monochrome",
+      "width": 432,
+      "height": 432
+    },
+    {
+      "rule": "maskable-safe-zone",
+      "severity": "warning",
+      "outputs": [
+        "android-foreground-mdpi",
+        "android-foreground-hdpi",
+        "android-foreground-xhdpi",
+        "android-foreground-xxhdpi",
+        "android-foreground-xxxhdpi",
+        "android-monochrome-mdpi",
+        "android-monochrome-hdpi",
+        "android-monochrome-xhdpi",
+        "android-monochrome-xxhdpi",
+        "android-monochrome-xxxhdpi"
+      ],
+      "minimumSafeZonePercent": 61.111111
+    }
+  ],
+  "optionalOutputGroups": [
+    {
+      "id": "round-launcher",
+      "displayName": "Round launcher fallbacks",
+      "description": "Add legacy round launcher PNGs for manifests that declare android:roundIcon.",
+      "defaultEnabled": false,
+      "outputs": [
+        "android-round-mdpi",
+        "android-round-hdpi",
+        "android-round-xhdpi",
+        "android-round-xxhdpi",
+        "android-round-xxxhdpi"
+      ]
+    },
+    {
+      "id": "themed-monochrome",
+      "displayName": "Android themed icon",
+      "description": "Add monochrome resources and the API 33 adaptive-icon override.",
+      "defaultEnabled": false,
+      "outputs": [
+        "android-monochrome-mdpi",
+        "android-monochrome-hdpi",
+        "android-monochrome-xhdpi",
+        "android-monochrome-xxhdpi",
+        "android-monochrome-xxxhdpi"
+      ],
+      "packages": ["android-adaptive-themed"]
+    }
+  ]
+}

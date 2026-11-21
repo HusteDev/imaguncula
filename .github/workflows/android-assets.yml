@@ -1,0 +1,63 @@
+name: Android asset validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: android-assets-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  resources:
+    name: Generate and compile Android resources
+    runs-on: ubuntu-latest
+    timeout-minutes: 35
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Install pinned Rust toolchain
+        run: rustup toolchain install 1.94.1 --profile minimal
+
+      - name: Install Java 17
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: 17
+
+      - name: Install Gradle 9.5
+        uses: gradle/actions/setup-gradle@v6
+        with:
+          gradle-version: "9.5.0"
+          cache-provider: basic
+
+      - name: Install Android SDK platform and build tools
+        shell: bash
+        run: |
+          set -euo pipefail
+          sdkmanager "platforms;android-36" "build-tools;36.0.0"
+
+      - name: Generate resources through the production CLI path
+        shell: bash
+        run: |
+          set -euo pipefail
+          cargo run --locked -p imaguncula-cli -- export examples/android-multi-role.imaguncula.json \
+            --output target/android-assets \
+            --no-zip
+
+      - name: Place generated resources into the minimal fixture app
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p fixtures/platform/android/app/src/main/res
+          cp -R target/android-assets/android-multi-role-icons/android-launcher/res/. \
+            fixtures/platform/android/app/src/main/res/
+
+      - name: Compile generated Android resources with AAPT2
+        run: gradle -p fixtures/platform/android :app:processDebugResources --no-daemon --stacktrace

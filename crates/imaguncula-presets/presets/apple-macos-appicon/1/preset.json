@@ -1,0 +1,162 @@
+{
+  "schemaVersion": 1,
+  "id": "apple-macos-appicon",
+  "version": 1,
+  "displayName": "Apple macOS AppIcon asset catalog",
+  "description": "Xcode-compatible macOS AppIcon.appiconset with every required point size and scale.",
+  "platform": "macos",
+  "lastReviewed": "2026-07-31",
+  "specSources": [
+    "https://developer.apple.com/documentation/xcode/configuring-your-app-icon/",
+    "https://developer.apple.com/library/archive/documentation/Xcode/Reference/xcode_ref-Asset_Catalog_Format/IconSetType.html"
+  ],
+  "sourceRoles": [
+    {
+      "role": "master",
+      "required": true,
+      "description": "Square 1024-pixel macOS app icon artwork."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "mac-appicon-16-1x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 16,
+      "height": 16,
+      "usage": "macOS 16-point AppIcon at 1x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "mac-appicon-16-2x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 32,
+      "height": 32,
+      "usage": "macOS 16-point AppIcon at 2x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "mac-appicon-32-1x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 32,
+      "height": 32,
+      "usage": "macOS 32-point AppIcon at 1x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "mac-appicon-32-2x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 64,
+      "height": 64,
+      "usage": "macOS 32-point AppIcon at 2x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "mac-appicon-128-1x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 128,
+      "height": 128,
+      "usage": "macOS 128-point AppIcon at 1x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "mac-appicon-128-2x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 256,
+      "height": 256,
+      "usage": "macOS 128-point AppIcon at 2x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "mac-appicon-256-1x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 256,
+      "height": 256,
+      "usage": "macOS 256-point AppIcon at 1x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "mac-appicon-256-2x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 512,
+      "height": 512,
+      "usage": "macOS 256-point AppIcon at 2x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "mac-appicon-512-1x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 512,
+      "height": 512,
+      "usage": "macOS 512-point AppIcon at 1x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "mac-appicon-512-2x",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 1024,
+      "height": 1024,
+      "usage": "macOS 512-point AppIcon at 2x.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    }
+  ],
+  "packages": [
+    {
+      "kind": "directory",
+      "id": "macos-appiconset",
+      "root": "AppIcon.appiconset",
+      "files": [
+        { "output": "mac-appicon-16-1x", "path": "icon-16.png" },
+        { "output": "mac-appicon-16-2x", "path": "icon-16@2x.png" },
+        { "output": "mac-appicon-32-1x", "path": "icon-32.png" },
+        { "output": "mac-appicon-32-2x", "path": "icon-32@2x.png" },
+        { "output": "mac-appicon-128-1x", "path": "icon-128.png" },
+        { "output": "mac-appicon-128-2x", "path": "icon-128@2x.png" },
+        { "output": "mac-appicon-256-1x", "path": "icon-256.png" },
+        { "output": "mac-appicon-256-2x", "path": "icon-256@2x.png" },
+        { "output": "mac-appicon-512-1x", "path": "icon-512.png" },
+        { "output": "mac-appicon-512-2x", "path": "icon-512@2x.png" }
+      ]
+    },
+    {
+      "kind": "metadata",
+      "id": "macos-contents",
+      "format": "json",
+      "path": "AppIcon.appiconset/Contents.json",
+      "template": "{\n  \"images\": [\n    { \"filename\": \"{{mac-16-1x}}\", \"idiom\": \"mac\", \"scale\": \"1x\", \"size\": \"16x16\" },\n    { \"filename\": \"{{mac-16-2x}}\", \"idiom\": \"mac\", \"scale\": \"2x\", \"size\": \"16x16\" },\n    { \"filename\": \"{{mac-32-1x}}\", \"idiom\": \"mac\", \"scale\": \"1x\", \"size\": \"32x32\" },\n    { \"filename\": \"{{mac-32-2x}}\", \"idiom\": \"mac\", \"scale\": \"2x\", \"size\": \"32x32\" },\n    { \"filename\": \"{{mac-128-1x}}\", \"idiom\": \"mac\", \"scale\": \"1x\", \"size\": \"128x128\" },\n    { \"filename\": \"{{mac-128-2x}}\", \"idiom\": \"mac\", \"scale\": \"2x\", \"size\": \"128x128\" },\n    { \"filename\": \"{{mac-256-1x}}\", \"idiom\": \"mac\", \"scale\": \"1x\", \"size\": \"256x256\" },\n    { \"filename\": \"{{mac-256-2x}}\", \"idiom\": \"mac\", \"scale\": \"2x\", \"size\": \"256x256\" },\n    { \"filename\": \"{{mac-512-1x}}\", \"idiom\": \"mac\", \"scale\": \"1x\", \"size\": \"512x512\" },\n    { \"filename\": \"{{mac-512-2x}}\", \"idiom\": \"mac\", \"scale\": \"2x\", \"size\": \"512x512\" }\n  ],\n  \"info\": { \"author\": \"xcode\", \"version\": 1 }\n}\n",
+      "references": [
+        { "name": "mac-16-1x", "package": "macos-appiconset", "output": "mac-appicon-16-1x" },
+        { "name": "mac-16-2x", "package": "macos-appiconset", "output": "mac-appicon-16-2x" },
+        { "name": "mac-32-1x", "package": "macos-appiconset", "output": "mac-appicon-32-1x" },
+        { "name": "mac-32-2x", "package": "macos-appiconset", "output": "mac-appicon-32-2x" },
+        { "name": "mac-128-1x", "package": "macos-appiconset", "output": "mac-appicon-128-1x" },
+        { "name": "mac-128-2x", "package": "macos-appiconset", "output": "mac-appicon-128-2x" },
+        { "name": "mac-256-1x", "package": "macos-appiconset", "output": "mac-appicon-256-1x" },
+        { "name": "mac-256-2x", "package": "macos-appiconset", "output": "mac-appicon-256-2x" },
+        { "name": "mac-512-1x", "package": "macos-appiconset", "output": "mac-appicon-512-1x" },
+        { "name": "mac-512-2x", "package": "macos-appiconset", "output": "mac-appicon-512-2x" }
+      ]
+    }
+  ],
+  "validationRules": [
+    { "rule": "square-source", "severity": "error", "sourceRole": "master" },
+    { "rule": "no-upscale", "severity": "error", "sourceRole": "master" },
+    {
+      "rule": "minimum-source-size",
+      "severity": "error",
+      "sourceRole": "master",
+      "width": 1024,
+      "height": 1024
+    }
+  ],
+  "optionalOutputGroups": []
+}

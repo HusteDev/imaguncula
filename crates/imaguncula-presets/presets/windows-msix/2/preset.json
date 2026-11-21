@@ -1,0 +1,2472 @@
+{
+  "schemaVersion": 1,
+  "id": "windows-msix",
+  "version": 2,
+  "displayName": "Windows packaged app (MSIX/UWP)",
+  "description": "Windows packaged-app manifest families with exact target sizes, unplated themes, required scale resources, and optional 250% and 300% assets.",
+  "platform": "windows",
+  "lastReviewed": "2026-07-31",
+  "specSources": [
+    "https://learn.microsoft.com/en-us/windows/apps/design/iconography/app-icon-construction",
+    "https://learn.microsoft.com/en-us/uwp/schemas/appxpackage/uapmanifestschema/element-uap-visualelements",
+    "https://learn.microsoft.com/en-us/windows/msix/package/create-app-package-with-makeappx-tool"
+  ],
+  "sourceRoles": [
+    {
+      "role": "master",
+      "required": true,
+      "description": "Square master artwork used for app-list, tile, package-logo, splash, and optional badge rows; replace individual outputs when theme-specific or non-square compositions are required."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "msix-app-list-target-16",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 16,
+      "height": 16,
+      "usage": "Required Windows app-list icon at the exact 16-pixel target size.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-16-dark-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 16,
+      "height": 16,
+      "usage": "Required unplated app-list icon for dark surfaces at 16 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-16-light-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 16,
+      "height": 16,
+      "usage": "Required unplated app-list icon for light surfaces at 16 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-20",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 20,
+      "height": 20,
+      "usage": "Required Windows app-list icon at the exact 20-pixel target size.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-20-dark-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 20,
+      "height": 20,
+      "usage": "Required unplated app-list icon for dark surfaces at 20 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-20-light-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 20,
+      "height": 20,
+      "usage": "Required unplated app-list icon for light surfaces at 20 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-24",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 24,
+      "height": 24,
+      "usage": "Required Windows app-list icon at the exact 24-pixel target size.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-24-dark-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 24,
+      "height": 24,
+      "usage": "Required unplated app-list icon for dark surfaces at 24 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-24-light-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 24,
+      "height": 24,
+      "usage": "Required unplated app-list icon for light surfaces at 24 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-30",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 30,
+      "height": 30,
+      "usage": "Required Windows app-list icon at the exact 30-pixel target size.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-30-dark-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 30,
+      "height": 30,
+      "usage": "Required unplated app-list icon for dark surfaces at 30 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-30-light-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 30,
+      "height": 30,
+      "usage": "Required unplated app-list icon for light surfaces at 30 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-32",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 32,
+      "height": 32,
+      "usage": "Required Windows app-list icon at the exact 32-pixel target size.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-32-dark-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 32,
+      "height": 32,
+      "usage": "Required unplated app-list icon for dark surfaces at 32 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-32-light-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 32,
+      "height": 32,
+      "usage": "Required unplated app-list icon for light surfaces at 32 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-36",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 36,
+      "height": 36,
+      "usage": "Required Windows app-list icon at the exact 36-pixel target size.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-36-dark-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 36,
+      "height": 36,
+      "usage": "Required unplated app-list icon for dark surfaces at 36 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-36-light-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 36,
+      "height": 36,
+      "usage": "Required unplated app-list icon for light surfaces at 36 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-40",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 40,
+      "height": 40,
+      "usage": "Required Windows app-list icon at the exact 40-pixel target size.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-40-dark-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 40,
+      "height": 40,
+      "usage": "Required unplated app-list icon for dark surfaces at 40 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-40-light-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 40,
+      "height": 40,
+      "usage": "Required unplated app-list icon for light surfaces at 40 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-48",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 48,
+      "height": 48,
+      "usage": "Required Windows app-list icon at the exact 48-pixel target size.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-48-dark-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 48,
+      "height": 48,
+      "usage": "Required unplated app-list icon for dark surfaces at 48 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-48-light-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 48,
+      "height": 48,
+      "usage": "Required unplated app-list icon for light surfaces at 48 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-60",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 60,
+      "height": 60,
+      "usage": "Required Windows app-list icon at the exact 60-pixel target size.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-60-dark-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 60,
+      "height": 60,
+      "usage": "Required unplated app-list icon for dark surfaces at 60 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-60-light-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 60,
+      "height": 60,
+      "usage": "Required unplated app-list icon for light surfaces at 60 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-64",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 64,
+      "height": 64,
+      "usage": "Required Windows app-list icon at the exact 64-pixel target size.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-64-dark-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 64,
+      "height": 64,
+      "usage": "Required unplated app-list icon for dark surfaces at 64 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-64-light-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 64,
+      "height": 64,
+      "usage": "Required unplated app-list icon for light surfaces at 64 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-72",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 72,
+      "height": 72,
+      "usage": "Required Windows app-list icon at the exact 72-pixel target size.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-72-dark-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 72,
+      "height": 72,
+      "usage": "Required unplated app-list icon for dark surfaces at 72 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-72-light-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 72,
+      "height": 72,
+      "usage": "Required unplated app-list icon for light surfaces at 72 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-80",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 80,
+      "height": 80,
+      "usage": "Required Windows app-list icon at the exact 80-pixel target size.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-80-dark-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 80,
+      "height": 80,
+      "usage": "Required unplated app-list icon for dark surfaces at 80 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-80-light-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 80,
+      "height": 80,
+      "usage": "Required unplated app-list icon for light surfaces at 80 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-96",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 96,
+      "height": 96,
+      "usage": "Required Windows app-list icon at the exact 96-pixel target size.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-96-dark-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 96,
+      "height": 96,
+      "usage": "Required unplated app-list icon for dark surfaces at 96 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-96-light-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 96,
+      "height": 96,
+      "usage": "Required unplated app-list icon for light surfaces at 96 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-256",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 256,
+      "height": 256,
+      "usage": "Required Windows app-list icon at the exact 256-pixel target size.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-256-dark-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 256,
+      "height": 256,
+      "usage": "Required unplated app-list icon for dark surfaces at 256 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-target-256-light-unplated",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 256,
+      "height": 256,
+      "usage": "Required unplated app-list icon for light surfaces at 256 pixels.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-scale-100",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 44,
+      "height": 44,
+      "usage": "Square44x44Logo scale-qualified app-list asset at 100% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-scale-125",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 55,
+      "height": 55,
+      "usage": "Square44x44Logo scale-qualified app-list asset at 125% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-scale-150",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 66,
+      "height": 66,
+      "usage": "Square44x44Logo scale-qualified app-list asset at 150% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-scale-200",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 88,
+      "height": 88,
+      "usage": "Square44x44Logo scale-qualified app-list asset at 200% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-scale-400",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 176,
+      "height": 176,
+      "usage": "Square44x44Logo scale-qualified app-list asset at 400% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-medium-tile-scale-100",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 150,
+      "height": 150,
+      "usage": "Square150x150Logo medium tile and task-switcher asset at 100% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-medium-tile-scale-125",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 188,
+      "height": 188,
+      "usage": "Square150x150Logo medium tile and task-switcher asset at 125% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-medium-tile-scale-150",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 225,
+      "height": 225,
+      "usage": "Square150x150Logo medium tile and task-switcher asset at 150% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-medium-tile-scale-200",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 300,
+      "height": 300,
+      "usage": "Square150x150Logo medium tile and task-switcher asset at 200% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-medium-tile-scale-400",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 600,
+      "height": 600,
+      "usage": "Square150x150Logo medium tile and task-switcher asset at 400% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-store-logo-scale-100",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 50,
+      "height": 50,
+      "usage": "Required package logo for Microsoft Store publication at 100% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-store-logo-scale-125",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 63,
+      "height": 63,
+      "usage": "Required package logo for Microsoft Store publication at 125% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-store-logo-scale-150",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 75,
+      "height": 75,
+      "usage": "Required package logo for Microsoft Store publication at 150% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-store-logo-scale-200",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 100,
+      "height": 100,
+      "usage": "Required package logo for Microsoft Store publication at 200% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-store-logo-scale-400",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 200,
+      "height": 200,
+      "usage": "Required package logo for Microsoft Store publication at 400% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-light-scale-100-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 44,
+      "height": 44,
+      "usage": "Optional Windows 10 light-theme app-list scale asset at 100% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-light-scale-125-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 55,
+      "height": 55,
+      "usage": "Optional Windows 10 light-theme app-list scale asset at 125% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-light-scale-150-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 66,
+      "height": 66,
+      "usage": "Optional Windows 10 light-theme app-list scale asset at 150% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-light-scale-200-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 88,
+      "height": 88,
+      "usage": "Optional Windows 10 light-theme app-list scale asset at 200% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-light-scale-400-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 176,
+      "height": 176,
+      "usage": "Optional Windows 10 light-theme app-list scale asset at 400% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-small-tile-scale-100",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 71,
+      "height": 71,
+      "usage": "Square71x71Logo small tile at 100% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-small-tile-scale-125",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 89,
+      "height": 89,
+      "usage": "Square71x71Logo small tile at 125% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-small-tile-scale-150",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 107,
+      "height": 107,
+      "usage": "Square71x71Logo small tile at 150% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-small-tile-scale-200",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 142,
+      "height": 142,
+      "usage": "Square71x71Logo small tile at 200% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-small-tile-scale-400",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 284,
+      "height": 284,
+      "usage": "Square71x71Logo small tile at 400% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-wide-tile-scale-100",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 310,
+      "height": 150,
+      "usage": "Wide310x150Logo wide tile at 100% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-wide-tile-scale-125",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 388,
+      "height": 188,
+      "usage": "Wide310x150Logo wide tile at 125% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-wide-tile-scale-150",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 465,
+      "height": 225,
+      "usage": "Wide310x150Logo wide tile at 150% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-wide-tile-scale-200",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 620,
+      "height": 300,
+      "usage": "Wide310x150Logo wide tile at 200% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-wide-tile-scale-400",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 1240,
+      "height": 600,
+      "usage": "Wide310x150Logo wide tile at 400% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-large-tile-scale-100",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 310,
+      "height": 310,
+      "usage": "Square310x310Logo large tile at 100% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-large-tile-scale-125",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 388,
+      "height": 388,
+      "usage": "Square310x310Logo large tile at 125% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-large-tile-scale-150",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 465,
+      "height": 465,
+      "usage": "Square310x310Logo large tile at 150% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-large-tile-scale-200",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 620,
+      "height": 620,
+      "usage": "Square310x310Logo large tile at 200% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-large-tile-scale-400",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 1240,
+      "height": 1240,
+      "usage": "Square310x310Logo large tile at 400% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-small-tile-light-scale-100-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 71,
+      "height": 71,
+      "usage": "Optional light-theme small tile at 100% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-small-tile-light-scale-125-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 89,
+      "height": 89,
+      "usage": "Optional light-theme small tile at 125% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-small-tile-light-scale-150-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 107,
+      "height": 107,
+      "usage": "Optional light-theme small tile at 150% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-small-tile-light-scale-200-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 142,
+      "height": 142,
+      "usage": "Optional light-theme small tile at 200% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-small-tile-light-scale-400-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 284,
+      "height": 284,
+      "usage": "Optional light-theme small tile at 400% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-medium-tile-light-scale-100-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 150,
+      "height": 150,
+      "usage": "Optional light-theme medium tile at 100% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-medium-tile-light-scale-125-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 188,
+      "height": 188,
+      "usage": "Optional light-theme medium tile at 125% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-medium-tile-light-scale-150-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 225,
+      "height": 225,
+      "usage": "Optional light-theme medium tile at 150% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-medium-tile-light-scale-200-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 300,
+      "height": 300,
+      "usage": "Optional light-theme medium tile at 200% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-medium-tile-light-scale-400-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 600,
+      "height": 600,
+      "usage": "Optional light-theme medium tile at 400% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-wide-tile-light-scale-100-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 310,
+      "height": 150,
+      "usage": "Optional light-theme wide tile at 100% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-wide-tile-light-scale-125-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 388,
+      "height": 188,
+      "usage": "Optional light-theme wide tile at 125% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-wide-tile-light-scale-150-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 465,
+      "height": 225,
+      "usage": "Optional light-theme wide tile at 150% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-wide-tile-light-scale-200-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 620,
+      "height": 300,
+      "usage": "Optional light-theme wide tile at 200% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-wide-tile-light-scale-400-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 1240,
+      "height": 600,
+      "usage": "Optional light-theme wide tile at 400% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-large-tile-light-scale-100-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 310,
+      "height": 310,
+      "usage": "Optional light-theme large tile at 100% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-large-tile-light-scale-125-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 388,
+      "height": 388,
+      "usage": "Optional light-theme large tile at 125% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-large-tile-light-scale-150-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 465,
+      "height": 465,
+      "usage": "Optional light-theme large tile at 150% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-large-tile-light-scale-200-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 620,
+      "height": 620,
+      "usage": "Optional light-theme large tile at 200% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-large-tile-light-scale-400-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 1240,
+      "height": 1240,
+      "usage": "Optional light-theme large tile at 400% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-splash-scale-100",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 620,
+      "height": 300,
+      "usage": "Optional splash screen at 100% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-splash-scale-125",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 775,
+      "height": 375,
+      "usage": "Optional splash screen at 125% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-splash-scale-150",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 930,
+      "height": 450,
+      "usage": "Optional splash screen at 150% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-splash-scale-200",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 1240,
+      "height": 600,
+      "usage": "Optional splash screen at 200% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-splash-scale-400",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 2480,
+      "height": 1200,
+      "usage": "Optional splash screen at 400% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-splash-dark-scale-100-altform-colorful-theme-dark",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 620,
+      "height": 300,
+      "usage": "Optional dark-theme splash screen at 100% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-splash-dark-scale-125-altform-colorful-theme-dark",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 775,
+      "height": 375,
+      "usage": "Optional dark-theme splash screen at 125% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-splash-dark-scale-150-altform-colorful-theme-dark",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 930,
+      "height": 450,
+      "usage": "Optional dark-theme splash screen at 150% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-splash-dark-scale-200-altform-colorful-theme-dark",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 1240,
+      "height": 600,
+      "usage": "Optional dark-theme splash screen at 200% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-splash-dark-scale-400-altform-colorful-theme-dark",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 2480,
+      "height": 1200,
+      "usage": "Optional dark-theme splash screen at 400% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-splash-light-scale-100-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 620,
+      "height": 300,
+      "usage": "Optional light-theme splash screen at 100% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-splash-light-scale-125-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 775,
+      "height": 375,
+      "usage": "Optional light-theme splash screen at 125% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-splash-light-scale-150-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 930,
+      "height": 450,
+      "usage": "Optional light-theme splash screen at 150% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-splash-light-scale-200-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 1240,
+      "height": 600,
+      "usage": "Optional light-theme splash screen at 200% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-splash-light-scale-400-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 2480,
+      "height": 1200,
+      "usage": "Optional light-theme splash screen at 400% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-badge-scale-100",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 24,
+      "height": 24,
+      "usage": "Optional monochrome Windows 10 lock-screen badge at 100% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-badge-scale-125",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 30,
+      "height": 30,
+      "usage": "Optional monochrome Windows 10 lock-screen badge at 125% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-badge-scale-150",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 36,
+      "height": 36,
+      "usage": "Optional monochrome Windows 10 lock-screen badge at 150% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-badge-scale-200",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 48,
+      "height": 48,
+      "usage": "Optional monochrome Windows 10 lock-screen badge at 200% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-badge-scale-400",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 96,
+      "height": 96,
+      "usage": "Optional monochrome Windows 10 lock-screen badge at 400% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-store-logo-light-scale-100-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 50,
+      "height": 50,
+      "usage": "Optional light-theme Microsoft Store package logo at 100% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-store-logo-light-scale-125-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 63,
+      "height": 63,
+      "usage": "Optional light-theme Microsoft Store package logo at 125% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-store-logo-light-scale-150-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 75,
+      "height": 75,
+      "usage": "Optional light-theme Microsoft Store package logo at 150% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-store-logo-light-scale-200-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 100,
+      "height": 100,
+      "usage": "Optional light-theme Microsoft Store package logo at 200% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-store-logo-light-scale-400-altform-colorful-theme-light",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 200,
+      "height": 200,
+      "usage": "Optional light-theme Microsoft Store package logo at 400% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-scale-250",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 110,
+      "height": 110,
+      "usage": "Intermediate-scale app-list asset at 250% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-small-tile-scale-250",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 178,
+      "height": 178,
+      "usage": "Intermediate-scale Windows 10 small tile at 250% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-medium-tile-scale-250",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 375,
+      "height": 375,
+      "usage": "Intermediate-scale Windows 10 medium tile at 250% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-wide-tile-scale-250",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 775,
+      "height": 375,
+      "usage": "Intermediate-scale Windows 10 wide tile at 250% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-large-tile-scale-250",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 775,
+      "height": 775,
+      "usage": "Intermediate-scale Windows 10 large tile at 250% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-store-logo-scale-250",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 125,
+      "height": 125,
+      "usage": "Intermediate-scale package logo at 250% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-app-list-scale-300",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 132,
+      "height": 132,
+      "usage": "Intermediate-scale app-list asset at 300% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-small-tile-scale-300",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 213,
+      "height": 213,
+      "usage": "Intermediate-scale Windows 10 small tile at 300% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-medium-tile-scale-300",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 450,
+      "height": 450,
+      "usage": "Intermediate-scale Windows 10 medium tile at 300% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-wide-tile-scale-300",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 930,
+      "height": 450,
+      "usage": "Intermediate-scale Windows 10 wide tile at 300% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-large-tile-scale-300",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 930,
+      "height": 930,
+      "usage": "Intermediate-scale Windows 10 large tile at 300% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "msix-store-logo-scale-300",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 150,
+      "height": 150,
+      "usage": "Intermediate-scale package logo at 300% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    }
+  ],
+  "packages": [
+    {
+      "kind": "directory",
+      "id": "msix-assets",
+      "root": "msix",
+      "files": [
+        {
+          "output": "msix-app-list-target-16",
+          "path": "Assets/AppList.targetsize-16.png"
+        },
+        {
+          "output": "msix-app-list-target-16-dark-unplated",
+          "path": "Assets/AppList.targetsize-16_altform-unplated.png"
+        },
+        {
+          "output": "msix-app-list-target-16-light-unplated",
+          "path": "Assets/AppList.targetsize-16_altform-lightunplated.png"
+        },
+        {
+          "output": "msix-app-list-target-20",
+          "path": "Assets/AppList.targetsize-20.png"
+        },
+        {
+          "output": "msix-app-list-target-20-dark-unplated",
+          "path": "Assets/AppList.targetsize-20_altform-unplated.png"
+        },
+        {
+          "output": "msix-app-list-target-20-light-unplated",
+          "path": "Assets/AppList.targetsize-20_altform-lightunplated.png"
+        },
+        {
+          "output": "msix-app-list-target-24",
+          "path": "Assets/AppList.targetsize-24.png"
+        },
+        {
+          "output": "msix-app-list-target-24-dark-unplated",
+          "path": "Assets/AppList.targetsize-24_altform-unplated.png"
+        },
+        {
+          "output": "msix-app-list-target-24-light-unplated",
+          "path": "Assets/AppList.targetsize-24_altform-lightunplated.png"
+        },
+        {
+          "output": "msix-app-list-target-30",
+          "path": "Assets/AppList.targetsize-30.png"
+        },
+        {
+          "output": "msix-app-list-target-30-dark-unplated",
+          "path": "Assets/AppList.targetsize-30_altform-unplated.png"
+        },
+        {
+          "output": "msix-app-list-target-30-light-unplated",
+          "path": "Assets/AppList.targetsize-30_altform-lightunplated.png"
+        },
+        {
+          "output": "msix-app-list-target-32",
+          "path": "Assets/AppList.targetsize-32.png"
+        },
+        {
+          "output": "msix-app-list-target-32-dark-unplated",
+          "path": "Assets/AppList.targetsize-32_altform-unplated.png"
+        },
+        {
+          "output": "msix-app-list-target-32-light-unplated",
+          "path": "Assets/AppList.targetsize-32_altform-lightunplated.png"
+        },
+        {
+          "output": "msix-app-list-target-36",
+          "path": "Assets/AppList.targetsize-36.png"
+        },
+        {
+          "output": "msix-app-list-target-36-dark-unplated",
+          "path": "Assets/AppList.targetsize-36_altform-unplated.png"
+        },
+        {
+          "output": "msix-app-list-target-36-light-unplated",
+          "path": "Assets/AppList.targetsize-36_altform-lightunplated.png"
+        },
+        {
+          "output": "msix-app-list-target-40",
+          "path": "Assets/AppList.targetsize-40.png"
+        },
+        {
+          "output": "msix-app-list-target-40-dark-unplated",
+          "path": "Assets/AppList.targetsize-40_altform-unplated.png"
+        },
+        {
+          "output": "msix-app-list-target-40-light-unplated",
+          "path": "Assets/AppList.targetsize-40_altform-lightunplated.png"
+        },
+        {
+          "output": "msix-app-list-target-48",
+          "path": "Assets/AppList.targetsize-48.png"
+        },
+        {
+          "output": "msix-app-list-target-48-dark-unplated",
+          "path": "Assets/AppList.targetsize-48_altform-unplated.png"
+        },
+        {
+          "output": "msix-app-list-target-48-light-unplated",
+          "path": "Assets/AppList.targetsize-48_altform-lightunplated.png"
+        },
+        {
+          "output": "msix-app-list-target-60",
+          "path": "Assets/AppList.targetsize-60.png"
+        },
+        {
+          "output": "msix-app-list-target-60-dark-unplated",
+          "path": "Assets/AppList.targetsize-60_altform-unplated.png"
+        },
+        {
+          "output": "msix-app-list-target-60-light-unplated",
+          "path": "Assets/AppList.targetsize-60_altform-lightunplated.png"
+        },
+        {
+          "output": "msix-app-list-target-64",
+          "path": "Assets/AppList.targetsize-64.png"
+        },
+        {
+          "output": "msix-app-list-target-64-dark-unplated",
+          "path": "Assets/AppList.targetsize-64_altform-unplated.png"
+        },
+        {
+          "output": "msix-app-list-target-64-light-unplated",
+          "path": "Assets/AppList.targetsize-64_altform-lightunplated.png"
+        },
+        {
+          "output": "msix-app-list-target-72",
+          "path": "Assets/AppList.targetsize-72.png"
+        },
+        {
+          "output": "msix-app-list-target-72-dark-unplated",
+          "path": "Assets/AppList.targetsize-72_altform-unplated.png"
+        },
+        {
+          "output": "msix-app-list-target-72-light-unplated",
+          "path": "Assets/AppList.targetsize-72_altform-lightunplated.png"
+        },
+        {
+          "output": "msix-app-list-target-80",
+          "path": "Assets/AppList.targetsize-80.png"
+        },
+        {
+          "output": "msix-app-list-target-80-dark-unplated",
+          "path": "Assets/AppList.targetsize-80_altform-unplated.png"
+        },
+        {
+          "output": "msix-app-list-target-80-light-unplated",
+          "path": "Assets/AppList.targetsize-80_altform-lightunplated.png"
+        },
+        {
+          "output": "msix-app-list-target-96",
+          "path": "Assets/AppList.targetsize-96.png"
+        },
+        {
+          "output": "msix-app-list-target-96-dark-unplated",
+          "path": "Assets/AppList.targetsize-96_altform-unplated.png"
+        },
+        {
+          "output": "msix-app-list-target-96-light-unplated",
+          "path": "Assets/AppList.targetsize-96_altform-lightunplated.png"
+        },
+        {
+          "output": "msix-app-list-target-256",
+          "path": "Assets/AppList.targetsize-256.png"
+        },
+        {
+          "output": "msix-app-list-target-256-dark-unplated",
+          "path": "Assets/AppList.targetsize-256_altform-unplated.png"
+        },
+        {
+          "output": "msix-app-list-target-256-light-unplated",
+          "path": "Assets/AppList.targetsize-256_altform-lightunplated.png"
+        },
+        {
+          "output": "msix-app-list-scale-100",
+          "path": "Assets/AppList.scale-100.png"
+        },
+        {
+          "output": "msix-app-list-scale-125",
+          "path": "Assets/AppList.scale-125.png"
+        },
+        {
+          "output": "msix-app-list-scale-150",
+          "path": "Assets/AppList.scale-150.png"
+        },
+        {
+          "output": "msix-app-list-scale-200",
+          "path": "Assets/AppList.scale-200.png"
+        },
+        {
+          "output": "msix-app-list-scale-400",
+          "path": "Assets/AppList.scale-400.png"
+        },
+        {
+          "output": "msix-medium-tile-scale-100",
+          "path": "Assets/MedTile.scale-100.png"
+        },
+        {
+          "output": "msix-medium-tile-scale-125",
+          "path": "Assets/MedTile.scale-125.png"
+        },
+        {
+          "output": "msix-medium-tile-scale-150",
+          "path": "Assets/MedTile.scale-150.png"
+        },
+        {
+          "output": "msix-medium-tile-scale-200",
+          "path": "Assets/MedTile.scale-200.png"
+        },
+        {
+          "output": "msix-medium-tile-scale-400",
+          "path": "Assets/MedTile.scale-400.png"
+        },
+        {
+          "output": "msix-store-logo-scale-100",
+          "path": "Assets/StoreLogo.scale-100.png"
+        },
+        {
+          "output": "msix-store-logo-scale-125",
+          "path": "Assets/StoreLogo.scale-125.png"
+        },
+        {
+          "output": "msix-store-logo-scale-150",
+          "path": "Assets/StoreLogo.scale-150.png"
+        },
+        {
+          "output": "msix-store-logo-scale-200",
+          "path": "Assets/StoreLogo.scale-200.png"
+        },
+        {
+          "output": "msix-store-logo-scale-400",
+          "path": "Assets/StoreLogo.scale-400.png"
+        },
+        {
+          "output": "msix-app-list-light-scale-100-altform-colorful-theme-light",
+          "path": "Assets/AppList.scale-100_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-app-list-light-scale-125-altform-colorful-theme-light",
+          "path": "Assets/AppList.scale-125_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-app-list-light-scale-150-altform-colorful-theme-light",
+          "path": "Assets/AppList.scale-150_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-app-list-light-scale-200-altform-colorful-theme-light",
+          "path": "Assets/AppList.scale-200_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-app-list-light-scale-400-altform-colorful-theme-light",
+          "path": "Assets/AppList.scale-400_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-small-tile-scale-100",
+          "path": "Assets/SmallTile.scale-100.png"
+        },
+        {
+          "output": "msix-small-tile-scale-125",
+          "path": "Assets/SmallTile.scale-125.png"
+        },
+        {
+          "output": "msix-small-tile-scale-150",
+          "path": "Assets/SmallTile.scale-150.png"
+        },
+        {
+          "output": "msix-small-tile-scale-200",
+          "path": "Assets/SmallTile.scale-200.png"
+        },
+        {
+          "output": "msix-small-tile-scale-400",
+          "path": "Assets/SmallTile.scale-400.png"
+        },
+        {
+          "output": "msix-wide-tile-scale-100",
+          "path": "Assets/WideTile.scale-100.png"
+        },
+        {
+          "output": "msix-wide-tile-scale-125",
+          "path": "Assets/WideTile.scale-125.png"
+        },
+        {
+          "output": "msix-wide-tile-scale-150",
+          "path": "Assets/WideTile.scale-150.png"
+        },
+        {
+          "output": "msix-wide-tile-scale-200",
+          "path": "Assets/WideTile.scale-200.png"
+        },
+        {
+          "output": "msix-wide-tile-scale-400",
+          "path": "Assets/WideTile.scale-400.png"
+        },
+        {
+          "output": "msix-large-tile-scale-100",
+          "path": "Assets/LargeTile.scale-100.png"
+        },
+        {
+          "output": "msix-large-tile-scale-125",
+          "path": "Assets/LargeTile.scale-125.png"
+        },
+        {
+          "output": "msix-large-tile-scale-150",
+          "path": "Assets/LargeTile.scale-150.png"
+        },
+        {
+          "output": "msix-large-tile-scale-200",
+          "path": "Assets/LargeTile.scale-200.png"
+        },
+        {
+          "output": "msix-large-tile-scale-400",
+          "path": "Assets/LargeTile.scale-400.png"
+        },
+        {
+          "output": "msix-small-tile-light-scale-100-altform-colorful-theme-light",
+          "path": "Assets/SmallTile.scale-100_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-small-tile-light-scale-125-altform-colorful-theme-light",
+          "path": "Assets/SmallTile.scale-125_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-small-tile-light-scale-150-altform-colorful-theme-light",
+          "path": "Assets/SmallTile.scale-150_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-small-tile-light-scale-200-altform-colorful-theme-light",
+          "path": "Assets/SmallTile.scale-200_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-small-tile-light-scale-400-altform-colorful-theme-light",
+          "path": "Assets/SmallTile.scale-400_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-medium-tile-light-scale-100-altform-colorful-theme-light",
+          "path": "Assets/MedTile.scale-100_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-medium-tile-light-scale-125-altform-colorful-theme-light",
+          "path": "Assets/MedTile.scale-125_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-medium-tile-light-scale-150-altform-colorful-theme-light",
+          "path": "Assets/MedTile.scale-150_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-medium-tile-light-scale-200-altform-colorful-theme-light",
+          "path": "Assets/MedTile.scale-200_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-medium-tile-light-scale-400-altform-colorful-theme-light",
+          "path": "Assets/MedTile.scale-400_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-wide-tile-light-scale-100-altform-colorful-theme-light",
+          "path": "Assets/WideTile.scale-100_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-wide-tile-light-scale-125-altform-colorful-theme-light",
+          "path": "Assets/WideTile.scale-125_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-wide-tile-light-scale-150-altform-colorful-theme-light",
+          "path": "Assets/WideTile.scale-150_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-wide-tile-light-scale-200-altform-colorful-theme-light",
+          "path": "Assets/WideTile.scale-200_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-wide-tile-light-scale-400-altform-colorful-theme-light",
+          "path": "Assets/WideTile.scale-400_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-large-tile-light-scale-100-altform-colorful-theme-light",
+          "path": "Assets/LargeTile.scale-100_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-large-tile-light-scale-125-altform-colorful-theme-light",
+          "path": "Assets/LargeTile.scale-125_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-large-tile-light-scale-150-altform-colorful-theme-light",
+          "path": "Assets/LargeTile.scale-150_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-large-tile-light-scale-200-altform-colorful-theme-light",
+          "path": "Assets/LargeTile.scale-200_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-large-tile-light-scale-400-altform-colorful-theme-light",
+          "path": "Assets/LargeTile.scale-400_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-splash-scale-100",
+          "path": "Assets/SplashScreen.scale-100.png"
+        },
+        {
+          "output": "msix-splash-scale-125",
+          "path": "Assets/SplashScreen.scale-125.png"
+        },
+        {
+          "output": "msix-splash-scale-150",
+          "path": "Assets/SplashScreen.scale-150.png"
+        },
+        {
+          "output": "msix-splash-scale-200",
+          "path": "Assets/SplashScreen.scale-200.png"
+        },
+        {
+          "output": "msix-splash-scale-400",
+          "path": "Assets/SplashScreen.scale-400.png"
+        },
+        {
+          "output": "msix-splash-dark-scale-100-altform-colorful-theme-dark",
+          "path": "Assets/SplashScreen.scale-100_altform-colorful_theme-dark.png"
+        },
+        {
+          "output": "msix-splash-dark-scale-125-altform-colorful-theme-dark",
+          "path": "Assets/SplashScreen.scale-125_altform-colorful_theme-dark.png"
+        },
+        {
+          "output": "msix-splash-dark-scale-150-altform-colorful-theme-dark",
+          "path": "Assets/SplashScreen.scale-150_altform-colorful_theme-dark.png"
+        },
+        {
+          "output": "msix-splash-dark-scale-200-altform-colorful-theme-dark",
+          "path": "Assets/SplashScreen.scale-200_altform-colorful_theme-dark.png"
+        },
+        {
+          "output": "msix-splash-dark-scale-400-altform-colorful-theme-dark",
+          "path": "Assets/SplashScreen.scale-400_altform-colorful_theme-dark.png"
+        },
+        {
+          "output": "msix-splash-light-scale-100-altform-colorful-theme-light",
+          "path": "Assets/SplashScreen.scale-100_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-splash-light-scale-125-altform-colorful-theme-light",
+          "path": "Assets/SplashScreen.scale-125_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-splash-light-scale-150-altform-colorful-theme-light",
+          "path": "Assets/SplashScreen.scale-150_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-splash-light-scale-200-altform-colorful-theme-light",
+          "path": "Assets/SplashScreen.scale-200_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-splash-light-scale-400-altform-colorful-theme-light",
+          "path": "Assets/SplashScreen.scale-400_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-badge-scale-100",
+          "path": "Assets/BadgeLogo.scale-100.png"
+        },
+        {
+          "output": "msix-badge-scale-125",
+          "path": "Assets/BadgeLogo.scale-125.png"
+        },
+        {
+          "output": "msix-badge-scale-150",
+          "path": "Assets/BadgeLogo.scale-150.png"
+        },
+        {
+          "output": "msix-badge-scale-200",
+          "path": "Assets/BadgeLogo.scale-200.png"
+        },
+        {
+          "output": "msix-badge-scale-400",
+          "path": "Assets/BadgeLogo.scale-400.png"
+        },
+        {
+          "output": "msix-store-logo-light-scale-100-altform-colorful-theme-light",
+          "path": "Assets/StoreLogo.scale-100_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-store-logo-light-scale-125-altform-colorful-theme-light",
+          "path": "Assets/StoreLogo.scale-125_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-store-logo-light-scale-150-altform-colorful-theme-light",
+          "path": "Assets/StoreLogo.scale-150_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-store-logo-light-scale-200-altform-colorful-theme-light",
+          "path": "Assets/StoreLogo.scale-200_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-store-logo-light-scale-400-altform-colorful-theme-light",
+          "path": "Assets/StoreLogo.scale-400_altform-colorful_theme-light.png"
+        },
+        {
+          "output": "msix-app-list-scale-250",
+          "path": "Assets/AppList.scale-250.png"
+        },
+        {
+          "output": "msix-small-tile-scale-250",
+          "path": "Assets/SmallTile.scale-250.png"
+        },
+        {
+          "output": "msix-medium-tile-scale-250",
+          "path": "Assets/MedTile.scale-250.png"
+        },
+        {
+          "output": "msix-wide-tile-scale-250",
+          "path": "Assets/WideTile.scale-250.png"
+        },
+        {
+          "output": "msix-large-tile-scale-250",
+          "path": "Assets/LargeTile.scale-250.png"
+        },
+        {
+          "output": "msix-store-logo-scale-250",
+          "path": "Assets/StoreLogo.scale-250.png"
+        },
+        {
+          "output": "msix-app-list-scale-300",
+          "path": "Assets/AppList.scale-300.png"
+        },
+        {
+          "output": "msix-small-tile-scale-300",
+          "path": "Assets/SmallTile.scale-300.png"
+        },
+        {
+          "output": "msix-medium-tile-scale-300",
+          "path": "Assets/MedTile.scale-300.png"
+        },
+        {
+          "output": "msix-wide-tile-scale-300",
+          "path": "Assets/WideTile.scale-300.png"
+        },
+        {
+          "output": "msix-large-tile-scale-300",
+          "path": "Assets/LargeTile.scale-300.png"
+        },
+        {
+          "output": "msix-store-logo-scale-300",
+          "path": "Assets/StoreLogo.scale-300.png"
+        }
+      ]
+    }
+  ],
+  "validationRules": [
+    {
+      "rule": "square-source",
+      "severity": "error",
+      "sourceRole": "master"
+    },
+    {
+      "rule": "no-upscale",
+      "severity": "error",
+      "sourceRole": "master"
+    },
+    {
+      "rule": "minimum-source-size",
+      "severity": "warning",
+      "sourceRole": "master",
+      "width": 1240,
+      "height": 1240
+    }
+  ],
+  "optionalOutputGroups": [
+    {
+      "id": "app-list-light-scale",
+      "displayName": "Windows 10 app-list light theme",
+      "description": "Scale-qualified light-theme variants used by Windows 10.",
+      "defaultEnabled": false,
+      "outputs": [
+        "msix-app-list-light-scale-100-altform-colorful-theme-light",
+        "msix-app-list-light-scale-125-altform-colorful-theme-light",
+        "msix-app-list-light-scale-150-altform-colorful-theme-light",
+        "msix-app-list-light-scale-200-altform-colorful-theme-light",
+        "msix-app-list-light-scale-400-altform-colorful-theme-light"
+      ]
+    },
+    {
+      "id": "windows-10-tiles",
+      "displayName": "Windows 10 tile families",
+      "description": "Small, wide, and large tiles. Windows 11 does not use them; the medium family remains enabled for Store compatibility.",
+      "defaultEnabled": false,
+      "outputs": [
+        "msix-small-tile-scale-100",
+        "msix-small-tile-scale-125",
+        "msix-small-tile-scale-150",
+        "msix-small-tile-scale-200",
+        "msix-small-tile-scale-400",
+        "msix-wide-tile-scale-100",
+        "msix-wide-tile-scale-125",
+        "msix-wide-tile-scale-150",
+        "msix-wide-tile-scale-200",
+        "msix-wide-tile-scale-400",
+        "msix-large-tile-scale-100",
+        "msix-large-tile-scale-125",
+        "msix-large-tile-scale-150",
+        "msix-large-tile-scale-200",
+        "msix-large-tile-scale-400"
+      ]
+    },
+    {
+      "id": "windows-10-light-tiles",
+      "displayName": "Windows 10 light-theme tiles",
+      "description": "Light-theme variants for every Windows 10 tile family.",
+      "defaultEnabled": false,
+      "outputs": [
+        "msix-small-tile-light-scale-100-altform-colorful-theme-light",
+        "msix-small-tile-light-scale-125-altform-colorful-theme-light",
+        "msix-small-tile-light-scale-150-altform-colorful-theme-light",
+        "msix-small-tile-light-scale-200-altform-colorful-theme-light",
+        "msix-small-tile-light-scale-400-altform-colorful-theme-light",
+        "msix-medium-tile-light-scale-100-altform-colorful-theme-light",
+        "msix-medium-tile-light-scale-125-altform-colorful-theme-light",
+        "msix-medium-tile-light-scale-150-altform-colorful-theme-light",
+        "msix-medium-tile-light-scale-200-altform-colorful-theme-light",
+        "msix-medium-tile-light-scale-400-altform-colorful-theme-light",
+        "msix-wide-tile-light-scale-100-altform-colorful-theme-light",
+        "msix-wide-tile-light-scale-125-altform-colorful-theme-light",
+        "msix-wide-tile-light-scale-150-altform-colorful-theme-light",
+        "msix-wide-tile-light-scale-200-altform-colorful-theme-light",
+        "msix-wide-tile-light-scale-400-altform-colorful-theme-light",
+        "msix-large-tile-light-scale-100-altform-colorful-theme-light",
+        "msix-large-tile-light-scale-125-altform-colorful-theme-light",
+        "msix-large-tile-light-scale-150-altform-colorful-theme-light",
+        "msix-large-tile-light-scale-200-altform-colorful-theme-light",
+        "msix-large-tile-light-scale-400-altform-colorful-theme-light"
+      ]
+    },
+    {
+      "id": "splash-screen",
+      "displayName": "Splash screen",
+      "description": "Scale-qualified default splash-screen artwork.",
+      "defaultEnabled": false,
+      "outputs": [
+        "msix-splash-scale-100",
+        "msix-splash-scale-125",
+        "msix-splash-scale-150",
+        "msix-splash-scale-200",
+        "msix-splash-scale-400"
+      ]
+    },
+    {
+      "id": "splash-screen-themes",
+      "displayName": "Splash-screen themes",
+      "description": "Dark- and light-theme variants of the splash screen.",
+      "defaultEnabled": false,
+      "outputs": [
+        "msix-splash-dark-scale-100-altform-colorful-theme-dark",
+        "msix-splash-dark-scale-125-altform-colorful-theme-dark",
+        "msix-splash-dark-scale-150-altform-colorful-theme-dark",
+        "msix-splash-dark-scale-200-altform-colorful-theme-dark",
+        "msix-splash-dark-scale-400-altform-colorful-theme-dark",
+        "msix-splash-light-scale-100-altform-colorful-theme-light",
+        "msix-splash-light-scale-125-altform-colorful-theme-light",
+        "msix-splash-light-scale-150-altform-colorful-theme-light",
+        "msix-splash-light-scale-200-altform-colorful-theme-light",
+        "msix-splash-light-scale-400-altform-colorful-theme-light"
+      ]
+    },
+    {
+      "id": "lock-screen-badge",
+      "displayName": "Windows 10 lock-screen badge",
+      "description": "Monochrome badge assets for apps that register compatible background tasks.",
+      "defaultEnabled": false,
+      "outputs": [
+        "msix-badge-scale-100",
+        "msix-badge-scale-125",
+        "msix-badge-scale-150",
+        "msix-badge-scale-200",
+        "msix-badge-scale-400"
+      ]
+    },
+    {
+      "id": "store-light-theme",
+      "displayName": "Microsoft Store light theme",
+      "description": "Optional light-theme package-logo variants.",
+      "defaultEnabled": false,
+      "outputs": [
+        "msix-store-logo-light-scale-100-altform-colorful-theme-light",
+        "msix-store-logo-light-scale-125-altform-colorful-theme-light",
+        "msix-store-logo-light-scale-150-altform-colorful-theme-light",
+        "msix-store-logo-light-scale-200-altform-colorful-theme-light",
+        "msix-store-logo-light-scale-400-altform-colorful-theme-light"
+      ]
+    },
+    {
+      "id": "intermediate-scales",
+      "displayName": "250% and 300% display scales",
+      "description": "Exact intermediate-scale assets for systems where avoiding nearest-neighbor scale selection matters.",
+      "defaultEnabled": false,
+      "outputs": [
+        "msix-app-list-scale-250",
+        "msix-small-tile-scale-250",
+        "msix-medium-tile-scale-250",
+        "msix-wide-tile-scale-250",
+        "msix-large-tile-scale-250",
+        "msix-store-logo-scale-250",
+        "msix-app-list-scale-300",
+        "msix-small-tile-scale-300",
+        "msix-medium-tile-scale-300",
+        "msix-wide-tile-scale-300",
+        "msix-large-tile-scale-300",
+        "msix-store-logo-scale-300"
+      ]
+    }
+  ]
+}

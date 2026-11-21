@@ -1,0 +1,179 @@
+{
+  "schemaVersion": 1,
+  "id": "web-pwa",
+  "version": 1,
+  "displayName": "Web and PWA",
+  "description": "Favicons, Apple touch artwork, installable PWA icons, a web manifest, and HTML link markup.",
+  "platform": "web",
+  "lastReviewed": "2026-07-31",
+  "specSources": [
+    "https://html.spec.whatwg.org/multipage/links.html#rel-icon",
+    "https://www.w3.org/TR/appmanifest/",
+    "https://developer.chrome.com/docs/lighthouse/pwa/installable-manifest/",
+    "https://developer.apple.com/library/archive/documentation/AppleApplications/Reference/SafariWebContent/ConfiguringWebApplications/ConfiguringWebApplications.html"
+  ],
+  "sourceRoles": [
+    {
+      "role": "master",
+      "required": true,
+      "description": "The original square icon artwork used for every web output."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "favicon-16",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 16,
+      "height": 16,
+      "usage": "Small browser tab and bookmark favicon rendition.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "favicon-32",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 32,
+      "height": 32,
+      "usage": "Standard browser tab and shortcut favicon rendition.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "favicon-48",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 48,
+      "height": 48,
+      "usage": "Large browser shortcut favicon rendition.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "favicon-svg",
+      "sourceRole": "master",
+      "format": "svg",
+      "usage": "Scalable browser favicon copied from the sanitized SVG source.",
+      "encoder": { "type": "svg", "mode": "sanitized-source" }
+    },
+    {
+      "id": "apple-touch-180",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 180,
+      "height": 180,
+      "usage": "Apple Web Clip icon for Retina iPhone home screens.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "pwa-192",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 192,
+      "height": 192,
+      "usage": "Installable PWA any-purpose icon at 192 pixels.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "pwa-512",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 512,
+      "height": 512,
+      "usage": "Installable PWA any-purpose icon at 512 pixels.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    },
+    {
+      "id": "pwa-maskable-512",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 512,
+      "height": 512,
+      "usage": "Maskable PWA icon whose important content should remain inside the 80% safe-zone diameter.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    }
+  ],
+  "packages": [
+    {
+      "kind": "container",
+      "id": "favicon-ico",
+      "format": "ico",
+      "path": "favicon.ico",
+      "entries": [
+        { "output": "favicon-16", "encoding": "bmp" },
+        { "output": "favicon-32", "encoding": "bmp" },
+        { "output": "favicon-48", "encoding": "bmp" }
+      ]
+    },
+    {
+      "kind": "files",
+      "id": "web-icons",
+      "files": [
+        { "output": "favicon-svg", "path": "favicon.svg" },
+        { "output": "apple-touch-180", "path": "apple-touch-icon.png" },
+        { "output": "pwa-192", "path": "icon-192.png" },
+        { "output": "pwa-512", "path": "icon-512.png" },
+        { "output": "pwa-maskable-512", "path": "icon-maskable-512.png" }
+      ]
+    },
+    {
+      "kind": "metadata",
+      "id": "web-manifest",
+      "format": "json",
+      "path": "site.webmanifest",
+      "template": "{\n  \"name\": \"{base}\",\n  \"short_name\": \"{base}\",\n  \"icons\": [\n    { \"src\": \"{{icon-192}}\", \"sizes\": \"192x192\", \"type\": \"image/png\", \"purpose\": \"any\" },\n    { \"src\": \"{{icon-512}}\", \"sizes\": \"512x512\", \"type\": \"image/png\", \"purpose\": \"any\" },\n    { \"src\": \"{{icon-maskable-512}}\", \"sizes\": \"512x512\", \"type\": \"image/png\", \"purpose\": \"maskable\" }\n  ]\n}\n",
+      "references": [
+        { "name": "icon-192", "package": "web-icons", "output": "pwa-192" },
+        { "name": "icon-512", "package": "web-icons", "output": "pwa-512" },
+        {
+          "name": "icon-maskable-512",
+          "package": "web-icons",
+          "output": "pwa-maskable-512"
+        }
+      ]
+    },
+    {
+      "kind": "metadata",
+      "id": "html-links",
+      "format": "html",
+      "path": "icons.html",
+      "template": "<link rel=\"icon\" href=\"{{favicon-svg}}\" type=\"image/svg+xml\">\n<link rel=\"icon\" href=\"{{favicon-32}}\" sizes=\"32x32\" type=\"image/png\">\n<link rel=\"apple-touch-icon\" href=\"{{apple-touch}}\" sizes=\"180x180\">\n<link rel=\"manifest\" href=\"site.webmanifest\">\n",
+      "references": [
+        { "name": "favicon-svg", "package": "web-icons", "output": "favicon-svg" },
+        { "name": "favicon-32", "package": "favicon-ico", "output": "favicon-32" },
+        { "name": "apple-touch", "package": "web-icons", "output": "apple-touch-180" }
+      ]
+    }
+  ],
+  "validationRules": [
+    { "rule": "square-source", "severity": "error", "sourceRole": "master" },
+    { "rule": "no-upscale", "severity": "error", "sourceRole": "master" },
+    {
+      "rule": "minimum-source-size",
+      "severity": "warning",
+      "sourceRole": "master",
+      "width": 512,
+      "height": 512
+    },
+    {
+      "rule": "maskable-safe-zone",
+      "severity": "warning",
+      "outputs": ["pwa-maskable-512"],
+      "minimumSafeZonePercent": 80
+    }
+  ],
+  "optionalOutputGroups": [
+    {
+      "id": "maskable",
+      "displayName": "Maskable PWA icon",
+      "description": "Generate a maskable 512-pixel icon and include it in the manifest.",
+      "defaultEnabled": true,
+      "outputs": ["pwa-maskable-512"]
+    },
+    {
+      "id": "scalable-favicon",
+      "displayName": "Scalable SVG favicon",
+      "description": "Pass through the sanitized SVG source as favicon.svg when the master is SVG.",
+      "defaultEnabled": true,
+      "outputs": ["favicon-svg"]
+    }
+  ]
+}

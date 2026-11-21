@@ -1,0 +1,9 @@
+../escape.png
+/absolute.png
+C:/drive.png
+folder\backslash.png
+folder//empty.png
+folder/./dot.png
+folder/../parent.png
+CON.png
+folder/trailing.

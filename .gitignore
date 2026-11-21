@@ -1,0 +1,32 @@
+# OS cruft
+.DS_Store
+Thumbs.db
+Desktop.ini
+
+# Dependencies and package stores
+node_modules
+/.pnpm-store
+
+# Build and packaging output
+/build
+/.svelte-kit
+/package
+/target
+/dist
+/fuzz/artifacts
+/fuzz/corpus
+/fuzz/target
+
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Tooling state
+vite.config.js.timestamp-*
+vite.config.ts.timestamp-*
+*.tsbuildinfo
+
+# Editor and assistant local state
+.idea/
+.claude/settings.local.json

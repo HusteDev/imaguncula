@@ -1,0 +1,124 @@
+{
+  "schemaVersion": 1,
+  "id": "web-pwa-fixture",
+  "version": 1,
+  "displayName": "Web/PWA schema fixture",
+  "description": "Exercises standalone files and generated metadata that references sibling outputs.",
+  "platform": "web",
+  "lastReviewed": "2026-07-31",
+  "specSources": ["https://www.w3.org/TR/appmanifest/"],
+  "sourceRoles": [
+    {
+      "role": "master",
+      "required": true,
+      "description": "Primary web application icon artwork."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "pwa-192",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 192,
+      "height": 192,
+      "usage": "PWA any-purpose icon.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "pwa-512",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 512,
+      "height": 512,
+      "usage": "Large PWA any-purpose icon.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "pwa-maskable-512",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 512,
+      "height": 512,
+      "usage": "Optional maskable PWA icon.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    }
+  ],
+  "packages": [
+    {
+      "kind": "files",
+      "id": "web-icons",
+      "files": [
+        {
+          "output": "pwa-192",
+          "path": "icon-192.png"
+        },
+        {
+          "output": "pwa-512",
+          "path": "icon-512.png"
+        },
+        {
+          "output": "pwa-maskable-512",
+          "path": "icon-maskable-512.png"
+        }
+      ]
+    },
+    {
+      "kind": "metadata",
+      "id": "web-manifest",
+      "format": "json",
+      "path": "site.webmanifest",
+      "template": "{\n  \"icons\": [\n    { \"src\": \"{{icon-192}}\", \"sizes\": \"192x192\", \"type\": \"image/png\" },\n    { \"src\": \"{{icon-512}}\", \"sizes\": \"512x512\", \"type\": \"image/png\" }\n  ]\n}\n",
+      "references": [
+        {
+          "name": "icon-192",
+          "package": "web-icons",
+          "output": "pwa-192"
+        },
+        {
+          "name": "icon-512",
+          "package": "web-icons",
+          "output": "pwa-512"
+        }
+      ]
+    }
+  ],
+  "validationRules": [
+    {
+      "rule": "square-source",
+      "severity": "error",
+      "sourceRole": "master"
+    },
+    {
+      "rule": "no-upscale",
+      "severity": "error",
+      "sourceRole": "master"
+    },
+    {
+      "rule": "maskable-safe-zone",
+      "severity": "warning",
+      "outputs": ["pwa-maskable-512"],
+      "minimumSafeZonePercent": 80
+    }
+  ],
+  "optionalOutputGroups": [
+    {
+      "id": "maskable",
+      "displayName": "Maskable icon",
+      "description": "Generate the optional maskable PWA icon.",
+      "defaultEnabled": true,
+      "outputs": ["pwa-maskable-512"]
+    }
+  ]
+}

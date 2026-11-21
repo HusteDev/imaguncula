@@ -1,0 +1,107 @@
+name: Apple asset validation
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: apple-assets-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  schema:
+    name: Preset schema and cross-reference validation
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Install pinned Rust toolchain
+        run: rustup toolchain install 1.94.1 --profile minimal
+
+      - name: Validate every preset schema and package reference
+        run: cargo test --locked -p imaguncula-presets
+
+  xcode:
+    name: Xcode AppIcon compile validation
+    runs-on: macos-latest
+    timeout-minutes: 30
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Install pinned Rust toolchain
+        run: rustup toolchain install 1.94.1 --profile minimal
+
+      - name: Generate AppIcon catalogs through the production CLI path
+        shell: bash
+        run: |
+          set -euo pipefail
+          for preset in apple-ios-modern apple-ios-compatibility apple-macos-appicon; do
+            cargo run --locked -p imaguncula-cli -- quick fixtures/sources/asymmetric.svg \
+              --preset "$preset" \
+              --name AppIcon \
+              --output "target/apple-assets/$preset" \
+              --no-zip
+          done
+
+      - name: Validate generated JSON property lists
+        shell: bash
+        run: |
+          set -euo pipefail
+          find target/apple-assets -name Contents.json -print0 | xargs -0 -n1 plutil -lint
+
+      - name: Compile iOS modern AppIcon catalog
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p target/actool/ios-modern/Assets.xcassets target/actool/ios-modern/compiled
+          cp -R target/apple-assets/apple-ios-modern/appicon-icons/apple-ios-modern/AppIcon.appiconset \
+            target/actool/ios-modern/Assets.xcassets/
+          xcrun actool target/actool/ios-modern/Assets.xcassets \
+            --compile target/actool/ios-modern/compiled \
+            --platform iphoneos \
+            --minimum-deployment-target 15.0 \
+            --target-device iphone \
+            --target-device ipad \
+            --app-icon AppIcon \
+            --output-partial-info-plist target/actool/ios-modern/partial.plist
+          plutil -lint target/actool/ios-modern/partial.plist
+
+      - name: Compile iOS compatibility AppIcon catalog
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p target/actool/ios-compatibility/Assets.xcassets target/actool/ios-compatibility/compiled
+          cp -R target/apple-assets/apple-ios-compatibility/appicon-icons/apple-ios-compatibility/AppIcon.appiconset \
+            target/actool/ios-compatibility/Assets.xcassets/
+          xcrun actool target/actool/ios-compatibility/Assets.xcassets \
+            --compile target/actool/ios-compatibility/compiled \
+            --platform iphoneos \
+            --minimum-deployment-target 12.0 \
+            --target-device iphone \
+            --target-device ipad \
+            --app-icon AppIcon \
+            --output-partial-info-plist target/actool/ios-compatibility/partial.plist
+          plutil -lint target/actool/ios-compatibility/partial.plist
+
+      - name: Compile macOS AppIcon catalog
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p target/actool/macos/Assets.xcassets target/actool/macos/compiled
+          cp -R target/apple-assets/apple-macos-appicon/appicon-icons/apple-macos-appicon/AppIcon.appiconset \
+            target/actool/macos/Assets.xcassets/
+          xcrun actool target/actool/macos/Assets.xcassets \
+            --compile target/actool/macos/compiled \
+            --platform macosx \
+            --minimum-deployment-target 13.0 \
+            --app-icon AppIcon \
+            --output-partial-info-plist target/actool/macos/partial.plist
+          plutil -lint target/actool/macos/partial.plist

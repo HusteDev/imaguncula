@@ -1,0 +1,63 @@
+{
+  "schemaVersion": 1,
+  "id": "apple-ios-modern",
+  "version": 1,
+  "displayName": "Apple iOS/iPadOS AppIcon — single size",
+  "description": "Modern Xcode AppIcon asset catalog using one universal 1024-pixel source.",
+  "exclusiveGroup": "apple-ios-appicon-mode",
+  "platform": "ios",
+  "lastReviewed": "2026-07-31",
+  "specSources": ["https://developer.apple.com/documentation/xcode/configuring-your-app-icon/"],
+  "sourceRoles": [
+    {
+      "role": "master",
+      "required": true,
+      "description": "Opaque square 1024-pixel App Store artwork."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "ios-modern-1024",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 1024,
+      "height": 1024,
+      "usage": "Universal single-size iOS and iPadOS AppIcon source.",
+      "encoder": { "type": "png", "compression": "best", "filter": "adaptive" }
+    }
+  ],
+  "packages": [
+    {
+      "kind": "directory",
+      "id": "ios-modern-appiconset",
+      "root": "AppIcon.appiconset",
+      "files": [{ "output": "ios-modern-1024", "path": "icon-1024.png" }]
+    },
+    {
+      "kind": "metadata",
+      "id": "ios-modern-contents",
+      "format": "json",
+      "path": "AppIcon.appiconset/Contents.json",
+      "template": "{\n  \"images\": [\n    { \"filename\": \"{{ios-modern-icon}}\", \"idiom\": \"universal\", \"platform\": \"ios\", \"size\": \"1024x1024\" }\n  ],\n  \"info\": { \"author\": \"xcode\", \"version\": 1 }\n}\n",
+      "references": [
+        {
+          "name": "ios-modern-icon",
+          "package": "ios-modern-appiconset",
+          "output": "ios-modern-1024"
+        }
+      ]
+    }
+  ],
+  "validationRules": [
+    { "rule": "square-source", "severity": "error", "sourceRole": "master" },
+    { "rule": "no-upscale", "severity": "error", "sourceRole": "master" },
+    {
+      "rule": "minimum-source-size",
+      "severity": "error",
+      "sourceRole": "master",
+      "width": 1024,
+      "height": 1024
+    }
+  ],
+  "optionalOutputGroups": []
+}

@@ -1,0 +1,89 @@
+name: Windows MSIX assets
+
+on:
+  push:
+    paths:
+      - ".github/workflows/windows-msix-assets.yml"
+      - "Cargo.lock"
+      - "Cargo.toml"
+      - "crates/imaguncula-cli/**"
+      - "crates/imaguncula-core/**"
+      - "crates/imaguncula-presets/**"
+      - "fixtures/platform/windows-msix/**"
+      - "fixtures/sources/asymmetric.svg"
+  pull_request:
+    paths:
+      - ".github/workflows/windows-msix-assets.yml"
+      - "Cargo.lock"
+      - "Cargo.toml"
+      - "crates/imaguncula-cli/**"
+      - "crates/imaguncula-core/**"
+      - "crates/imaguncula-presets/**"
+      - "fixtures/platform/windows-msix/**"
+      - "fixtures/sources/asymmetric.svg"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  validate-msix-assets:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: dtolnay/rust-toolchain@stable
+      - uses: Swatinem/rust-cache@v2
+      - name: Generate production asset family
+        shell: pwsh
+        run: >-
+          cargo run --locked -p imaguncula-cli -- quick
+          fixtures/sources/asymmetric.svg
+          --preset windows-msix
+          --name Fixture
+          --output target/msix-fixture-output
+          --overwrite
+          --no-zip
+      - name: Assemble fixture package
+        shell: pwsh
+        run: |
+          $packageRoot = Join-Path $PWD "target/msix-package"
+          New-Item -ItemType Directory -Force -Path $packageRoot | Out-Null
+          Copy-Item fixtures/platform/windows-msix/AppxManifest.xml $packageRoot
+          Copy-Item "$env:SystemRoot/System32/where.exe" (Join-Path $packageRoot "ImagunculaFixture.exe")
+          Copy-Item -Recurse "target/msix-fixture-output/fixture-icons/windows-msix/msix/Assets" $packageRoot
+      - name: Index resource families and package with MakePri and MakeAppx
+        shell: pwsh
+        run: |
+          [xml]$manifest = Get-Content target/msix-package/AppxManifest.xml
+          if ($manifest.Package.Properties.Logo -ne "Assets\StoreLogo.png") {
+            throw "Fixture manifest package logo changed unexpectedly."
+          }
+          $makeAppx = Get-ChildItem "${env:ProgramFiles(x86)}/Windows Kits/10/bin" -Filter makeappx.exe -Recurse |
+            Where-Object { $_.FullName -match '\\x64\\makeappx\.exe$' } |
+            Sort-Object FullName -Descending |
+            Select-Object -First 1
+          if (-not $makeAppx) {
+            throw "MakeAppx.exe was not found on the Windows runner."
+          }
+          $makePri = Join-Path $makeAppx.Directory.FullName "makepri.exe"
+          if (-not (Test-Path $makePri)) {
+            throw "MakePri.exe was not found beside MakeAppx.exe."
+          }
+          & $makePri createconfig /cf target/priconfig.xml /dq en-US /pv 10.0.0 /o
+          if ($LASTEXITCODE -ne 0) {
+            throw "MakePri configuration generation failed with exit code $LASTEXITCODE."
+          }
+          & $makePri new /pr target/msix-package /cf target/priconfig.xml /mn target/msix-package/AppxManifest.xml /of target/msix-package/resources.pri /o
+          if ($LASTEXITCODE -ne 0) {
+            throw "MakePri semantic validation failed with exit code $LASTEXITCODE."
+          }
+          if (-not (Test-Path target/msix-package/resources.pri)) {
+            throw "MakePri did not produce the package resource index."
+          }
+          & $makeAppx.FullName pack /v /o /d target/msix-package /p target/Imaguncula.AssetFixture.msix
+          if ($LASTEXITCODE -ne 0) {
+            throw "MakeAppx semantic validation failed with exit code $LASTEXITCODE."
+          }
+          if (-not (Test-Path target/Imaguncula.AssetFixture.msix)) {
+            throw "MakeAppx did not produce the fixture package."
+          }

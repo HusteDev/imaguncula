@@ -1,0 +1,8 @@
+title = "Imaguncula secret scanning"
+
+[extend]
+useDefault = true
+
+[[allowlists]]
+description = "Generated dependency and build output"
+paths = ['''(^|/)(node_modules|\.pnpm-store|target|\.svelte-kit|build|package)(/|$)''']

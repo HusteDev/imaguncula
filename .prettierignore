@@ -1,0 +1,12 @@
+.svelte-kit
+build
+node_modules*
+.pnpm-store*
+target
+src-tauri/gen
+src-tauri/icons
+Cargo.lock
+pnpm-lock.yaml
+*.md
+LICENSE*
+fixtures/sources

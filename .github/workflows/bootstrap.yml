@@ -1,0 +1,82 @@
+name: Bootstrap verification
+
+on:
+  schedule:
+    - cron: "23 7 * * 1"
+  workflow_dispatch:
+  push:
+    paths:
+      - ".github/workflows/bootstrap.yml"
+      - ".just-version"
+      - ".node-version"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "rust-toolchain.toml"
+      - "scripts/bootstrap.ps1"
+      - "scripts/bootstrap.sh"
+      - "scripts/doctor.ps1"
+      - "scripts/doctor.sh"
+  pull_request:
+    paths:
+      - ".github/workflows/bootstrap.yml"
+      - ".just-version"
+      - ".node-version"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "rust-toolchain.toml"
+      - "scripts/bootstrap.ps1"
+      - "scripts/bootstrap.sh"
+      - "scripts/doctor.ps1"
+      - "scripts/doctor.sh"
+
+permissions:
+  contents: read
+
+concurrency:
+  group: bootstrap-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  native-hosts:
+    name: Bootstrap · ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 75
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Bootstrap and build on Windows
+        if: runner.os == 'Windows'
+        shell: pwsh
+        run: |
+          .\scripts\bootstrap.ps1 -Yes
+          just build
+
+      - name: Bootstrap and build on macOS
+        if: runner.os == 'macOS'
+        shell: bash
+        run: |
+          source scripts/bootstrap.sh --yes
+          just build
+
+  pristine-ubuntu:
+    name: Bootstrap · pristine Ubuntu 24.04 container
+    runs-on: ubuntu-latest
+    timeout-minutes: 75
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Bootstrap and build inside a pristine container
+        run: |
+          docker run --rm \
+            --volume "$GITHUB_WORKSPACE:/workspace" \
+            --workdir /workspace \
+            ubuntu:24.04 \
+            bash -lc 'source scripts/bootstrap.sh --yes && just build'

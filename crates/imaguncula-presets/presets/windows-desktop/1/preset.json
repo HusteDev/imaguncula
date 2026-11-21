@@ -1,0 +1,289 @@
+{
+  "schemaVersion": 1,
+  "id": "windows-desktop",
+  "version": 1,
+  "displayName": "Windows desktop (.ico)",
+  "description": "A Win32 desktop icon containing Microsoft's minimum recommended Windows icon sizes.",
+  "platform": "windows",
+  "lastReviewed": "2026-07-31",
+  "specSources": [
+    "https://learn.microsoft.com/en-us/windows/apps/design/iconography/app-icon-construction"
+  ],
+  "sourceRoles": [
+    {
+      "role": "master",
+      "required": true,
+      "description": "The original square icon artwork used to render every ICO entry independently."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "icon-16",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 16,
+      "height": 16,
+      "usage": "Context menus, title bars, and the system tray at 100% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "icon-24",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 24,
+      "height": 24,
+      "usage": "Taskbar, search results, and the Start all-apps list at 100% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "icon-20",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 20,
+      "height": 20,
+      "usage": "Context menus, title bars, and the system tray at 125% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "icon-32",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 32,
+      "height": 32,
+      "usage": "Start pins at 100% scale and common desktop icon surfaces.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "icon-30",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 30,
+      "height": 30,
+      "usage": "Taskbar, search results, and the Start all-apps list at 125% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "icon-36",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 36,
+      "height": 36,
+      "usage": "Taskbar, search results, and the Start all-apps list at 150% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "icon-40",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 40,
+      "height": 40,
+      "usage": "Windows icon surfaces at 125% and 250% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "icon-48",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 48,
+      "height": 48,
+      "usage": "Common high-DPI Windows desktop icon surfaces.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "icon-256",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 256,
+      "height": 256,
+      "usage": "Large Start pins and the downsampling source for unmatched Windows display sizes.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "icon-60",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 60,
+      "height": 60,
+      "usage": "Taskbar, search results, and the Start all-apps list at 250% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "icon-64",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 64,
+      "height": 64,
+      "usage": "Context menus, title bars, system tray, and Start pins at high scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "icon-72",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 72,
+      "height": 72,
+      "usage": "Taskbar, search results, and the Start all-apps list at 300% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "icon-80",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 80,
+      "height": 80,
+      "usage": "Start pins at 250% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "icon-96",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 96,
+      "height": 96,
+      "usage": "Taskbar and Start surfaces at 300% and 400% scale.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    }
+  ],
+  "packages": [
+    {
+      "kind": "container",
+      "id": "desktop-ico",
+      "format": "ico",
+      "path": "{base}.ico",
+      "entries": [
+        {
+          "output": "icon-16",
+          "encoding": "bmp"
+        },
+        {
+          "output": "icon-20",
+          "encoding": "bmp"
+        },
+        {
+          "output": "icon-24",
+          "encoding": "bmp"
+        },
+        {
+          "output": "icon-30",
+          "encoding": "bmp"
+        },
+        {
+          "output": "icon-32",
+          "encoding": "bmp"
+        },
+        {
+          "output": "icon-36",
+          "encoding": "bmp"
+        },
+        {
+          "output": "icon-40",
+          "encoding": "bmp"
+        },
+        {
+          "output": "icon-48",
+          "encoding": "bmp"
+        },
+        {
+          "output": "icon-60",
+          "encoding": "bmp"
+        },
+        {
+          "output": "icon-64",
+          "encoding": "bmp"
+        },
+        {
+          "output": "icon-72",
+          "encoding": "bmp"
+        },
+        {
+          "output": "icon-80",
+          "encoding": "bmp"
+        },
+        {
+          "output": "icon-96",
+          "encoding": "bmp"
+        },
+        {
+          "output": "icon-256",
+          "encoding": "png"
+        }
+      ]
+    }
+  ],
+  "validationRules": [
+    {
+      "rule": "square-source",
+      "severity": "error",
+      "sourceRole": "master"
+    },
+    {
+      "rule": "no-upscale",
+      "severity": "error",
+      "sourceRole": "master"
+    },
+    {
+      "rule": "minimum-source-size",
+      "severity": "warning",
+      "sourceRole": "master",
+      "width": 256,
+      "height": 256
+    }
+  ],
+  "optionalOutputGroups": []
+}

@@ -1,0 +1,102 @@
+{
+  "schemaVersion": 1,
+  "id": "linux-hicolor-fixture",
+  "version": 1,
+  "displayName": "Linux hicolor schema fixture",
+  "description": "Exercises a directory hierarchy containing fixed-size PNG files and a scalable SVG.",
+  "platform": "linux",
+  "lastReviewed": "2026-07-31",
+  "specSources": ["https://specifications.freedesktop.org/icon-theme/latest/"],
+  "sourceRoles": [
+    {
+      "role": "master",
+      "required": true,
+      "description": "Primary icon artwork."
+    },
+    {
+      "role": "scalable",
+      "required": false,
+      "description": "Optional sanitized SVG retained for the scalable hierarchy."
+    }
+  ],
+  "outputs": [
+    {
+      "id": "icon-16",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 16,
+      "height": 16,
+      "usage": "Small Linux desktop icon.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "icon-32",
+      "sourceRole": "master",
+      "format": "png",
+      "width": 32,
+      "height": 32,
+      "usage": "Standard Linux desktop icon.",
+      "encoder": {
+        "type": "png",
+        "compression": "best",
+        "filter": "adaptive"
+      }
+    },
+    {
+      "id": "icon-scalable",
+      "sourceRole": "scalable",
+      "format": "svg",
+      "usage": "Scalable Linux desktop icon.",
+      "encoder": {
+        "type": "svg",
+        "mode": "sanitized-source"
+      }
+    }
+  ],
+  "packages": [
+    {
+      "kind": "directory",
+      "id": "hicolor-tree",
+      "root": "hicolor",
+      "files": [
+        {
+          "output": "icon-16",
+          "path": "16x16/apps/{base}.png"
+        },
+        {
+          "output": "icon-32",
+          "path": "32x32/apps/{base}.png"
+        },
+        {
+          "output": "icon-scalable",
+          "path": "scalable/apps/{base}.svg"
+        }
+      ]
+    }
+  ],
+  "validationRules": [
+    {
+      "rule": "square-source",
+      "severity": "error",
+      "sourceRole": "master"
+    },
+    {
+      "rule": "no-upscale",
+      "severity": "error",
+      "sourceRole": "master"
+    }
+  ],
+  "optionalOutputGroups": [
+    {
+      "id": "scalable-svg",
+      "displayName": "Scalable SVG",
+      "description": "Include a sanitized SVG in the scalable hierarchy when an SVG source is available.",
+      "defaultEnabled": true,
+      "outputs": ["icon-scalable"]
+    }
+  ]
+}

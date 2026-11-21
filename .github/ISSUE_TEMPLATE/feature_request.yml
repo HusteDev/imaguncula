@@ -1,0 +1,40 @@
+name: Feature request
+description: Propose a product or platform-support change.
+title: "[Feature]: "
+labels: [enhancement]
+body:
+  - type: textarea
+    id: problem
+    attributes:
+      label: Problem
+      description: Describe the user problem without prescribing the implementation.
+    validations:
+      required: true
+  - type: textarea
+    id: outcome
+    attributes:
+      label: Required outcome
+      description: State what a successful implementation must make possible.
+    validations:
+      required: true
+  - type: textarea
+    id: platform
+    attributes:
+      label: Platform requirements
+      description: Link authoritative platform documentation for sizes, filenames, metadata, or packaging rules.
+  - type: textarea
+    id: constraints
+    attributes:
+      label: Constraints and alternatives
+      description: Include offline, privacy, compatibility, accessibility, or workflow constraints and alternatives considered.
+  - type: checkboxes
+    id: invariants
+    attributes:
+      label: Product invariants
+      options:
+        - label: The request preserves local-only image processing.
+          required: true
+        - label: The request does not require silent raster upscaling.
+          required: true
+        - label: I searched existing issues and the execution plan for this request.
+          required: true
