@@ -813,9 +813,12 @@
 </svelte:head>
 
 <header class="app-header">
-  <div>
-    <p class="eyebrow">Offline icon asset generator</p>
-    <h1>Imaguncula</h1>
+  <div class="brand">
+    <img class="brand-mark" src="/favicon.svg" alt="" />
+    <div>
+      <p class="eyebrow">Offline icon asset generator</p>
+      <h1>Imaguncula</h1>
+    </div>
   </div>
   <nav aria-label="Project actions">
     <button type="button" onclick={createProject} disabled={busy}>New</button>
@@ -1472,6 +1475,17 @@
 
   .app-header {
     padding-top: clamp(2rem, 5vw, 4rem);
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 1.1rem;
+  }
+
+  .brand-mark {
+    width: 3.4rem;
+    height: 3.4rem;
   }
 
   .app-header,
