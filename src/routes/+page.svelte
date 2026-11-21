@@ -896,8 +896,10 @@
                 class="primary"
                 type="button"
                 disabled={busy}
-                onclick={() => acceptPresetUpgrade(upgrade)}>Accept and migrate</button
+                onclick={() => acceptPresetUpgrade(upgrade)}
               >
+                Accept and migrate
+              </button>
             </div>
             <div class="migration-diff">
               <div>
@@ -1086,11 +1088,11 @@
       <button class="drop-zone" type="button" onclick={chooseMasterSource} disabled={busy}>
         <strong>Select an SVG or PNG</strong>
         <span>or drag one onto this window</span>
-        <small
-          >{desktopRuntime
+        <small>
+          {desktopRuntime
             ? "SVG is preferred. PNG files are decoded under dimension, pixel, and memory limits."
-            : "Frontend preview only. Run pnpm tauri dev to select and process local files."}</small
-        >
+            : "Frontend preview only. Run pnpm tauri dev to select and process local files."}
+        </small>
       </button>
     {/if}
 
@@ -1210,9 +1212,9 @@
             />
             <span>
               <strong>{preset.displayName}</strong>
-              <small
-                >{preset.platform} · version {preset.version} · {preset.outputIds.length} outputs</small
-              >
+              <small>
+                {preset.platform} · version {preset.version} · {preset.outputIds.length} outputs
+              </small>
               {#if sourceNotice}
                 <small class="preset-source-requirement">{sourceNotice}</small>
               {/if}
@@ -1258,9 +1260,9 @@
       <div class="empty-outputs">
         <h3>No outputs selected</h3>
         <p>Enable a platform preset or add a row for an exact custom PNG.</p>
-        <button type="button" onclick={addCustomOutput} disabled={outputBusy}
-          >Add first output</button
-        >
+        <button type="button" onclick={addCustomOutput} disabled={outputBusy}>
+          Add first output
+        </button>
       </div>
     {/if}
 

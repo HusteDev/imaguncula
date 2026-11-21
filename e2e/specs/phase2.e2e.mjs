@@ -121,8 +121,12 @@ describe("v1 desktop accessibility and workflow smoke", () => {
   });
 
   it("has no automatic WCAG A or AA violations in the visible v1 surface", async () => {
+    // Legacy mode keeps axe from opening new window handles, which closes
+    // the WebDriver session under wry/WebKitGTK; the page has no iframes,
+    // so no coverage is lost.
     const results = await new AxeBuilder({ client: browser })
       .withTags(["wcag2a", "wcag2aa", "wcag21aa", "wcag22aa"])
+      .setLegacyMode(true)
       .analyze();
     const failures = results.violations.map((violation) => ({
       id: violation.id,
