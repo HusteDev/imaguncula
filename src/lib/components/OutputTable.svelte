@@ -616,7 +616,11 @@
   }
 
   .table-row.excluded {
-    opacity: 0.62;
+    /* Grayscale preserves luminance, so excluded rows read as inactive
+       without pushing text below the WCAG AA contrast threshold the way
+       opacity dimming did. */
+    filter: grayscale(0.85);
+    background: #f4f6f2;
   }
 
   .thumbnail {

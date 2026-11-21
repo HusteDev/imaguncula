@@ -122,8 +122,11 @@ try {
     }
 
     if (-not $nodeReady) {
+        # The versioned package id tracks the pinned major; the unversioned
+        # LTS id moves to the next major line and drops older versions.
+        $nodeMajor = ($expectedNode -split "\.")[0]
         Invoke-Step "install Node.js $expectedNode" "winget" @(
-            "install", "--exact", "--id", "OpenJS.NodeJS.LTS", "--version", $expectedNode,
+            "install", "--exact", "--id", "OpenJS.NodeJS.$nodeMajor", "--version", $expectedNode,
             "--accept-package-agreements", "--accept-source-agreements", "--silent", "--force"
         )
         Refresh-ProcessPath

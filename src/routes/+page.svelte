@@ -1757,7 +1757,7 @@
   }
 
   .role-output-types li span {
-    color: #68756d;
+    color: #5a675f;
   }
 
   .role-source-facts {
