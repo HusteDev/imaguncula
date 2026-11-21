@@ -778,7 +778,7 @@
 
   [role="cell"] > small {
     margin-top: 0.25rem;
-    color: #69756d;
+    color: #5a675f;
     font-size: 0.68rem;
   }
 
