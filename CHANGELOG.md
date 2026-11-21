@@ -32,5 +32,6 @@ First public beta. All desktop and CLI artifacts are unsigned and unnotarized; t
 - A confirmed overwrite only replaces a destination that contains a previous package's `report.md`; any other non-empty directory is refused. When an overwrite commit fails and the previous package cannot be restored, the staging directory holding it is preserved and named in the error instead of being deleted.
 - Opened project files are treated as untrusted: sources resolving outside the project's own directory are listed and confirmed before anything is read, the CLI refuses them without `--allow-external-sources`, and pre-accepted warnings and upscale authorizations are announced on open.
 - Release and distribution workflows pass workflow inputs and secrets through environment variables instead of template expansion, pin WingetCreate to a hash-verified release, pin third-party actions in token-bearing jobs to commit SHAs, and receive Dependabot updates for actions.
+- Upgraded the `zip` dependency to 9.8.1 for RUSTSEC-2026-0548; the vulnerable stream-extraction API was never used, and archive verification fails closed on undecodable entry names.
 
 [1.0.0-beta.1]: https://github.com/HusteDev/imaguncula/releases/tag/v1.0.0-beta.1

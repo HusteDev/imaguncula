@@ -29,7 +29,7 @@ sha2 = "=0.10.9"
 tempfile = "=3.27.0"
 thiserror = "=2.0.19"
 usvg = { version = "=0.47.0", default-features = false }
-zip = { version = "=8.6.0", default-features = false, features = ["deflate"] }
+zip = { version = "=9.8.1", default-features = false, features = ["deflate"] }
 
 [dev-dependencies]
 proptest = "=1.9.0"

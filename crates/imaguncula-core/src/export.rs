@@ -1366,13 +1366,22 @@ fn verify_combined_zip(
             path: zip_path.to_owned(),
             message: error.to_string(),
         })?;
+        // Name decoding is fallible; an undecodable entry fails verification.
+        let name = match entry.name() {
+            Ok(name) => name.into_owned(),
+            Err(error) => {
+                return Err(ExportError::Verification {
+                    missing: Vec::new(),
+                    unexpected: vec![format!("undecodable ZIP entry name: {error}")],
+                });
+            }
+        };
         if !entry.is_file() || entry.enclosed_name().is_none() {
             return Err(ExportError::Verification {
                 missing: Vec::new(),
-                unexpected: vec![entry.name().to_owned()],
+                unexpected: vec![name],
             });
         }
-        let name = entry.name().to_owned();
         let mut bytes = Vec::new();
         entry
             .read_to_end(&mut bytes)

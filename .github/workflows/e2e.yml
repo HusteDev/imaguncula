@@ -26,7 +26,9 @@ jobs:
       - name: Install desktop and WebDriver dependencies
         run: |
           sudo apt-get update
-          sudo apt-get install --yes libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf webkit2gtk-driver xvfb
+          sudo apt-get install --yes libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf xvfb
+          # Ubuntu renamed webkit2gtk-driver to webkitgtk-webdriver.
+          sudo apt-get install --yes webkitgtk-webdriver || sudo apt-get install --yes webkit2gtk-driver
 
       - name: Install pnpm
         uses: pnpm/action-setup@v4

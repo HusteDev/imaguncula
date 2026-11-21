@@ -16,7 +16,9 @@ concurrency:
 jobs:
   resources:
     name: Generate and compile Android resources
-    runs-on: ubuntu-latest
+    # Pinned because newer ubuntu-latest images dropped the preinstalled
+    # Android SDK that provides sdkmanager.
+    runs-on: ubuntu-24.04
     timeout-minutes: 35
     steps:
       - name: Check out repository
@@ -49,7 +51,8 @@ jobs:
           set -euo pipefail
           cargo run --locked -p imaguncula-cli -- export examples/android-multi-role.imaguncula.json \
             --output target/android-assets \
-            --no-zip
+            --no-zip \
+            --allow-external-sources
 
       - name: Place generated resources into the minimal fixture app
         shell: bash

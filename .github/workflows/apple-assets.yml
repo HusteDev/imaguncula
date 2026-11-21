@@ -51,11 +51,17 @@ jobs:
               --no-zip
           done
 
-      - name: Validate generated JSON property lists
+      - name: Validate generated Contents.json documents
         shell: bash
         run: |
           set -euo pipefail
-          find target/apple-assets -name Contents.json -print0 | xargs -0 -n1 plutil -lint
+          # plutil -lint no longer accepts JSON on current macOS images;
+          # actool still compiles the catalogs for the real validation below.
+          find target/apple-assets -name Contents.json -print0 |
+            while IFS= read -r -d '' file; do
+              python3 -m json.tool "$file" > /dev/null
+              echo "$file: OK"
+            done
 
       - name: Compile iOS modern AppIcon catalog
         shell: bash
