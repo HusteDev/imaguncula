@@ -16,9 +16,7 @@ concurrency:
 jobs:
   resources:
     name: Generate and compile Android resources
-    # Pinned because newer ubuntu-latest images dropped the preinstalled
-    # Android SDK that provides sdkmanager.
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-latest
     timeout-minutes: 35
     steps:
       - name: Check out repository
@@ -39,11 +37,11 @@ jobs:
           gradle-version: "9.5.0"
           cache-provider: basic
 
+      # Runner images no longer preinstall the Android SDK.
       - name: Install Android SDK platform and build tools
-        shell: bash
-        run: |
-          set -euo pipefail
-          sdkmanager "platforms;android-36" "build-tools;36.0.0"
+        uses: android-actions/setup-android@v3
+        with:
+          packages: platforms;android-36 build-tools;36.0.0
 
       - name: Generate resources through the production CLI path
         shell: bash

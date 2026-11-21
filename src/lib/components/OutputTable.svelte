@@ -61,6 +61,21 @@
   let platforms = $derived([...new Set(outputs.map((output) => output.platform))].sort());
   let additionalRoles = $derived(additionalSourceRoleRequirements(outputs));
 
+  /**
+   * Scrolls the virtualized viewport so the identified row is visible.
+   *
+   * Rows outside the viewport are not rendered at all, so callers that add a
+   * row must bring it into view or keyboard and assistive-technology users
+   * never encounter it.
+   */
+  export function scrollToOutput(id: string) {
+    const index = filteredOutputs.findIndex((output) => output.id === id);
+    if (index < 0 || !viewportElement) return;
+    const maximumScrollTop = Math.max(0, filteredOutputs.length * ROW_HEIGHT - VIEWPORT_HEIGHT);
+    viewportElement.scrollTop = Math.min(index * ROW_HEIGHT, maximumScrollTop);
+    scrollTop = viewportElement.scrollTop;
+  }
+
   $effect(() => {
     const outputsToPreview = visibleOutputs;
     untrack(() => {

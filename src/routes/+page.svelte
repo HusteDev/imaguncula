@@ -4,7 +4,7 @@
   import { listen } from "@tauri-apps/api/event";
   import { open, save } from "@tauri-apps/plugin-dialog";
   import { getCurrentWebview } from "@tauri-apps/api/webview";
-  import { onMount } from "svelte";
+  import { onMount, tick } from "svelte";
 
   import OutputTable from "$lib/components/OutputTable.svelte";
   import {
@@ -59,6 +59,7 @@
   let previewBackground = $state<"checkerboard" | "dark" | "light" | "transparent">("checkerboard");
   let displayPixelRatio = $state(1);
   let outputs = $state<OutputSpec[]>([]);
+  let outputTable = $state<OutputTable | null>(null);
   let availablePresets = $state<PresetSummary[]>([]);
   let presetUpgrades = $state<PresetUpgrade[]>([]);
   let outputError = $state("");
@@ -408,7 +409,10 @@
     project.enabledOutputs = [...new Set([...project.enabledOutputs, output.id])];
     markDirty();
     operationStatus = "Custom output added";
-    void refreshOutputs();
+    void refreshOutputs().then(async () => {
+      await tick();
+      outputTable?.scrollToOutput(output.id);
+    });
   }
 
   function toggleCustomOutput(id: string, included: boolean) {
@@ -1241,6 +1245,7 @@
 
     {#if outputs.length}
       <OutputTable
+        bind:this={outputTable}
         {outputs}
         onToggle={toggleCustomOutput}
         onUpdate={updateOutput}
