@@ -25,7 +25,15 @@ Use **Report a vulnerability** in the repository's Security tab to submit a priv
 
 Do not attach confidential artwork, credentials, access tokens, or unrelated personal data. Use a synthetic minimal fixture whenever possible.
 
-The project targets acknowledgement within seven days. Timing for validation and a fix depends on severity and reproducibility. The maintainer will coordinate disclosure after a fix is available. A reporter who follows this policy, avoids privacy violations and service disruption, and gives the project reasonable time to respond will not face legal action from the project for good-faith research.
+## Response and disclosure
+
+The project acknowledges vulnerability reports within seven days and aims to release a fix for confirmed vulnerabilities of medium or higher severity within 60 days of the report. Timing for validation and a fix otherwise depends on severity and reproducibility. The maintainer will coordinate disclosure with the reporter after a fix is available.
+
+Fixed vulnerabilities are published as [GitHub security advisories](https://github.com/HusteDev/imaguncula/security/advisories) and listed in the **Security** section of the affected release in [CHANGELOG.md](CHANGELOG.md), with their CVE or RUSTSEC identifier when one exists. Vulnerabilities in dependencies are tracked with Dependabot, `cargo deny`, and code scanning; the changelog records any that affected a release.
+
+## Safe harbor
+
+A reporter who follows this policy, avoids privacy violations and service disruption, and gives the project reasonable time to respond will not face legal action from the project for good-faith research.
 
 ## Security boundaries
 

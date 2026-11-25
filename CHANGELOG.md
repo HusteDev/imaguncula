@@ -4,6 +4,12 @@ All notable changes are documented here. This project uses Semantic Versioning.
 
 ## [Unreleased]
 
+### Changed
+
+- The contribution guide now documents how to report bugs, how to submit a pull request, the coding standards, and a testing policy that requires automated tests for new functionality and regression tests for bug fixes.
+- The security policy now states the response and fix targets for vulnerability reports and where fixed vulnerabilities are disclosed.
+- The repository publishes its OpenSSF Best Practices answers in `.bestpractices.json` and shows the badge in the README.
+
 ## [1.0.0-beta.1] - 2026-11-21
 
 First public beta. All desktop and CLI artifacts are unsigned and unnotarized; the release notes state the exact trust boundary.

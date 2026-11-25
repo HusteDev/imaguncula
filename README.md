@@ -2,6 +2,8 @@
 
 <img src="static/logo.svg" alt="Imaguncula wordmark" width="96" align="right">
 
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/17106/badge)](https://www.bestpractices.dev/projects/17106)
+
 Imaguncula is an offline desktop application that turns one high-quality SVG or PNG into correctly sized, named, and packaged icon assets for application platforms.
 
 The v1 implementation is complete locally. The desktop application and headless CLI share one exporter for multi-resolution Windows ICO, Windows MSIX/UWP resource families, Web/PWA assets and metadata, Linux hicolor trees, Xcode AppIcon catalogs, conventional ICNS, Icon Composer source packages, Android legacy/adaptive/themed resources, custom PNG rows, deterministic combined ZIPs, reports, progress, and transactional cancellation-safe commits. Saved projects pin immutable preset versions and expose an explicit diff-and-accept migration path. Hosted release, signing, notarization, package-channel, and manual accessibility gates remain pending until the repository is published.

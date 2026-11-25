@@ -11,8 +11,8 @@ body:
     id: version
     attributes:
       label: Version or commit
-      description: Provide the release version or commit SHA.
-      placeholder: 0.1.0 or abc1234
+      description: Provide the release version (from the file you downloaded, or `imaguncula --version`) or the commit SHA.
+      placeholder: 1.0.0-beta.1 or abc1234
     validations:
       required: true
   - type: dropdown
