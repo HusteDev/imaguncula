@@ -247,12 +247,21 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
+      # Sign SLSA build provenance for every artifact with a short-lived
+      # Sigstore certificate; no long-lived signing key exists anywhere.
+      id-token: write
+      attestations: write
+      artifact-metadata: write
     steps:
       - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
         with:
           pattern: release-*
           path: dist
           merge-multiple: true
+      - name: Attest artifact provenance
+        uses: actions/attest@1e69f48acb82d1966a394da916b4c1698aa569d6 # v4.2.2
+        with:
+          subject-path: dist/*
       - name: Create release and upload verified artifacts
         shell: bash
         env:

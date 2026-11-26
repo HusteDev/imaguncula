@@ -1,6 +1,6 @@
 # Packaging, signing, and distribution
 
-Status: automation implemented locally; hosted builds, credentials, signing, notarization, and channel submissions pending
+Status: release automation and provenance attestations implemented; operating-system code signing, notarization, and channel submissions pending
 
 ## Release artifacts
 
@@ -9,16 +9,32 @@ Tagging `v<workspace-version>` runs `.github/workflows/release.yml`. The tag mus
 | Platform | Desktop artifact | CLI artifact | Clean-runner smoke |
 | --- | --- | --- | --- |
 | Windows x64 | MSI, NSIS setup, portable ZIP | `imaguncula-cli-<version>-x86_64-pc-windows-msvc.tar.gz` | CLI export; portable launch; MSI install, launch, and uninstall; NSIS install and launch |
-
-Pre-release versions skip the Windows MSI (and its smoke steps) because Tauri's MSI target rejects non-numeric SemVer pre-release identifiers; pre-release Windows builds ship NSIS and the portable ZIP only.
 | Linux x64 | AppImage | `imaguncula-cli-<version>-x86_64-unknown-linux-gnu.tar.gz` | CLI export and bounded AppImage launch under Xvfb |
 | macOS runner architecture | DMG | target-qualified `.tar.gz` | CLI export, DMG mount, application launch |
 
+Pre-release versions skip the Windows MSI (and its smoke steps) because Tauri's MSI target rejects non-numeric SemVer pre-release identifiers; pre-release Windows builds ship NSIS and the portable ZIP only.
+
 Every platform artifact set includes SHA-256 sums. The release job uploads only artifacts that passed the clean-runner smoke matrix. The CLI archives match the explicit cargo-binstall metadata in `crates/imaguncula-cli/Cargo.toml`.
+
+## Verifying a release
+
+Starting with the first release after 1.0.0-beta.1, every uploaded file, including the SHA-256 sum files, carries a signed [GitHub artifact attestation](https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations/using-artifact-attestations-to-establish-provenance-for-builds). The release job signs SLSA build provenance with a short-lived [Sigstore](https://www.sigstore.dev/) certificate issued to this repository's release workflow. There is no long-lived private key: the certificate exists only for the duration of the job, and the signature is recorded in the public Sigstore transparency log. No signing key is stored on GitHub Releases, crates.io, or any other download site.
+
+To verify a downloaded file, install the [GitHub CLI](https://cli.github.com/), sign in with `gh auth login`, and run:
+
+```text
+gh attestation verify <downloaded-file> --repo HusteDev/imaguncula
+```
+
+Verification succeeds only when the file's SHA-256 digest matches an attestation signed by a workflow in `HusteDev/imaguncula`. To also require that the file came from the release workflow on a version tag, add `--signer-workflow HusteDev/imaguncula/.github/workflows/release.yml --source-ref refs/tags/v<version>`. The public "key" is the Sigstore root of trust, which `gh` downloads and checks automatically; no project key needs to be imported. Attestations can also be inspected on the repository's [Attestations page](https://github.com/HusteDev/imaguncula/attestations).
+
+Attestations prove where and how a file was built. They are not an operating-system code signature, so they do not change the SmartScreen or Gatekeeper behavior described below.
+
+1.0.0-beta.1 was published before attestations were added; verify its files against the published SHA-256 sums.
 
 ## Trust state
 
-The checked-in workflow builds unsigned artifacts until repository environments receive real signing identities. Unsigned Windows downloads can trigger SmartScreen. Unsigned or unnotarized macOS downloads can be blocked by Gatekeeper. Linux AppImage signatures are optional and are not automatically verified by AppImage itself. Never describe an unsigned artifact as signed, trusted, or notarized.
+The checked-in workflow builds artifacts without operating-system code signatures until repository environments receive real signing identities. Unsigned Windows downloads can trigger SmartScreen. Unsigned or unnotarized macOS downloads can be blocked by Gatekeeper. Linux AppImage signatures are optional and are not automatically verified by AppImage itself. Never describe an unsigned artifact as signed, trusted, or notarized.
 
 ### Windows
 

@@ -2,7 +2,7 @@
 
 <img src="static/logo.svg" alt="Imaguncula wordmark" width="96" align="right">
 
-[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/17106/badge)](https://www.bestpractices.dev/projects/17106)
+[![OpenSSF Best Practices](https://www.bestpractices.dev/projects/17106/badge)](https://www.bestpractices.dev/projects/17106) [![OpenSSF Baseline](https://www.bestpractices.dev/projects/17106/baseline)](https://www.bestpractices.dev/projects/17106)
 
 Imaguncula is an offline desktop application that turns one high-quality SVG or PNG into correctly sized, named, and packaged icon assets for application platforms.
 
@@ -20,7 +20,7 @@ The screenshot is the production frontend in preview mode. The Tauri runtime sup
 - Explain every output's dimensions, purpose, filename, and package destination.
 - Keep platform presets data-driven and versioned.
 
-See [PLAN.md](PLAN.md) for authoritative product requirements and [EXECUTION-PLAN.md](EXECUTION-PLAN.md) for engineering order.
+See [PLAN.md](PLAN.md) for authoritative product requirements, [EXECUTION-PLAN.md](EXECUTION-PLAN.md) for engineering order, [ROADMAP.md](ROADMAP.md) for what is planned next, and [GOVERNANCE.md](GOVERNANCE.md) for how the project is run.
 
 ## Use
 
@@ -66,7 +66,7 @@ The `.devcontainer` definition provides the pinned frontend and Rust toolchains 
 - `src-tauri`: thin desktop IPC adapter.
 - `src`: Svelte interface.
 
-See [docs/project-files.md](docs/project-files.md), [docs/presets.md](docs/presets.md), [docs/preset-review-process.md](docs/preset-review-process.md), [docs/source-import.md](docs/source-import.md), [docs/custom-outputs-and-export.md](docs/custom-outputs-and-export.md), [docs/windows-web-pwa-export.md](docs/windows-web-pwa-export.md), [docs/windows-msix-export.md](docs/windows-msix-export.md), [docs/linux-apple-export.md](docs/linux-apple-export.md), [docs/android-export.md](docs/android-export.md), [docs/determinism.md](docs/determinism.md), [docs/security-limits.md](docs/security-limits.md), [docs/accessibility-audit.md](docs/accessibility-audit.md), [docs/distribution.md](docs/distribution.md), and [docs/public-launch.md](docs/public-launch.md) for implemented formats, safety boundaries, release gates, and exact repository publication settings.
+See [docs/project-files.md](docs/project-files.md), [docs/presets.md](docs/presets.md), [docs/preset-review-process.md](docs/preset-review-process.md), [docs/source-import.md](docs/source-import.md), [docs/custom-outputs-and-export.md](docs/custom-outputs-and-export.md), [docs/windows-web-pwa-export.md](docs/windows-web-pwa-export.md), [docs/windows-msix-export.md](docs/windows-msix-export.md), [docs/linux-apple-export.md](docs/linux-apple-export.md), [docs/android-export.md](docs/android-export.md), [docs/determinism.md](docs/determinism.md), [docs/security-limits.md](docs/security-limits.md), [docs/assurance-case.md](docs/assurance-case.md), [docs/accessibility-audit.md](docs/accessibility-audit.md), [docs/distribution.md](docs/distribution.md), and [docs/public-launch.md](docs/public-launch.md) for implemented formats, safety boundaries, release gates, and exact repository publication settings.
 
 ## License
 
