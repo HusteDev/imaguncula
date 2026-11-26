@@ -30,6 +30,10 @@ Each package contains `report.md`. Combined ZIP creation is enabled by default. 
 
 Saved projects remain pinned to their exact preset versions. When a newer bundled version exists, the preset-update panel shows added, removed, and explicitly renamed output identities plus a deterministic review fingerprint. Nothing migrates until **Accept and migrate** is used. Acceptance is recorded in the project file and marks it unsaved.
 
+## Upgrading Imaguncula
+
+Install a new release over the old one. A new release opens every project file saved by an earlier 1.x version. Schema version 1 project files migrate to schema version 2 when opened; the project is marked unsaved, and the original file is untouched until you choose **Save**. Pinned preset versions never change during an upgrade; review and accept newer preset versions as described in [Preset updates](#preset-updates). The [changelog](../CHANGELOG.md) lists every change that affects project files, presets, or the CLI, with any steps an upgrade requires. Security fixes go into the current release line, so stay on the latest release.
+
 ## Command line
 
 The headless CLI exposes the same core exporter and needs no display server. See [cli.md](cli.md), the generated [CLI reference](cli-reference.md), and the checked-in [example projects](../examples/README.md).

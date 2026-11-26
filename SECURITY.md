@@ -29,6 +29,17 @@ Do not attach confidential artwork, credentials, access tokens, or unrelated per
 
 The project acknowledges vulnerability reports within seven days and aims to release a fix for confirmed vulnerabilities of medium or higher severity within 60 days of the report. Timing for validation and a fix otherwise depends on severity and reproducibility. The maintainer will coordinate disclosure with the reporter after a fix is available.
 
+## How reports are handled
+
+1. **Acknowledge.** The maintainer replies in the private report within seven days.
+2. **Triage.** The maintainer reproduces the problem, decides whether it crosses a [security boundary](#security-boundaries), and rates its severity with CVSS. The reporter is told the outcome. Reports that are not vulnerabilities are closed with an explanation, or moved to a public issue with the reporter's agreement.
+3. **Fix privately.** The fix and a regression test are developed in a private fork attached to the GitHub security advisory, so the details stay private until release. The reporter is invited to review the fix.
+4. **Release.** A patch release ships the fix. The advisory is published with a CVE identifier requested through GitHub, and the release's CHANGELOG Security section describes the issue.
+5. **Credit.** The advisory and the changelog credit the reporter by name or handle, unless the reporter asks to stay anonymous.
+6. **Follow up.** If the cause could recur, the hostile-input corpus, fuzz targets, or [assurance case](docs/assurance-case.md) are updated.
+
+Vulnerabilities in a dependency follow the same steps when they affect Imaguncula; otherwise the dependency is updated in the normal course of maintenance.
+
 Fixed vulnerabilities are published as [GitHub security advisories](https://github.com/HusteDev/imaguncula/security/advisories) and listed in the **Security** section of the affected release in [CHANGELOG.md](CHANGELOG.md), with their CVE or RUSTSEC identifier when one exists. Vulnerabilities in dependencies are tracked with Dependabot, `cargo deny`, and code scanning; the changelog records any that affected a release.
 
 ## Safe harbor

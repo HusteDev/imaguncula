@@ -9,6 +9,11 @@ All notable changes are documented here. This project uses Semantic Versioning.
 - The contribution guide now documents how to report bugs, how to submit a pull request, the coding standards, and a testing policy that requires automated tests for new functionality and regression tests for bug fixes.
 - The security policy now states the response and fix targets for vulnerability reports and where fixed vulnerabilities are disclosed.
 - The repository publishes its OpenSSF Best Practices answers in `.bestpractices.json` and shows the badge in the README.
+- New governance, roadmap, and security assurance case documents; the security policy describes step by step how vulnerability reports are handled and credited; the user guide explains upgrades; contributions now carry a Developer Certificate of Origin sign-off.
+
+### Security
+
+- Release artifacts, including the SHA-256 sum files, carry signed GitHub artifact attestations (SLSA build provenance) that can be checked with `gh attestation verify`.
 
 ## [1.0.0-beta.1] - 2026-11-21
 

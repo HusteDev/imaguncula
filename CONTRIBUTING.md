@@ -31,6 +31,16 @@ Use synthetic artwork. Do not attach confidential artwork, credentials, or unrel
 
 For large or behavior-changing work, open an issue or discussion first so the approach can be agreed before you invest time in it.
 
+### Developer Certificate of Origin
+
+Every commit in a pull request must be signed off to certify the [Developer Certificate of Origin 1.1](https://developercertificate.org/): that you wrote the change or otherwise have the right to submit it under the project's MIT OR Apache-2.0 license. Add the sign-off with `git commit -s`, which appends a line such as:
+
+```text
+Signed-off-by: Your Name <you@example.com>
+```
+
+Use your real name or an established pseudonym. To sign off commits you already made, run `git rebase --signoff main` and force-push your branch.
+
 ## Coding standards
 
 - **Rust:** format with `rustfmt` (`cargo fmt`). Code must pass `cargo clippy --workspace --all-targets -- -D warnings` with the workspace's `clippy::pedantic` lints. `unsafe` code is forbidden across the workspace.
@@ -70,4 +80,4 @@ Known maintenance-only RustSec notices remain visible as warnings because their 
 
 ## Plans and decisions
 
-Read [PLAN.md](PLAN.md) for product requirements, [EXECUTION-PLAN.md](EXECUTION-PLAN.md) for implementation order, and [docs/adr](docs/adr) for accepted decisions. When implementation changes an accepted decision, update its ADR and the execution plan in the same change. Product changes also require an update to `PLAN.md`.
+See [GOVERNANCE.md](GOVERNANCE.md) for how decisions are made and who holds which role, and [ROADMAP.md](ROADMAP.md) for what is planned. Read [PLAN.md](PLAN.md) for product requirements, [EXECUTION-PLAN.md](EXECUTION-PLAN.md) for implementation order, and [docs/adr](docs/adr) for accepted decisions. When implementation changes an accepted decision, update its ADR and the execution plan in the same change. Product changes also require an update to `PLAN.md`.
