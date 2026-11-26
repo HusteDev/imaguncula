@@ -16,6 +16,7 @@ All notable changes are documented here. This project uses Semantic Versioning.
 ### Security
 
 - Release artifacts, including the SHA-256 sum files, carry signed GitHub artifact attestations (SLSA build provenance) that can be checked with `gh attestation verify`.
+- Updated two Tauri dependencies for RustSec advisories: `url` 2.5.8 to 2.5.9 (RUSTSEC-2026-0592, stack overflow in `Url::origin()` on nested `blob:` URLs) and `cookie` 0.18.1 to 0.18.3 (RUSTSEC-2026-0594, private-cookie nonce reuse after `fork`). The webview loads only bundled content and Imaguncula neither forks nor uses private cookies, so neither issue was reachable.
 
 ## [1.0.0-beta.1] - 2026-11-21
 
