@@ -65,3 +65,79 @@ jobs:
 
       - name: Run ${{ matrix.task }} gate
         run: just ${{ matrix.task }}
+
+  coverage:
+    name: coverage · ubuntu-latest
+    runs-on: ubuntu-latest
+    timeout-minutes: 45
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Install Linux desktop dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf xdg-utils
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.9.0
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: Install pinned Rust toolchain with LLVM tools
+        run: rustup toolchain install 1.94.1 --profile minimal --component llvm-tools-preview
+
+      - name: Cache Rust build data
+        uses: Swatinem/rust-cache@v2
+        with:
+          workspaces: . -> target
+          shared-key: coverage
+
+      - name: Install cargo-llvm-cov
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-llvm-cov@0.9.2
+
+      - name: Install frontend dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Measure Rust coverage
+        shell: bash
+        run: |
+          set -euo pipefail
+          mkdir -p coverage
+          cargo llvm-cov --workspace --locked --lcov --output-path coverage/rust.lcov
+          cargo llvm-cov report --summary-only | tee coverage/rust-summary.txt
+          {
+            echo "### Rust coverage"
+            echo '```text'
+            cat coverage/rust-summary.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Measure frontend unit-test coverage
+        shell: bash
+        run: |
+          set -euo pipefail
+          pnpm test:coverage | tee coverage/frontend-summary.txt
+          {
+            echo "### Frontend unit-test coverage"
+            echo '```text'
+            sed -n '/% Coverage report/,$p' coverage/frontend-summary.txt
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: Upload coverage reports
+        uses: actions/upload-artifact@v7
+        with:
+          name: coverage
+          path: coverage/
+          if-no-files-found: error

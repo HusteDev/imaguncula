@@ -7,6 +7,16 @@ const host = process.env.TAURI_DEV_HOST;
 export default defineConfig(async () => ({
   plugins: [sveltekit()],
 
+  // Unit-test coverage, written by `pnpm test:coverage` (see `just coverage`).
+  test: {
+    coverage: {
+      provider: "v8",
+      include: ["src/**"],
+      reporter: ["text", "lcov", "json-summary"],
+      reportsDirectory: "coverage/frontend",
+    },
+  },
+
   // Vite options tailored for Tauri development and only applied in `tauri dev` or `tauri build`
   //
   // 1. prevent Vite from obscuring rust errors

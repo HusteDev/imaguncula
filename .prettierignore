@@ -3,6 +3,7 @@ build
 node_modules*
 .pnpm-store*
 target
+coverage
 src-tauri/gen
 src-tauri/icons
 Cargo.lock

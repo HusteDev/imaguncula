@@ -8,7 +8,14 @@ import svelteConfig from "./svelte.config.js";
 
 export default defineConfig(
   {
-    ignores: [".svelte-kit/**", "build/**", "node_modules/**", "src-tauri/gen/**", "target/**"],
+    ignores: [
+      ".svelte-kit/**",
+      "build/**",
+      "coverage/**",
+      "node_modules/**",
+      "src-tauri/gen/**",
+      "target/**",
+    ],
   },
   js.configs.recommended,
   ts.configs.recommended,

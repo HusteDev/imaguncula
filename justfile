@@ -22,6 +22,12 @@ test:
   {{pnpm}} test
   cargo test --workspace
 
+# Measure Rust and frontend unit-test coverage. Requires cargo-llvm-cov and the llvm-tools-preview rustup component.
+coverage:
+  cargo llvm-cov --workspace --locked --lcov --output-path coverage/rust.lcov
+  cargo llvm-cov report --summary-only
+  {{pnpm}} test:coverage
+
 lint:
   {{pnpm}} format:check
   {{pnpm}} lint

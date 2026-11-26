@@ -60,6 +60,8 @@ Every change that adds functionality or fixes a bug must include automated tests
 
 The test suites run with `just test` (`cargo test --workspace` and `pnpm test`), and the desktop end-to-end and accessibility suite runs with `pnpm test:e2e`. CI runs them on Windows, macOS, and Linux for every pull request. Pull requests that add functionality without tests are not merged.
 
+CI also measures statement coverage for the Rust workspace (with `cargo llvm-cov`) and for the frontend unit tests (with Vitest's V8 coverage), shows the totals in the run summary, and uploads the reports as the `coverage` artifact. Run the same measurement locally with `just coverage` after installing `cargo-llvm-cov` and the `llvm-tools-preview` rustup component. Changes should not lower coverage.
+
 ## Development checks
 
 Install the prerequisites listed in [README.md](README.md), then run:
