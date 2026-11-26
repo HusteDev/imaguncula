@@ -16,6 +16,7 @@ node_modules
 /fuzz/artifacts
 /fuzz/corpus
 /fuzz/target
+/coverage
 
 # Environment files
 .env

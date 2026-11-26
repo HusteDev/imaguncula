@@ -93,8 +93,8 @@ fn inspect_export_destination(
     clippy::needless_pass_by_value,
     reason = "Tauri injects app/state and deserializes command payloads by value"
 )]
-fn start_export(
-    app: tauri::AppHandle,
+fn start_export<R: tauri::Runtime>(
+    app: tauri::AppHandle<R>,
     state: tauri::State<'_, ExportJobs>,
     project: imaguncula_core::ProjectState,
     parent: String,
@@ -286,6 +286,9 @@ use std::{
 
 use serde::Serialize;
 use tauri::Emitter;
+
+#[cfg(test)]
+mod tests;
 
 #[derive(Default)]
 struct ExportJobs {
