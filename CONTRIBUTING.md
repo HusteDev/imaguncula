@@ -60,7 +60,9 @@ Every change that adds functionality or fixes a bug must include automated tests
 
 The test suites run with `just test` (`cargo test --workspace` and `pnpm test`), and the desktop end-to-end and accessibility suite runs with `pnpm test:e2e`. CI runs them on Windows, macOS, and Linux for every pull request. Pull requests that add functionality without tests are not merged.
 
-CI also measures statement coverage for the Rust workspace (with `cargo llvm-cov`) and for the frontend unit tests (with Vitest's V8 coverage), shows the totals in the run summary, and uploads the reports as the `coverage` artifact. Run the same measurement locally with `just coverage` after installing `cargo-llvm-cov` and the `llvm-tools-preview` rustup component. Changes should not lower coverage.
+CI also measures statement coverage for the Rust workspace (with `cargo llvm-cov`) and for the frontend unit tests (with Vitest's V8 coverage), shows the totals in the run summary, and uploads the reports as the `coverage` artifact. Run the same measurement locally with `just coverage` after installing `cargo-llvm-cov` and the `llvm-tools-preview` rustup component. The check fails when Rust line coverage or frontend statement or line coverage drops below 80%, and changes should not lower coverage.
+
+Frontend component tests render the real Svelte components in jsdom with Testing Library. They talk to a fake desktop backend in `src/test-support/desktop.ts`, which answers Tauri commands through Tauri's IPC mock, so a new command or event the frontend uses needs a matching handler there.
 
 ## Development checks
 

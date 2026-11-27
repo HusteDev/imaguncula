@@ -69,3 +69,19 @@ describe("emptyOutputOverride", () => {
     });
   });
 });
+
+describe("projectErrorMessage coverage", () => {
+  it.each([
+    ["Plain text.", "Plain text."],
+    [null, "The project operation failed."],
+    [{ kind: "io", message: "Access denied." }, "Access denied."],
+    [{ kind: "invalid-file-name" }, ".imaguncula.json extension"],
+    [{ kind: "file-too-large" }, "1 MiB"],
+    [{ kind: "unsupported-schema-version", found: 9 }, "schema version 9"],
+    [{ kind: "unsupported-schema-version", found: null }, "schema version unknown"],
+    [{ kind: "validation" }, "invalid values"],
+    [{ kind: "unknown" }, "The project operation failed."],
+  ])("describes %j", (error, text) => {
+    expect(projectErrorMessage(error)).toContain(text);
+  });
+});
