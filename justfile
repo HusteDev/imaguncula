@@ -28,6 +28,10 @@ coverage:
   cargo llvm-cov report --summary-only --fail-under-lines 80
   {{pnpm}} test:coverage
 
+# Build the frontend, CLI, and desktop executable twice and fail unless the builds are byte-identical. On Windows this needs Git Bash first on PATH.
+repeatable-build:
+  bash scripts/check-repeatable-build.sh
+
 lint:
   {{pnpm}} format:check
   {{pnpm}} lint

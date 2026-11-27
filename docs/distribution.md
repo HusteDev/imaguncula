@@ -32,6 +32,14 @@ Attestations prove where and how a file was built. They are not an operating-sys
 
 1.0.0-beta.1 was published before attestations were added; verify its files against the published SHA-256 sums.
 
+## Repeatable builds
+
+Building the same source twice produces byte-identical output. The [Repeatable build](https://github.com/HusteDev/imaguncula/actions/workflows/repeatable-build.yml) workflow checks this on Windows, macOS, and Linux for every push to `main` and every pull request: it builds the frontend, the `imaguncula` CLI, and the desktop executable twice, each time into a fresh Cargo target directory, and fails if any file differs. Run the same check locally with `just repeatable-build` (or `bash scripts/check-repeatable-build.sh`).
+
+Two settings make this possible. SvelteKit's build version is the package version instead of the build time (`svelte.config.js`), and on Windows the MSVC linker runs with `/Brepro` (`.cargo/config.toml`), which derives executable timestamps and the debug-file identifier from the contents instead of the clock.
+
+The check covers the compiled program files. The installers and archives that wrap them (NSIS, MSI, AppImage, DMG, and the tar and ZIP archives) also record packaging timestamps, so they are not yet byte-identical across builds; the executables inside them are. Reproducing a build on another machine additionally requires the same toolchain versions: Rust 1.94.1 from `rust-toolchain.toml`, the Node.js version in `.node-version`, pnpm 11.9.0, and the locked dependencies in `Cargo.lock` and `pnpm-lock.yaml`.
+
 ## Trust state
 
 The checked-in workflow builds artifacts without operating-system code signatures until repository environments receive real signing identities. Unsigned Windows downloads can trigger SmartScreen. Unsigned or unnotarized macOS downloads can be blocked by Gatekeeper. Linux AppImage signatures are optional and are not automatically verified by AppImage itself. Never describe an unsigned artifact as signed, trusted, or notarized.

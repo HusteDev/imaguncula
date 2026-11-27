@@ -1,0 +1,67 @@
+name: Repeatable build
+
+# Builds the frontend, CLI, and desktop executable twice on each release
+# platform and fails unless both builds are byte-identical.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: repeatable-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  repeatable:
+    name: repeatable build · ${{ matrix.os }}
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 60
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [windows-latest, macos-latest, ubuntu-latest]
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v7
+
+      - name: Install Linux desktop dependencies
+        if: runner.os == 'Linux'
+        run: |
+          sudo apt-get update
+          sudo apt-get install --yes libwebkit2gtk-4.1-dev libappindicator3-dev librsvg2-dev patchelf xdg-utils
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 11.9.0
+          run_install: false
+
+      - name: Install Node.js
+        uses: actions/setup-node@v7
+        with:
+          node-version-file: .node-version
+          cache: pnpm
+
+      - name: Install pinned Rust toolchain
+        run: rustup toolchain install 1.94.1 --profile minimal
+
+      - name: Install frontend dependencies
+        run: pnpm install --frozen-lockfile
+
+      - name: Build twice and compare
+        shell: bash
+        run: bash scripts/check-repeatable-build.sh
+
+      - name: Upload build hashes
+        if: always()
+        uses: actions/upload-artifact@v7
+        with:
+          name: repeatable-build-${{ runner.os }}
+          path: target/repeatable-build/
+          if-no-files-found: ignore
