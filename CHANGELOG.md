@@ -7,6 +7,7 @@ All notable changes are documented here. This project uses Semantic Versioning.
 ### Changed
 
 - CI measures Rust and frontend test coverage on every push and pull request and uploads the reports, and `just coverage` runs the same measurement locally.
+- The main page and the output review table have component tests that run against a fake desktop backend, raising frontend statement coverage from 12% to 98%. CI and `just coverage` now fail when Rust or frontend coverage drops below 80%.
 - The desktop IPC adapter has its own test suite, which drives every command through Tauri's mock runtime. Windows builds now embed the application manifest through the linker so those tests can run on Windows.
 - The contribution guide now documents how to report bugs, how to submit a pull request, the coding standards, and a testing policy that requires automated tests for new functionality and regression tests for bug fixes.
 - The security policy now states the response and fix targets for vulnerability reports and where fixed vulnerabilities are disclosed.

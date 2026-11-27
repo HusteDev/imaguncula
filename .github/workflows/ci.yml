@@ -122,20 +122,26 @@ jobs:
             cat coverage/rust-summary.txt
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
+          # Fail when Rust line coverage drops below 80%.
+          cargo llvm-cov report --summary-only --fail-under-lines 80 > /dev/null
 
       - name: Measure frontend unit-test coverage
         shell: bash
         run: |
           set -euo pipefail
-          pnpm test:coverage | tee coverage/frontend-summary.txt
+          # vite.config.js sets 80% thresholds; publish the summary before failing.
+          status=0
+          pnpm test:coverage | tee coverage/frontend-summary.txt || status=$?
           {
             echo "### Frontend unit-test coverage"
             echo '```text'
             sed -n '/% Coverage report/,$p' coverage/frontend-summary.txt
             echo '```'
           } >> "$GITHUB_STEP_SUMMARY"
+          exit "$status"
 
       - name: Upload coverage reports
+        if: always()
         uses: actions/upload-artifact@v7
         with:
           name: coverage

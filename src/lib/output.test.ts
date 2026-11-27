@@ -273,3 +273,33 @@ describe("exportErrorMessage", () => {
     );
   });
 });
+
+describe("exportErrorMessage coverage", () => {
+  it.each([
+    ["Plain text.", "Plain text."],
+    [null, "The export failed."],
+    [
+      { issues: [{ path: "outputs[0]", message: "bad" }, null, {}] },
+      "outputs[0]: bad; Invalid project value; project: invalid value",
+    ],
+    [{ kind: "no-included-outputs" }, "Enable at least one"],
+    [{ kind: "destination-exists" }, "explicit overwrite confirmation"],
+    [{ kind: "destination-not-directory" }, "not a directory"],
+    [{ kind: "invalid-destination" }, "not usable"],
+    [{ kind: "source-changed" }, "Refresh the table"],
+    [{ kind: "metadata-condition-incomplete" }, "partly enabled"],
+    [{ kind: "metadata" }, "could not be validated"],
+    [{ kind: "unsupported-container" }, "container could not be encoded"],
+    [{ kind: "container" }, "container could not be encoded"],
+    [{ kind: "zip" }, "combined ZIP"],
+    [{ kind: "job-already-running" }, "already running"],
+    [{ kind: "jobs-unavailable" }, "job manager"],
+    [{ kind: "verification" }, "did not match"],
+    [{ kind: "write" }, "written or committed"],
+    [{ kind: "commit" }, "written or committed"],
+    [{ kind: "unknown", message: "Core message." }, "Core message."],
+    [{ kind: "unknown" }, "The export failed."],
+  ])("describes %j", (error, text) => {
+    expect(exportErrorMessage(error)).toContain(text);
+  });
+});

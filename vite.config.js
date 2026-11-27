@@ -1,19 +1,24 @@
 import { defineConfig } from "vite";
 import { sveltekit } from "@sveltejs/kit/vite";
+import { svelteTesting } from "@testing-library/svelte/vite";
 
 const host = process.env.TAURI_DEV_HOST;
 
 // https://vite.dev/config/
 export default defineConfig(async () => ({
-  plugins: [sveltekit()],
+  // svelteTesting only changes the configuration when Vitest runs.
+  plugins: [sveltekit(), svelteTesting()],
 
   // Unit-test coverage, written by `pnpm test:coverage` (see `just coverage`).
   test: {
     coverage: {
       provider: "v8",
       include: ["src/**"],
+      exclude: ["src/**/*.test.ts", "src/test-support/**"],
       reporter: ["text", "lcov", "json-summary"],
       reportsDirectory: "coverage/frontend",
+      // The OpenSSF Best Practices silver level asks for 80% statement coverage.
+      thresholds: { statements: 80, lines: 80 },
     },
   },
 
