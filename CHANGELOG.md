@@ -6,6 +6,7 @@ All notable changes are documented here. This project uses Semantic Versioning.
 
 ### Changed
 
+- Builds are repeatable: building the same source twice produces a byte-identical frontend, CLI, and desktop executable. SvelteKit's build version now comes from the package version, Windows builds link with `/Brepro`, and a new CI workflow checks this on Windows, macOS, and Linux.
 - CI measures Rust and frontend test coverage on every push and pull request and uploads the reports, and `just coverage` runs the same measurement locally.
 - The main page and the output review table have component tests that run against a fake desktop backend, raising frontend statement coverage from 12% to 98%. CI and `just coverage` now fail when Rust or frontend coverage drops below 80%.
 - The desktop IPC adapter has its own test suite, which drives every command through Tauri's mock runtime. Windows builds now embed the application manifest through the linker so those tests can run on Windows.

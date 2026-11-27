@@ -62,6 +62,8 @@ The test suites run with `just test` (`cargo test --workspace` and `pnpm test`),
 
 CI also measures statement coverage for the Rust workspace (with `cargo llvm-cov`) and for the frontend unit tests (with Vitest's V8 coverage), shows the totals in the run summary, and uploads the reports as the `coverage` artifact. Run the same measurement locally with `just coverage` after installing `cargo-llvm-cov` and the `llvm-tools-preview` rustup component. The check fails when Rust line coverage or frontend statement or line coverage drops below 80%, and changes should not lower coverage.
 
+Builds must stay repeatable: the Repeatable build workflow builds the frontend, CLI, and desktop executable twice on each platform and fails if the outputs differ. Avoid embedding build times, random values, or absolute paths in build output; `just repeatable-build` runs the same check locally.
+
 Frontend component tests render the real Svelte components in jsdom with Testing Library. They talk to a fake desktop backend in `src/test-support/desktop.ts`, which answers Tauri commands through Tauri's IPC mock, so a new command or event the frontend uses needs a matching handler there.
 
 ## Development checks

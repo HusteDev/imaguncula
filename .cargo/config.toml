@@ -1,0 +1,7 @@
+# SPDX-License-Identifier: MIT OR Apache-2.0
+
+# Repeatable Windows builds: /Brepro makes the MSVC linker derive the PE and
+# debug-directory timestamps and the PDB identifier from the output contents
+# instead of the clock, so two builds of the same source are byte-identical.
+[target.'cfg(all(windows, target_env = "msvc"))']
+rustflags = ["-C", "link-arg=/Brepro"]
