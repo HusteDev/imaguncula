@@ -31,7 +31,7 @@ jobs:
           sudo apt-get install --yes webkitgtk-webdriver || sudo apt-get install --yes webkit2gtk-driver
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v4
+        uses: pnpm/action-setup@v6
         with:
           version: 11.9.0
           run_install: false
