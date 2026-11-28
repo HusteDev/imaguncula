@@ -6,7 +6,7 @@ Date: 2026-07-31
 
 ## Context
 
-Windows desktop and Web/PWA outputs define the first useful release. Implementing and validating Apple container and asset-catalog behavior before that milestone would delay usable output.
+Windows desktop and Web/PWA outputs define the first useful release. Implementing and validating Apple container and asset-catalog behavior first would have delayed that release.
 
 ## Decision
 
@@ -14,7 +14,7 @@ Implement conventional ICNS generation in Phase 4 after custom PNG, Windows desk
 
 ## Consequences
 
-The first useful release does not promise ICNS. The Phase 0 container spike may still test the candidate crate to reduce later architectural risk.
+The first useful release did not promise ICNS. ICNS export shipped in Phase 4 and is included in 1.0.0-beta.1.
 
 ## Phase 4 implementation evidence
 

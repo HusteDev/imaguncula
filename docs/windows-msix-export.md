@@ -1,26 +1,26 @@
 # Windows packaged-app export
 
-The `windows-msix` preset generates PNG resource families for MSIX/UWP manifests. Version 2 is current. Version 1 remains bundled so saved projects stay reproducible and can review an explicit v1-to-v2 comparison.
+The `windows-msix` preset generates the PNG resources an MSIX or UWP manifest references. Version 2 is current. Version 1 is still included so projects saved with it export the same files and can review the changes before migrating.
 
-## Default asset family
+## Default files
 
-The default set contains 57 files under `windows-msix/msix/Assets`:
+By default the preset writes 57 files to `windows-msix/msix/Assets`:
 
-- 14 exact `AppList.targetsize-*` sizes from 16 through 256 pixels;
-- matching `_altform-unplated` and `_altform-lightunplated` files for dark and light surfaces;
-- five `AppList.scale-*` Square44x44Logo resources;
-- five `MedTile.scale-*` Square150x150Logo resources;
-- five `StoreLogo.scale-*` package resources.
+- 14 `AppList.targetsize-*` images at 16, 20, 24, 30, 32, 36, 40, 48, 60, 64, 72, 80, 96, and 256 pixels;
+- an `_altform-unplated` and an `_altform-lightunplated` copy of each, for dark and light surfaces;
+- five `AppList.scale-*` images for `Square44x44Logo`;
+- five `MedTile.scale-*` images for `Square150x150Logo`;
+- five `StoreLogo.scale-*` images for the package logo.
 
-The unqualified manifest references are `Assets\AppList.png`, `Assets\MedTile.png`, and `Assets\StoreLogo.png`. Windows resolves the qualified siblings. Version 2 adds an opt-in group for exact 250% and 300% resources. Other opt-in groups cover Windows 10 tile families, light-theme variants, splash screens, lock-screen badges, and Store light-theme assets.
+In the manifest, reference `Assets\AppList.png`, `Assets\MedTile.png`, and `Assets\StoreLogo.png`; Windows picks the matching scale or target-size file. Optional groups, all off by default, add Windows 10 tile sizes and their light-theme variants, Windows 10 light-theme app-list images, splash screens and their theme variants, lock-screen badges, and light-theme Store logos. Version 2 also adds an optional group with exact 250% and 300% scale images.
 
-One master source feeds every row initially. Theme-specific and non-square compositions should use per-output source replacement. Raster sources never upscale silently; the largest enabled output determines the minimum practical master size.
+Every row starts with the master source. For theme-specific or non-square artwork, replace the source on the rows that need it. PNG sources are never scaled up without permission, so a PNG master must be at least as large as the largest included output.
 
 ## Validation
 
-Core integration tests decode representative default and intermediate-scale PNGs and assert exact paths and dimensions. The Windows workflow generates through the production CLI, copies the asset directory into `fixtures/platform/windows-msix`, and runs `MakeAppx.exe pack` without `/nv`. This checks manifest references and performs MakeAppx semantic validation. It does not prove Store certification, signing, installation, or visual quality on every Windows surface.
+Rust integration tests decode a sample of the default and intermediate-scale PNGs and check their paths and dimensions. The `windows-msix-assets.yml` workflow runs whenever the CLI, core, presets, or fixture change. It exports the preset with the CLI, puts the assets in a package folder with the fixture manifest from `fixtures/platform/windows-msix`, indexes the resources with `MakePri.exe`, and runs `MakeAppx.exe pack` with semantic validation turned on, which checks that the manifest's references resolve. It does not cover Store certification, signing, installation, or how the icons look on each Windows surface.
 
-Vendor basis:
+References:
 
 - [Windows app icon construction](https://learn.microsoft.com/en-us/windows/apps/design/iconography/app-icon-construction)
 - [uap:VisualElements manifest schema](https://learn.microsoft.com/en-us/uwp/schemas/appxpackage/uapmanifestschema/element-uap-visualelements)

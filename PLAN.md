@@ -1,11 +1,14 @@
 # Imaguncula Project Plan
 
-Status: implemented locally; public release gates pending  
-Last updated: 2026-07-31
+Status: implemented; 1.0.0-beta.1 released on 2026-11-21
+
+Last updated: 2026-11-27
+
+This document states the product requirements. Implementation decisions are recorded in [docs/adr](docs/adr/README.md), and [EXECUTION-PLAN.md](EXECUTION-PLAN.md) tracks the task-level work.
 
 ## Purpose
 
-Imaguncula is a simple, offline desktop application that converts icon artwork into correctly sized, named, and packaged icon assets for multiple operating systems and application platforms.
+Imaguncula is an offline desktop application and command-line tool that converts icon artwork into correctly sized, named, and packaged icon assets for multiple operating systems and application platforms.
 
 The primary workflow should require one high-quality source image. Platform-specific or size-specific replacement images remain available when automatic scaling produces a poor result.
 
@@ -91,7 +94,7 @@ The table must support:
 - Reject or explicitly flag outputs larger than the source.
 - Do not enlarge unless the user deliberately enables an override for that export.
 - Use a high-quality, deterministic downsampling algorithm.
-- Preserve the alpha channel and embedded color profile where supported.
+- Preserve the alpha channel. Embedded ICC profiles are detected and reported, and decoded values are treated as sRGB; v1 does not perform color-managed conversion (see [ADR 0010](docs/adr/0010-png-color-profile-policy.md)).
 - Avoid repeated resizing. Every output must be generated directly from the original source.
 
 ### Small-size legibility
@@ -221,9 +224,9 @@ Custom rows make the application useful for browser extensions, game engines, in
 
 ## Project File
 
-Imaguncula should save a human-readable project file, tentatively using the `.imaguncula.json` extension.
+Imaguncula saves a human-readable project file with the `.imaguncula.json` extension. The format is documented in [docs/project-files.md](docs/project-files.md).
 
-It should contain:
+It contains:
 
 - schema version;
 - project name and base filename;
@@ -255,7 +258,7 @@ Use a typed web frontend suitable for:
 - accessible keyboard operation;
 - progress and validation reporting.
 
-Svelte with TypeScript is the initial recommendation, but this remains an implementation decision rather than a product requirement.
+The implementation uses Svelte 5 with TypeScript ([ADR 0001](docs/adr/0001-frontend-stack.md)). The framework is an implementation decision, not a product requirement.
 
 ### Processing core
 
@@ -312,6 +315,8 @@ Preset changes must not silently alter an existing saved project. Opening a proj
 - Allow preview backgrounds and zoom levels to be changed without affecting output.
 
 ## Implementation Phases
+
+All eight phases were completed before 1.0.0-beta.1. The phase list is kept as the record of how the work was ordered.
 
 ### Phase 0: Repository foundation
 
@@ -446,7 +451,7 @@ Use small, intentionally designed source fixtures to compare:
 - JSON and XML metadata;
 - reports and warnings.
 
-Avoid brittle byte-for-byte checks when encoders include nondeterministic metadata. Decode and compare semantic content instead.
+Decode and compare semantic content. Exports are also byte-for-byte deterministic under the [determinism contract](docs/determinism.md), and the integration suite checks that two exports of the same project are identical.
 
 ### Integration tests
 
@@ -480,18 +485,18 @@ Where practical, generate minimal fixture applications and verify that:
 - Replacing Apple Icon Composer or other vendor-specific design tools.
 - Supporting every historical platform and obsolete icon format in the first release.
 
-## Open Decisions
+## Resolved Decisions
 
-Resolve these during Phase 0:
+The eight decisions left open at the start of Phase 0 are recorded as architecture decision records:
 
-1. Exact frontend framework and package manager.
-2. Rust image, SVG, ICO, ICNS, and ZIP libraries.
-3. Whether SVG remains in memory or is converted into a sanitized intermediate representation.
-4. Default platform and size selection for a new project.
-5. Combined ZIP naming and directory layout.
-6. Whether the first public build targets Windows only or all desktop operating systems.
-7. Whether preset definitions can be updated independently of application releases.
-8. Whether conventional ICNS generation is included in the first release or deferred until after Windows/Web output.
+1. Frontend framework and package manager: [ADR 0001](docs/adr/0001-frontend-stack.md).
+2. Rust image, SVG, and ICO libraries: [ADR 0002](docs/adr/0002-rust-library-spikes.md).
+3. Sanitized SVG intermediate: [ADR 0003](docs/adr/0003-svg-intermediate.md).
+4. New-project defaults: [ADR 0004](docs/adr/0004-new-project-defaults.md).
+5. Combined ZIP layout: [ADR 0005](docs/adr/0005-combined-zip-layout.md).
+6. First public release platforms: [ADR 0006](docs/adr/0006-initial-release-platforms.md).
+7. Preset delivery with application releases: [ADR 0007](docs/adr/0007-preset-delivery.md).
+8. ICNS in Phase 4: [ADR 0008](docs/adr/0008-icns-scope.md).
 
 ## Definition of the First Useful Release
 
@@ -506,13 +511,3 @@ The first useful release is complete when a user can:
 7. export a valid multi-resolution ICO and a correctly structured web asset package;
 8. save and reopen the Imaguncula project;
 9. receive an accurate report of generated files and unresolved warnings.
-
-## Restart Point
-
-When work resumes:
-
-1. Revalidate the linked vendor specifications because platform requirements can change.
-2. Resolve the Phase 0 open decisions.
-3. Scaffold the application and test infrastructure.
-4. Implement the versioned preset schema before implementing platform-specific generators.
-5. Complete Phase 1 and Phase 2 before expanding the number of built-in platform presets.

@@ -16,4 +16,4 @@ The cache retains at most eight validated source intermediates. Replacing a role
 
 ## Consequences
 
-Sanitization becomes one auditable choke point. Renderer behavior is deterministic for a given sanitized tree and target specification. Raw document bytes establish content identity and can create a new sanitized tree after cache eviction, but they never go directly to the renderer.
+Sanitization happens in one place, which can be audited. Renderer behavior is deterministic for a given sanitized tree and target specification. Raw document bytes establish content identity and can create a new sanitized tree after cache eviction, but they never go directly to the renderer.

@@ -36,5 +36,5 @@ body:
           required: true
         - label: The request does not require silent raster upscaling.
           required: true
-        - label: I searched existing issues and the execution plan for this request.
+        - label: I searched existing issues and the roadmap for this request.
           required: true

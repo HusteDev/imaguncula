@@ -82,7 +82,7 @@ Changes to Rust dependencies must also pass:
 cargo deny check advisories bans licenses sources --warn unmaintained
 ```
 
-Known maintenance-only RustSec notices remain visible as warnings because their current Tauri/resvg dependency paths have no safe upgrade. Vulnerabilities, disallowed licenses, wildcard dependencies, and untrusted sources fail the gate. The hosted security workflow scans the complete Git history with Gitleaks. Do not commit real credentials and do not use an allowlist to conceal a real leak; rotate the credential and remove it from history before publication.
+Unmaintained crates and duplicate crate versions are reported as warnings. Vulnerabilities, disallowed licenses, wildcard dependencies, and untrusted sources fail the gate. The hosted security workflow scans the complete Git history with Gitleaks. Do not commit real credentials and do not use an allowlist to conceal a real leak; rotate the credential and remove it from history.
 
 ## Plans and decisions
 

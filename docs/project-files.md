@@ -1,36 +1,36 @@
 # Project files
 
-Imaguncula project files use the compound extension `.imaguncula.json`. Schema version 2 is implemented in `imaguncula-core`; the Tauri commands are thin adapters over the same load/save and migration functions used by tests and the CLI.
+Imaguncula project files end in `.imaguncula.json`. The current format is schema version 2. Loading, saving, and migration are implemented in `imaguncula-core`, and the desktop application and the CLI both call the same functions.
 
 ## Schema version 2
 
-Every project records:
+A project file records:
 
 - `schemaVersion`, `projectName`, and `baseFilename`;
-- source roles, source paths, and SHA-256 content hashes;
-- selected preset IDs with immutable versions;
-- enabled outputs, custom outputs, and per-output overrides;
+- each source's role, path, and SHA-256 hash;
+- the selected preset IDs and their exact versions;
+- included outputs, custom outputs, and per-output overrides;
 - export settings;
-- typed warning acceptances;
-- accepted preset migrations with source version, destination version, and reviewed diff fingerprint.
+- accepted warnings;
+- accepted preset migrations, each with the old version, the new version, and the fingerprint of the reviewed changes.
 
-New projects select the current Windows desktop and Web/PWA presets. Each selected preset remains pinned to its exact version until the user reviews and accepts a newer bundled version.
+New projects select the current Windows desktop and Web/PWA presets. A project keeps each preset's exact version until you review and accept a newer bundled version.
 
 ## Load rules
 
-- The filename must end with `.imaguncula.json` case-insensitively.
-- Files larger than 1 MiB are rejected before their contents are read.
-- JSON must declare schema version 1 or 2. Version 1 migrates through the explicit ladder to version 2; future and unknown versions fail closed.
-- Unknown object fields are rejected.
-- IDs, hashes, dimensions, filenames, and relative destinations are validated by the core.
-- Platform-specific unsafe names and path forms are rejected consistently on every host.
+- The file name must end with `.imaguncula.json` (in any letter case).
+- Files larger than 1 MiB are rejected before they are read.
+- The JSON must declare schema version 1 or 2. Version 1 files are migrated to version 2 when loaded; any other version is rejected.
+- Unknown fields are rejected.
+- The core validates IDs, hashes, dimensions, file names, and relative destinations.
+- Unsafe names and path forms are rejected the same way on every operating system.
 
-The load result includes `migrationNotices`. The frontend marks migrated documents dirty so the new schema is not presented as persisted until Save succeeds.
+Loading returns `migrationNotices` for any migration that was applied. The desktop application marks a migrated project as unsaved, because the file on disk is still in the old format until you save.
 
 ## Preset-version migration
 
-Opening a project never silently changes a pinned preset. The core compares the pinned definition with the newest bundled version and returns added, removed, and explicitly renamed output IDs plus a deterministic SHA-256 review fingerprint. Applying an upgrade requires that exact fingerprint. A stale or substituted fingerprint fails closed. The core then updates the pin, preserves renamed output inclusion and overrides, removes deleted rows, enables only newly added defaults, and appends a `presetMigrations` acceptance record.
+Opening a project never changes a pinned preset. The core compares the pinned preset with the newest bundled version and returns the output IDs that were added, removed, or explicitly renamed, plus a SHA-256 fingerprint of that comparison. Applying the upgrade requires the same fingerprint, so an upgrade that differs from what was reviewed is refused. The core then updates the pinned version, keeps the inclusion and overrides of renamed outputs, removes deleted outputs, includes new outputs only if they are on by default, and adds a `presetMigrations` record.
 
 ## Save rules
 
-The core validates before serializing. It writes pretty JSON with a trailing newline to a temporary file in the destination directory, synchronizes the file, then atomically replaces the destination. A validation, serialization, or write failure does not replace the existing project.
+The core validates the project before saving. It writes formatted JSON with a trailing newline to a temporary file in the destination folder, flushes it to disk, and then replaces the destination in one step. If validation or writing fails, the existing project file is left unchanged.

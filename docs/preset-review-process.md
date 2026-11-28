@@ -1,17 +1,17 @@
 # Preset review process
 
-Preset data is vendor-derived executable configuration. Review it as code, not as a list copied from a secondary article.
+Presets decide exactly which files Imaguncula generates, so review a preset change as carefully as a code change. Work from the platform vendor's own documentation, not from secondary articles or other generators.
 
-## Scheduled and change-triggered review
+## When to review
 
-Review a preset when any of these occurs:
+Review a preset when:
 
 1. a vendor changes its asset-generation documentation, manifest schema, store submission rules, or platform tooling;
 2. a CI fixture stops compiling or packaging;
 3. a user reports a generated asset rejected by a current vendor tool;
 4. 12 months have elapsed since `lastReviewed`.
 
-Use primary vendor documentation. Open every URL in `specSources`, confirm it still resolves, and record the actual review date in ISO `YYYY-MM-DD` form. Replace retired sources with their official successors. Do not update `lastReviewed` when the sources were not inspected.
+Open every URL in `specSources`, confirm it still loads, and record the date you reviewed it as `YYYY-MM-DD`. Replace retired pages with the vendor's replacement. Only update `lastReviewed` if you actually read the sources.
 
 ## Change procedure
 
@@ -28,6 +28,6 @@ Use primary vendor documentation. Open every URL in `specSources`, confirm it st
 
 ## CI enforcement
 
-`imaguncula-presets` tests compile the Draft 2020-12 schema and validate every checked-in preset. The review-metadata test additionally requires at least one HTTPS `specSources` entry and a schema-validated `lastReviewed` date. Semantic tests reject duplicate identities and broken role, output, package, metadata, and optional-group references. Vendor-tool workflows provide independent structural checks for Apple catalogs, Android resources, and MSIX packages.
+The `imaguncula-presets` tests compile the Draft 2020-12 schema and validate every checked-in preset against it. The review-metadata test also requires at least one HTTPS `specSources` entry and a valid `lastReviewed` date. Other tests reject duplicate IDs and references to roles, outputs, packages, metadata, or optional groups that do not exist. Separate workflows run the vendors' own tools on generated Apple catalogs, Android resources, and MSIX packages.
 
-CI confirms checked-in metadata and generated structure. It cannot prove that a vendor page was interpreted correctly, that a store will accept an artifact, or that visual artwork is suitable. Those remain review responsibilities.
+CI can confirm the metadata and the structure of what gets generated. It cannot tell whether a vendor page was read correctly, whether a store will accept the result, or whether the artwork looks right; the reviewer has to judge those.

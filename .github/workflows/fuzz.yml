@@ -17,6 +17,9 @@ jobs:
   bounded-fuzz-smoke:
     runs-on: ubuntu-latest
     timeout-minutes: 20
+    env:
+      # rust-toolchain.toml pins stable; cargo-fuzz needs this nightly instead.
+      RUSTUP_TOOLCHAIN: nightly-2026-07-30
     steps:
       - uses: actions/checkout@v7
       - uses: dtolnay/rust-toolchain@nightly

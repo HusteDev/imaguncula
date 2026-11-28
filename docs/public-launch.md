@@ -1,31 +1,23 @@
-# Public repository launch
+# Repository settings
 
-Status: local launch materials complete; remote repository settings and seeded issues pending
+The repository at github.com/HusteDev/imaguncula was made public for the 1.0.0-beta.1 release on 2026-11-21. This page records the settings it should have, so they can be checked or restored.
 
-## Repository metadata
+## Metadata
 
-Use these exact public settings so package manifests, documentation, and search results describe the same product:
+These match the package manifests and documentation:
 
 - Description: `Offline desktop and CLI icon asset generator for Windows, Web/PWA, Linux, Apple, Android, and MSIX.`
-- Homepage: the canonical GitHub Release or project site after it exists; leave blank until then.
+- Homepage: empty until there is a project site.
 - Topics: `android`, `favicon`, `icon-generator`, `icns`, `ico`, `linux`, `macos`, `msix`, `offline-first`, `pwa`, `rust`, `svelte`, `tauri`, `windows`.
-- Features: enable Issues and Discussions; do not enable the wiki until it has an owned maintenance scope.
-- Merge policy: require the repository quality gates; preserve linear history; delete merged branches.
 
-Repository settings are external state. Do not mark them complete from this file alone.
+## Features and merging
 
-## Launch seeds
+- Issues and Discussions are on. Discussions use the Ideas form in `.github/DISCUSSION_TEMPLATE/ideas.yml`.
+- Issue forms: bug report and feature request. Blank issues are off; the issue chooser links to Discussions for questions and to private vulnerability reporting.
+- The wiki should stay off until someone is responsible for keeping it current. It is currently on.
+- Merge commits are off, so history stays linear; squash and rebase merging are allowed, and merged branches are deleted automatically.
+- A ruleset on `main` blocks deletion and force-pushes, requires a pull request, and requires CodeQL and clippy code-scanning results. See [GOVERNANCE.md](../GOVERNANCE.md).
 
-Create the five issue specifications in [good-first-issues.md](good-first-issues.md) with the `good first issue` label only after confirming each remains unimplemented on the release commit. Retain their explicit scope exclusions. Do not create placeholder issues for already completed work.
+## Good first issues
 
-Use the checked-in bug, feature, preset, and security contact paths. Enable the checked-in Ideas Discussion form after Discussions is active. Keep security reports out of public issues.
-
-## Launch evidence
-
-Before changing repository visibility or announcing v1:
-
-1. complete every required item in [release-checklist.md](release-checklist.md);
-2. retain hosted workflow links for the exact release commit and tag;
-3. publish the checksum and trust state beside the artifacts;
-4. verify every README installation command against a clean runner;
-5. confirm the screenshot and accessibility record match the shipped interface.
+The five issue specifications in [good-first-issues.md](good-first-issues.md) have not been filed yet. Before filing one, check that it is still unimplemented on `main`, keep its scope exclusions, and add the `good first issue` label.

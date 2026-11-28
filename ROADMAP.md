@@ -1,16 +1,15 @@
 # Roadmap
 
-This roadmap covers what Imaguncula intends to do, and not do, through the end of 2027. It is reviewed at least every six months and whenever a release changes the plan. Ideas and requests are welcome in [Discussions](https://github.com/HusteDev/imaguncula/discussions); see [GOVERNANCE.md](GOVERNANCE.md) for how decisions are made.
+This roadmap covers what Imaguncula plans to do, and not do, through the end of 2027. It is reviewed at least every six months, and whenever a release changes the plan. Ideas and requests are welcome in [Discussions](https://github.com/HusteDev/imaguncula/discussions); see [GOVERNANCE.md](GOVERNANCE.md) for how decisions are made.
 
 ## Now: the 1.0 beta
 
-1.0.0-beta.1 was released on 2026-11-21. The beta period focuses on correctness and trust:
+The first public beta, 1.0.0-beta.1, was released on 2026-11-21, and 1.0.0-beta.2 on 2026-11-27. During the beta the work is fixing what users report and making releases easier to trust:
 
 - Fix bugs reported against the beta, each with a regression test.
 - Keep dependencies current and free of known vulnerabilities.
-- Sign release provenance with GitHub artifact attestations, starting with the next release.
-- Measure test coverage in CI and raise statement coverage to at least 80%.
-- Make release builds reproducible and document how to check them.
+
+Done in 1.0.0-beta.2: every release file carries a signed GitHub artifact attestation, CI fails when test coverage drops below 80%, and a CI workflow checks that building the same source twice produces byte-identical executables.
 
 ## Next: 1.0 stable (first half of 2027)
 
@@ -24,7 +23,7 @@ This roadmap covers what Imaguncula intends to do, and not do, through the end o
 
 - Track platform icon specification changes and ship them as new, reviewed preset versions. Existing projects stay pinned until their owners accept a migration.
 - Improve small-size legibility warnings and previews.
-- Act on the contributor-friendly work listed in [docs/good-first-issues.md](docs/good-first-issues.md).
+- Work through the starter tasks listed in [docs/good-first-issues.md](docs/good-first-issues.md).
 
 ## Not planned
 

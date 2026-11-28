@@ -326,7 +326,7 @@ checksum = "09e54e57b4c48b40f7aec75635392b12b3421fa26fe8b4332e63138ed278459c"
 
 [[package]]
 name = "imaguncula-core"
-version = "1.0.0-beta.1"
+version = "1.0.0-beta.2"
 dependencies = [
  "fast_image_resize",
  "icns",
@@ -355,7 +355,7 @@ dependencies = [
 
 [[package]]
 name = "imaguncula-presets"
-version = "1.0.0-beta.1"
+version = "1.0.0-beta.2"
 dependencies = [
  "serde",
  "serde_json",

@@ -1,6 +1,6 @@
 ## Scope
 
-Describe the user-visible or architectural change and identify the execution-plan task or issue it implements.
+Describe the change and link the issue or discussion it addresses.
 
 ## Evidence
 
@@ -8,6 +8,7 @@ Describe the user-visible or architectural change and identify the execution-pla
 - [ ] `just test`
 - [ ] `just build`
 - [ ] Platform-specific or manual checks are documented below
+- [ ] Every commit is signed off (`git commit -s`) as described in CONTRIBUTING.md
 
 List exact commands and results. Mark checks not run and explain why.
 
@@ -27,4 +28,4 @@ List exact commands and results. Mark checks not run and explain why.
 
 ## Visual evidence
 
-Add screenshots for visible changes. Use synthetic artwork and include keyboard/focus behavior when relevant.
+Add screenshots for visible changes, using synthetic artwork. Describe keyboard and focus behavior when it changes.

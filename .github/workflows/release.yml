@@ -277,7 +277,8 @@ jobs:
           gh release upload "$GITHUB_REF_NAME" dist/* --repo "$GITHUB_REPOSITORY" --clobber
 
   publish-crates:
-    if: startsWith(github.ref, 'refs/tags/v')
+    # Pre-releases are not published to crates.io.
+    if: startsWith(github.ref, 'refs/tags/v') && !contains(github.ref_name, '-')
     needs: smoke
     runs-on: ubuntu-latest
     environment: crates-io

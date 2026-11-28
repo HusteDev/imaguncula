@@ -4,13 +4,13 @@
 
 [![OpenSSF Best Practices](https://www.bestpractices.dev/projects/17106/badge)](https://www.bestpractices.dev/projects/17106) [![OpenSSF Baseline](https://www.bestpractices.dev/projects/17106/baseline)](https://www.bestpractices.dev/projects/17106)
 
-Imaguncula is an offline desktop application that turns one high-quality SVG or PNG into correctly sized, named, and packaged icon assets for application platforms.
+Imaguncula is an offline desktop application and CLI that turns one high-quality SVG or PNG into correctly sized, named, and packaged icon assets for application platforms.
 
-The v1 implementation is complete locally. The desktop application and headless CLI share one exporter for multi-resolution Windows ICO, Windows MSIX/UWP resource families, Web/PWA assets and metadata, Linux hicolor trees, Xcode AppIcon catalogs, conventional ICNS, Icon Composer source packages, Android legacy/adaptive/themed resources, custom PNG rows, deterministic combined ZIPs, reports, progress, and transactional cancellation-safe commits. Saved projects pin immutable preset versions and expose an explicit diff-and-accept migration path. Hosted release, signing, notarization, package-channel, and manual accessibility gates remain pending until the repository is published.
+It exports Windows ICO files and MSIX resource families, Web/PWA icons and manifests, Linux hicolor trees, Xcode AppIcon catalogs, ICNS files, Icon Composer source packages, Android legacy, adaptive, and themed resources, and custom PNG sizes. The desktop application and the CLI use the same exporter. Each export writes a report and can also produce a combined ZIP. Saved projects pin the preset versions they were created with and only move to newer presets when you accept the change.
 
-![Imaguncula production frontend showing project identity, source selection, and output review](docs/images/imaguncula-main.png)
+Imaguncula is in public beta. Download the desktop application and CLI from [GitHub Releases](https://github.com/HusteDev/imaguncula/releases). The downloads are not yet code-signed, so Windows SmartScreen and macOS Gatekeeper will warn about them; [docs/distribution.md](docs/distribution.md) explains how to verify them. The CLI is not yet on crates.io.
 
-The screenshot is the production frontend in preview mode. The Tauri runtime supplies native dialogs, source processing, presets, previews, and export authority.
+![Imaguncula main window showing project identity, source selection, and output review](docs/images/imaguncula-main.png)
 
 ## Product invariants
 
@@ -20,11 +20,11 @@ The screenshot is the production frontend in preview mode. The Tauri runtime sup
 - Explain every output's dimensions, purpose, filename, and package destination.
 - Keep platform presets data-driven and versioned.
 
-See [PLAN.md](PLAN.md) for authoritative product requirements, [EXECUTION-PLAN.md](EXECUTION-PLAN.md) for engineering order, [ROADMAP.md](ROADMAP.md) for what is planned next, and [GOVERNANCE.md](GOVERNANCE.md) for how the project is run.
+See [PLAN.md](PLAN.md) for the product requirements, [EXECUTION-PLAN.md](EXECUTION-PLAN.md) for the implementation plan, [ROADMAP.md](ROADMAP.md) for what is planned next, and [GOVERNANCE.md](GOVERNANCE.md) for how the project is run.
 
 ## Use
 
-See the [user guide](docs/user-guide.md) or open one of the three checked-in [example projects](examples/README.md). The headless path is documented in [docs/cli.md](docs/cli.md) and its [generated command reference](docs/cli-reference.md).
+See the [user guide](docs/user-guide.md) or open one of the three checked-in [example projects](examples/README.md). The CLI is documented in [docs/cli.md](docs/cli.md), with a [command reference](docs/cli-reference.md) generated from its help text.
 
 ## Development
 
@@ -42,7 +42,7 @@ macOS or Debian/Ubuntu:
 bash ./scripts/bootstrap.sh
 ```
 
-The scripts announce every installation, install only missing pinned tools and native prerequisites, then run the standalone doctor. Use `--dry-run` to preview changes or `--yes` for unattended execution. Open a new shell after a first-time install so user-level PATH changes are active. Existing environments can run `scripts/doctor.ps1`, `scripts/doctor.sh`, or:
+The scripts list each tool before installing it, install only the pinned tools and native prerequisites that are missing, and then run the doctor, which checks the environment. Use `--dry-run` to see what would be installed, or `--yes` to install without prompts. After a first-time install, open a new shell so PATH changes take effect. To check an existing environment, run `scripts/doctor.ps1`, `scripts/doctor.sh`, or:
 
 ```powershell
 just doctor
@@ -54,9 +54,9 @@ Start the application after the doctor passes:
 just run
 ```
 
-All development and CI gates use the commands in `justfile`. Run `just ci` before submitting a change.
+CI runs the same commands as the `justfile`. Run `just ci` before submitting a change.
 
-The `.devcontainer` definition provides the pinned frontend and Rust toolchains plus Linux Tauri build dependencies for Codespaces and Dev Containers. It runs the doctor after creation. Use it for core, frontend, test, and build work; launch the desktop GUI from a native host checkout when a display server is required.
+The `.devcontainer` definition gives Codespaces and Dev Containers the pinned Node.js and Rust toolchains and the Linux Tauri build dependencies, and runs the doctor after it is created. It works for building and testing; to run the desktop application itself you need a native checkout with a display.
 
 ## Architecture
 
@@ -66,7 +66,7 @@ The `.devcontainer` definition provides the pinned frontend and Rust toolchains 
 - `src-tauri`: thin desktop IPC adapter.
 - `src`: Svelte interface.
 
-See [docs/project-files.md](docs/project-files.md), [docs/presets.md](docs/presets.md), [docs/preset-review-process.md](docs/preset-review-process.md), [docs/source-import.md](docs/source-import.md), [docs/custom-outputs-and-export.md](docs/custom-outputs-and-export.md), [docs/windows-web-pwa-export.md](docs/windows-web-pwa-export.md), [docs/windows-msix-export.md](docs/windows-msix-export.md), [docs/linux-apple-export.md](docs/linux-apple-export.md), [docs/android-export.md](docs/android-export.md), [docs/determinism.md](docs/determinism.md), [docs/security-limits.md](docs/security-limits.md), [docs/assurance-case.md](docs/assurance-case.md), [docs/accessibility-audit.md](docs/accessibility-audit.md), [docs/distribution.md](docs/distribution.md), and [docs/public-launch.md](docs/public-launch.md) for implemented formats, safety boundaries, release gates, and exact repository publication settings.
+The [docs](docs) directory covers each export format, the project file and preset formats, security limits and the [assurance case](docs/assurance-case.md), and how releases are built and verified. [docs/architecture.md](docs/architecture.md) is the place to start.
 
 ## License
 

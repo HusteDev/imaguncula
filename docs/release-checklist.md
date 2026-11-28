@@ -1,51 +1,25 @@
-# v1 release checklist
+# Release checklist
 
-Status: local implementation complete; hosted and external publication gates pending
+Copy this list into a release issue for each version and tick items there, not in this file. Tagging and publishing change public state, so they happen only when the maintainer decides to release; preparing a version locally does not imply either.
 
-## Repository and version
+## Version and changelog
 
-- [x] Workspace, CLI, desktop, Tauri, and frontend versions agree on the release version (currently `1.0.0-beta.1`).
-- [x] `CHANGELOG.md` contains the v1 feature and security boundary summary.
-- [x] Three example projects export through the production CLI integration test.
-- [x] Generated CLI reference is current and checked by lint.
-- [x] License files, contribution rules, code of conduct, security policy, and issue forms exist.
-- [ ] The release commit is reviewed, committed, and tagged with the matching `v<version>` tag.
+- [ ] The workspace, CLI, desktop, Tauri, and frontend versions all match the release version, and `Cargo.lock` is updated.
+- [ ] `CHANGELOG.md` has a section for the version with its date, and the Unreleased section is empty.
+- [ ] The generated CLI reference is current (`just lint` checks this).
 
-## Local quality gates
+## Before tagging
 
-- [x] `just ci` passes from the current reviewed worktree under the pinned Node, pnpm, Rust, and just versions; rerun it from the eventual release commit before tagging.
-- [x] `imaguncula-presets` packages and verifies; package file lists for all three publishable crates are reviewed.
-- [x] Hostile corpus, property tests, deterministic-tree tests, stress limits, and staging-escape tests pass.
-- [x] The four pinned cargo-fuzz targets complete their bounded local campaigns without a crash: 2,500 SVG, 10,000 path, 1,000 ICO, and 400 ICNS inputs.
-- [x] Frontend check, lint, format, unit tests, production build, and Tauri adapter checks pass.
+- [ ] `just ci` passes on the release commit with the pinned Node.js, pnpm, Rust, and just versions.
+- [ ] The release workflow has been run manually on `main` (Actions, Release, Run workflow) as a dry run. The publish jobs skip on branches, so this exercises the build and smoke jobs without publishing.
+- [ ] On the release commit, these hosted checks pass: CI on all three operating systems, coverage, Repeatable build, Desktop E2E (WebDriver smoke and axe), and the Apple `actool`, Android AAPT2, and Windows MakeAppx fixture workflows.
+- [ ] The most recent Fuzz smoke run passed. Any crashing input it found is in `fixtures/hostile/` with a fix.
+- [ ] For a stable release, the manual keyboard and screen-reader pass in [accessibility-audit.md](accessibility-audit.md) is recorded in the release issue.
 
-## Local platform packaging evidence
+## Tag and publish
 
-- [x] The production Windows MSIX asset family indexes with MakePri and packages with MakeAppx; the fixture contains all 57 required generated PNGs.
-- [x] The pinned release toolchain builds the Windows MSI and NSIS bundles, and both archives pass integrity checks.
-- [x] The Windows portable ZIP launches, the archived release CLI exports the expected ICO, and all four staged artifact SHA-256 entries reverify.
-- [x] The release executable remains running through a launch smoke, and a non-registering MSI administrative extraction contains the expected executable without changing installer registration.
-- [ ] Destructive installer smoke remains assigned to a clean runner because this workstation already has Imaguncula 0.1.0 installed.
-
-## Hosted quality gates
-
-- [ ] Three-OS CI matrix passes on the release commit.
-- [ ] Nightly fuzz targets complete without a crash; any prior crash is promoted into the regression corpus.
-- [ ] Tauri WebDriver smoke and axe audit pass against the built application.
-- [ ] Apple `actool`, Android AAPT2, and Windows MakeAppx fixture validation pass.
-- [ ] Clean-runner MSI, NSIS, portable ZIP, AppImage, DMG, and CLI smoke jobs pass.
-- [ ] Manual keyboard and screen-reader evidence in [accessibility-audit.md](accessibility-audit.md) is recorded.
-
-## Artifact trust and publication
-
-- [ ] Windows artifacts are signed and verified, or the release prominently states they are unsigned.
-- [ ] macOS artifact is signed, notarized, stapled, and assessed, or the release prominently states it is unsigned and unnotarized.
-- [ ] SHA-256 sum files match every uploaded artifact.
-- [ ] GitHub Release is created from the reviewed tag.
-- [ ] `imaguncula-presets`, `imaguncula-core`, and `imaguncula-cli` publish in dependency order.
-- [ ] `cargo binstall imaguncula-cli@<version>` installs and runs on every published CLI target.
-- [ ] Initial Winget manifest is reviewed and submitted; later updates use the distribution workflow.
-- [ ] Homebrew formula is reviewed and pushed to the tap.
-- [ ] Repository description, homepage, topics, Discussions, and good-first-issue seeds are published.
-
-Tagging and publication are external state changes. They are not implied by local version preparation and require an explicit release operation.
+- [ ] Tag the release commit `v<version>` and push the tag. The release workflow builds every artifact, runs the clean-runner smoke jobs (portable ZIP, NSIS, MSI for stable versions, AppImage, DMG, and CLI), and publishes the GitHub Release. Versions with a pre-release suffix are marked as pre-releases and have no MSI.
+- [ ] Every uploaded file has a SHA-256 entry and an attestation that `gh attestation verify` accepts.
+- [ ] The release notes say plainly that the Windows and macOS files are not code-signed or notarized, until they are.
+- [ ] For a stable release, the three crates published in order and `cargo binstall imaguncula-cli@<version>` installs a working CLI. Pre-releases skip crates.io; see [distribution.md](distribution.md#cratesio-and-cargo-binstall).
+- [ ] For a stable release, decide whether to run the Winget and Homebrew jobs in [distribution.md](distribution.md#winget-and-homebrew).

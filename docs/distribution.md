@@ -1,6 +1,6 @@
 # Packaging, signing, and distribution
 
-Status: release automation and provenance attestations implemented; operating-system code signing, notarization, and channel submissions pending
+The release workflow builds, smoke-tests, and publishes every release from a version tag, and signs the provenance of each file. The files are not code-signed for Windows or macOS, and Imaguncula is not yet on crates.io, Winget, or Homebrew.
 
 ## Release artifacts
 
@@ -18,7 +18,7 @@ Every platform artifact set includes SHA-256 sums. The release job uploads only 
 
 ## Verifying a release
 
-Starting with the first release after 1.0.0-beta.1, every uploaded file, including the SHA-256 sum files, carries a signed [GitHub artifact attestation](https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations/using-artifact-attestations-to-establish-provenance-for-builds). The release job signs SLSA build provenance with a short-lived [Sigstore](https://www.sigstore.dev/) certificate issued to this repository's release workflow. There is no long-lived private key: the certificate exists only for the duration of the job, and the signature is recorded in the public Sigstore transparency log. No signing key is stored on GitHub Releases, crates.io, or any other download site.
+Starting with 1.0.0-beta.2, every uploaded file, including the SHA-256 sum files, carries a signed [GitHub artifact attestation](https://docs.github.com/en/actions/security-for-github-actions/using-artifact-attestations/using-artifact-attestations-to-establish-provenance-for-builds). The release job signs SLSA build provenance with a short-lived [Sigstore](https://www.sigstore.dev/) certificate issued to this repository's release workflow. There is no long-lived private key: the certificate exists only for the duration of the job, and the signature is recorded in the public Sigstore transparency log. No signing key is stored on GitHub Releases, crates.io, or any other download site.
 
 To verify a downloaded file, install the [GitHub CLI](https://cli.github.com/), sign in with `gh auth login`, and run:
 
@@ -46,7 +46,7 @@ The checked-in workflow builds artifacts without operating-system code signature
 
 ### Windows
 
-Current Tauri supports Windows certificate-store signing, custom sign commands, Azure Key Vault, and Azure Artifact Signing. Azure Artifact Signing is the preferred CI direction. Configure a repository environment with the Azure tenant/client credentials, account endpoint, account name, and certificate profile; provide a `bundle.windows.signCommand` override using `artifact-signing-cli`; timestamp the signature; then verify both the executable and installer with `signtool verify /pa /all /v` before upload.
+Current Tauri supports Windows certificate-store signing, custom sign commands, Azure Key Vault, and Azure Artifact Signing. Azure Artifact Signing is the planned option for signing in CI. Configure a repository environment with the Azure tenant/client credentials, account endpoint, account name, and certificate profile; provide a `bundle.windows.signCommand` override using `artifact-signing-cli`; timestamp the signature; then verify both the executable and installer with `signtool verify /pa /all /v` before upload.
 
 MSIX packages require a trusted signature whose subject matches the manifest publisher. Imaguncula's current desktop release targets are MSI and NSIS; the MSIX fixture workflow validates generated asset families and manifest packaging separately.
 
@@ -66,23 +66,26 @@ Sources: [Tauri AppImage distribution](https://v2.tauri.app/distribute/appimage/
 
 ## crates.io and cargo-binstall
 
-The release workflow publishes `imaguncula-presets`, then `imaguncula-core`, then `imaguncula-cli`, because registry dependencies must exist before their dependents. Release preparation verifies the independent preset archive and reviews the package file list for all three crates. On the first release, crates.io cannot package a dependent until its exact upstream version has propagated; each `cargo publish` therefore performs the dependent package validation in sequence. Configure the protected `crates-io` environment with `CRATES_IO_TOKEN`; move to crates.io trusted publishing when the repository/account supports the required OIDC configuration.
+The crates are not on crates.io yet. The release workflow has a `publish-crates` job that publishes `imaguncula-presets`, then `imaguncula-core`, then `imaguncula-cli`, waiting for each to appear in the registry before publishing the crate that depends on it. The job runs only for stable version tags; pre-release tags such as `v1.0.0-beta.2` skip it. It runs in the protected `crates-io` environment and needs a `CRATES_IO_TOKEN` secret, which has not been added yet, so add the secret before tagging the first stable release. The job runs alongside the one that publishes the GitHub Release, so a crates.io failure does not stop the release files from being published. Once crates are published, consider switching to crates.io trusted publishing so no long-lived token is needed.
 
-After publication:
+Until then, install the CLI from the release's `imaguncula-cli-*.tar.gz` archive or build it from a checkout with `cargo install --path crates/imaguncula-cli --locked`. After the crates are published, these will also work:
 
 ```text
 cargo install imaguncula-cli --locked
 cargo binstall imaguncula-cli
 ```
 
+`cargo binstall` downloads the same release archives, using the metadata in `crates/imaguncula-cli/Cargo.toml`.
+
 ## Winget and Homebrew
 
-`.github/workflows/distribution.yml` is an explicit post-release workflow. It refuses a version without an existing GitHub release. Its Winget job resolves the published NSIS asset, generates an updated `HusteDev.Imaguncula` manifest with Microsoft's `wingetcreate`, uploads the generated manifest for review, and submits only when the operator selects `submit` and the protected `winget` environment supplies `WINGET_CREATE_GITHUB_TOKEN`.
+Imaguncula is not on Winget or Homebrew yet. `.github/workflows/distribution.yml` is a manually started workflow for after a release, and it has not been run. It refuses a version that has no GitHub Release.
 
-The first Winget manifest is a one-time reviewed submission; update automation applies after Microsoft merges that package identity. Do not run the update job before the initial manifest exists.
+- **Winget:** the job finds the release's NSIS installer, generates a `HusteDev.Imaguncula` manifest with Microsoft's `wingetcreate`, and uploads it as an artifact for review. It submits the manifest only when run with `submit` and when the protected `winget` environment has a `WINGET_CREATE_GITHUB_TOKEN`. The first manifest has to be submitted and reviewed by hand; the update job is for later versions, after Microsoft has merged the package.
+- **Homebrew:** the job hashes the GitHub source tag, generates a formula that builds the CLI from source, runs `brew style`, builds, installs, and tests it, and uploads the formula for review. It pushes to `HusteDev/homebrew-tap` only when run with `submit` and when the protected `homebrew` environment has a `HOMEBREW_TAP_TOKEN`. That tap repository does not exist yet. A cask for the desktop app has to wait until the macOS DMG is signed and notarized.
 
-The Homebrew job hashes the immutable GitHub source tag, generates a Rust source-build formula, runs `brew style`, builds and installs it from source, executes its formula test, uploads it for review, and pushes it to `HusteDev/homebrew-tap` only when `submit` is selected and `HOMEBREW_TAP_TOKEN` is present in the protected `homebrew` environment. A desktop cask remains blocked until the macOS DMG is signed and notarized.
+The `winget` and `homebrew` environments have not been created.
 
-Flatpak and AUR are documented community-maintained targets. The project does not promise first-party publication, review cadence, or signing for those channels. Community recipes must download immutable releases, verify checksums, preserve offline runtime behavior, and identify themselves as independently maintained.
+Flatpak and AUR packages would be community-maintained. The project does not promise to publish, review, or sign them. A community package should download the immutable release files, verify their checksums, keep the application offline, and say that it is maintained independently.
 
 Sources: [WingetCreate](https://github.com/microsoft/winget-create), [cargo-binstall support](https://github.com/cargo-bins/cargo-binstall/blob/main/SUPPORT.md), and [Cargo publishing](https://doc.rust-lang.org/cargo/reference/publishing.html).
