@@ -1,39 +1,43 @@
 # User guide
 
+## Install
+
+Download the desktop application from [GitHub Releases](https://github.com/HusteDev/imaguncula/releases): the `x64-setup.exe` installer or the portable ZIP for Windows, the DMG for Apple silicon Macs, or the AppImage for x64 Linux. The downloads are not yet code-signed, so Windows SmartScreen may warn before the installer runs and macOS Gatekeeper may block the application until you allow it in System Settings. [distribution.md](distribution.md#verifying-a-release) explains how to check that a download came from this repository.
+
 ## Create or open a project
 
-Use **New** for an empty schema-v2 project or **Open** for a `.imaguncula.json` file. New projects start with Windows desktop and Web/PWA presets. Project files store relative source paths when possible, SHA-256 source identities, exact preset versions, output selections, overrides, warning acceptances, and reviewed preset migrations.
+Use **New** to start an empty project or **Open** to load a `.imaguncula.json` file. A new project selects the Windows desktop and Web/PWA presets. The project file stores source paths (relative to the project file when the source is inside its folder), each source's SHA-256 hash, the exact preset versions, which outputs are included, per-output overrides, accepted warnings, and accepted preset migrations.
 
-Project files are portable, so treat one you did not write as untrusted. When an opened project references sources outside its own folder, the application lists them and asks before reading any of them; declining removes the references so trusted sources can be relinked by hand. Warnings and upscale authorizations pre-accepted inside the file are announced when the project opens.
+Treat a project file you did not create as untrusted. If it references sources outside its own folder, Imaguncula lists them and asks before reading any of them. Declining removes those references so you can relink trusted files yourself. If the file already accepts warnings or allows upscaling, Imaguncula tells you when the project opens.
 
 ## Select source artwork
 
-Select or drop one SVG or PNG master. SVG is preferred because every requested size is rendered directly from the original vector tree. PNG sources can be downsampled; an output larger than its raster source remains blocked until that exact output receives an explicit upscale override.
+Select or drop one SVG or PNG as the master source. SVG is preferred because every size is rendered from the original vector artwork. A PNG source can be scaled down, but an output larger than the PNG stays blocked until you allow upscaling for that specific output.
 
-The source panel reports dimensions, transparency, color-profile information, validation warnings, and a content hash. The preview controls render an exact target size from the original source and can magnify pixels without changing output dimensions.
+The source panel shows the dimensions, whether the image has transparency, any color profile, validation warnings, and the content hash. The preview renders the exact target size from the original source and can magnify pixels without changing the output.
 
-Layered presets expose additional required roles. Android adaptive icons require foreground and background artwork. Selecting only a master does not synthesize those layers. Platform preset cards identify required and optional additional sources before selection. Each additional-source card identifies the selected output types that use that role and whether the role is required or optional for each one.
+Some presets need more than one source. Android adaptive icons need separate foreground and background artwork, and Imaguncula does not split a single master into layers. Each preset card lists the additional sources it needs, and each source card lists which selected outputs use that source and whether it is required or optional for each.
 
 ## Review outputs
 
-Enable platform presets, optional preset groups, or custom outputs. The output table shows each file's platform, purpose, dimensions, format, destination, source, and readiness. A notice above the table summarizes included outputs that still need non-master artwork. Use the platform filter to constrain the table. Android outputs also expose launcher-mask previews.
+Turn on platform presets, optional preset groups, or custom outputs. The output table lists each file's platform, purpose, dimensions, format, destination, source, and status. A notice above the table counts included outputs that still need artwork other than the master. Use the platform filter to narrow the table. Android rows can also preview launcher mask shapes.
 
-Per-output replacement is the escape hatch for artwork that does not survive a small target size or platform-specific treatment. The replacement is independently validated and stored by path and content hash.
+If your artwork does not work at a small size or needs a platform-specific variant, use **Replace source** on that output to give it its own file. The replacement is validated like any other source and stored by path and content hash.
 
 ## Export
 
-Choose **Create**, select a parent directory, and confirm replacement if the final package already exists. Replacement only applies to a directory containing a previous package's `report.md`; any other non-empty directory is refused so unrelated data is never deleted. Imaguncula writes into a sibling staging directory, verifies the complete package, and renames it into place. Cancellation and failure remove staging and do not expose a partial final package; if a confirmed replacement fails and the previous package cannot be moved back, the staging directory holding it is kept and its location is reported.
+Choose **Create**, pick a parent folder, and confirm replacement if a package with the same name already exists there. Imaguncula only replaces a folder that contains a previous package's `report.md`; it refuses any other non-empty folder, so it never deletes files it did not write. The package is built in a staging folder next to the destination, verified, and then renamed into place. If you cancel or the export fails, the staging folder is removed and no partial package appears. If a confirmed replacement fails and the previous package cannot be moved back, the staging folder that holds it is kept and its location is shown.
 
-Each package contains `report.md`. Combined ZIP creation is enabled by default. The report records generated paths, dimensions, source provenance, content hashes, and accepted or outstanding warnings. After export, **Show report** expands a rendered report in the application; the raw Markdown source is not shown.
+Every package contains `report.md`, which lists each generated file with its dimensions, its source file name and hash, and any accepted or outstanding warnings. **Include combined ZIP** is on by default and adds a ZIP of the whole package. After an export, **Show report** displays the report in the application.
 
 ## Preset updates
 
-Saved projects remain pinned to their exact preset versions. When a newer bundled version exists, the preset-update panel shows added, removed, and explicitly renamed output identities plus a deterministic review fingerprint. Nothing migrates until **Accept and migrate** is used. Acceptance is recorded in the project file and marks it unsaved.
+A saved project stays on the exact preset versions it was created with. When a newer bundled version exists, the preset-update panel lists the outputs that version adds, removes, or renames, together with a review fingerprint. Nothing changes until you choose **Accept and migrate**. The migration is recorded in the project file and the project is marked unsaved.
 
 ## Upgrading Imaguncula
 
-Install a new release over the old one. A new release opens every project file saved by an earlier 1.x version. Schema version 1 project files migrate to schema version 2 when opened; the project is marked unsaved, and the original file is untouched until you choose **Save**. Pinned preset versions never change during an upgrade; review and accept newer preset versions as described in [Preset updates](#preset-updates). The [changelog](../CHANGELOG.md) lists every change that affects project files, presets, or the CLI, with any steps an upgrade requires. Security fixes go into the current release line, so stay on the latest release.
+Install the new release over the old one. A new release opens every project file saved by an earlier 1.x version. Schema version 1 project files are migrated to schema version 2 when opened; the project is marked unsaved and the original file is unchanged until you choose **Save**. Upgrading never changes a project's pinned preset versions; review and accept newer presets as described in [Preset updates](#preset-updates). The [changelog](../CHANGELOG.md) lists every change that affects project files, presets, or the CLI, along with any steps an upgrade requires. Security fixes go into the current release line, so stay on the latest release.
 
 ## Command line
 
-The headless CLI exposes the same core exporter and needs no display server. See [cli.md](cli.md), the generated [CLI reference](cli-reference.md), and the checked-in [example projects](../examples/README.md).
+The `imaguncula` CLI uses the same exporter as the desktop application and does not need a display. See [cli.md](cli.md), the generated [CLI reference](cli-reference.md), and the [example projects](../examples/README.md).

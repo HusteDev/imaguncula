@@ -4,6 +4,10 @@ All notable changes are documented here. This project uses Semantic Versioning.
 
 ## [Unreleased]
 
+## [1.0.0-beta.2] - 2026-11-27
+
+Second public beta. Desktop and CLI artifacts are still unsigned and unnotarized, but every release file now carries a signed build-provenance attestation.
+
 ### Changed
 
 - Builds are repeatable: building the same source twice produces a byte-identical frontend, CLI, and desktop executable. SvelteKit's build version now comes from the package version, Windows builds link with `/Brepro`, and a new CI workflow checks this on Windows, macOS, and Linux.
@@ -12,8 +16,10 @@ All notable changes are documented here. This project uses Semantic Versioning.
 - The desktop IPC adapter has its own test suite, which drives every command through Tauri's mock runtime. Windows builds now embed the application manifest through the linker so those tests can run on Windows.
 - The contribution guide now documents how to report bugs, how to submit a pull request, the coding standards, and a testing policy that requires automated tests for new functionality and regression tests for bug fixes.
 - The security policy now states the response and fix targets for vulnerability reports and where fixed vulnerabilities are disclosed.
-- The repository publishes its OpenSSF Best Practices answers in `.bestpractices.json` and shows the badge in the README.
-- New governance, roadmap, and security assurance case documents; the security policy describes step by step how vulnerability reports are handled and credited; the user guide explains upgrades; contributions now carry a Developer Certificate of Origin sign-off.
+- The OpenSSF Best Practices answers are kept in `.bestpractices.json`, and the README shows the Best Practices and Baseline badges.
+- Added a governance document, a roadmap, and a security assurance case.
+- The security policy describes each step of handling and crediting a vulnerability report, and the user guide explains how to upgrade.
+- Commits in pull requests must carry a Developer Certificate of Origin sign-off.
 
 ### Security
 
@@ -51,4 +57,6 @@ First public beta. All desktop and CLI artifacts are unsigned and unnotarized; t
 - Release and distribution workflows pass workflow inputs and secrets through environment variables instead of template expansion, pin WingetCreate to a hash-verified release, pin third-party actions in token-bearing jobs to commit SHAs, and receive Dependabot updates for actions.
 - Upgraded the `zip` dependency to 9.8.1 for RUSTSEC-2026-0548; the vulnerable stream-extraction API was never used, and archive verification fails closed on undecodable entry names.
 
+[Unreleased]: https://github.com/HusteDev/imaguncula/compare/v1.0.0-beta.2...HEAD
+[1.0.0-beta.2]: https://github.com/HusteDev/imaguncula/releases/tag/v1.0.0-beta.2
 [1.0.0-beta.1]: https://github.com/HusteDev/imaguncula/releases/tag/v1.0.0-beta.1

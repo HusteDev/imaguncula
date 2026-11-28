@@ -20,7 +20,7 @@ workspace = true
 
 [dependencies]
 clap = { version = "=4.6.4", features = ["derive"] }
-imaguncula-core = { version = "=1.0.0-beta.1", path = "../imaguncula-core" }
+imaguncula-core = { version = "=1.0.0-beta.2", path = "../imaguncula-core" }
 serde_json = "=1.0.151"
 thiserror = "=2.0.19"
 

@@ -37,7 +37,7 @@ body:
     id: reproduction
     attributes:
       label: Reproduction steps
-      description: Give the smallest deterministic sequence that triggers the problem.
+      description: List the fewest steps that reliably trigger the problem.
       placeholder: |
         1. Open ...
         2. Select ...

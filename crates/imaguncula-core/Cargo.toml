@@ -18,7 +18,7 @@ workspace = true
 fast_image_resize = "=6.1.0"
 ico = "=0.5.0"
 icns = { version = "=0.4.0", default-features = false, features = ["pngio"] }
-imaguncula-presets = { version = "=1.0.0-beta.1", path = "../imaguncula-presets" }
+imaguncula-presets = { version = "=1.0.0-beta.2", path = "../imaguncula-presets" }
 image = { version = "=0.25.10", default-features = false, features = ["png"] }
 quick-xml = "=0.41.0"
 resvg = { version = "=0.47.0", default-features = false }

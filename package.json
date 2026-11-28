@@ -1,6 +1,6 @@
 {
   "name": "imaguncula",
-  "version": "1.0.0-beta.1",
+  "version": "1.0.0-beta.2",
   "description": "Offline desktop icon asset generator",
   "type": "module",
   "scripts": {

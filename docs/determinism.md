@@ -1,27 +1,25 @@
 # Determinism contract
 
-Status: verified locally for the v1 processing core
+Exporting the same project twice must produce byte-identical packages, as long as the source files, pinned preset versions, included outputs, accepted warnings, and Imaguncula version are the same.
 
-Imaguncula treats reproducibility as a processing invariant. Re-exporting the same project with the same source bytes, pinned preset versions, enabled outputs, accepted warnings, and Imaguncula version must produce byte-identical package trees.
+This covers:
 
-The contract covers:
+- PNG files and sanitized SVG files;
+- the order, encoding, dimensions, and bytes of ICO and ICNS entries;
+- generated JSON, XML, HTML, and text files, and `report.md`;
+- the entry order, timestamps, attributes, and contents of the combined ZIP;
+- every file path and byte in the exported package directory.
 
-- standalone PNG and sanitized SVG files;
-- ICO and ICNS entry order, encoding, dimensions, and bytes;
-- generated JSON, XML, HTML, text, and `report.md`;
-- deterministic combined ZIP entry order, timestamps, attributes, and contents;
-- the complete relative-path-to-byte mapping of the committed export directory.
+A core test exports the same project twice, compares the two ZIP files, and compares the two package directories file by file and byte by byte. Other tests repeat render, resize, and PNG encoding operations and reopen ICO and ICNS containers to check their contents.
 
-The core integration suite exports the same project twice, compares both ZIP files, recursively snapshots both directory trees, and compares every relative path and byte. Independent tests cover repeated render/resize/PNG operations and semantic container reopen checks.
+## Limits of the contract
 
-## Boundaries
+The contract applies to one Imaguncula version and identical inputs. Output may change between exports when:
 
-Determinism is scoped to one supported Imaguncula version and identical inputs. The contract does not claim byte stability across:
+- Imaguncula or one of its dependencies is upgraded;
+- you accept a preset migration;
+- a source file is renamed, because `report.md` records each source's file name.
 
-- a new Imaguncula release or dependency upgrade;
-- a preset migration explicitly accepted by the user;
-- changed source paths, because reports record source provenance;
-- filesystem metadata outside the package bytes, including ownership and host timestamps;
-- Tauri MSI, NSIS, AppImage, or DMG bundles produced by external platform toolchains.
+File-system metadata outside the file contents, such as ownership and modification times, is not covered.
 
-Vendor packaging can include toolchain-controlled metadata. Release artifacts therefore carry SHA-256 sums and are tested for clean-runner installation and launch, but are not part of the core byte-determinism contract.
+The contract is about exported icon packages. Imaguncula's own build is covered separately: building the application from the same source produces byte-identical executables, which CI checks on every platform (see [distribution.md](distribution.md#repeatable-builds)). The installers and archives that wrap those executables (MSI, NSIS, AppImage, DMG, and the CLI archives) still contain packaging timestamps; each release publishes their SHA-256 sums.

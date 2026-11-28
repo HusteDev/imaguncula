@@ -28,7 +28,7 @@ Out of scope: an attacker who already controls the user's account or operating s
 2. **Project files to the core.** Every field of a project file is untrusted, including source paths, output names, destinations, warning acceptances, and preset pins.
 3. **Webview to the Rust process.** The Svelte interface runs in a webview and reaches the system only through thirteen Tauri commands. The webview is granted only `core:default`, `dialog:allow-open`, and `dialog:allow-save`; it has no general filesystem, shell, or network permission. A strict content security policy limits it to the application's own content and the IPC channel.
 4. **Core to the filesystem.** All writes pass through one path sanitizer and a staged, verified, atomic export.
-5. **Source repository to released artifacts.** Releases are built on GitHub-hosted runners from a version tag, and their provenance is signed.
+5. **Source repository to released artifacts.** Releases are built on GitHub-hosted runners from a version tag, the build is repeatable, and release files carry signed provenance (starting with 1.0.0-beta.2).
 
 ## Secure design principles applied
 
@@ -63,4 +63,5 @@ Out of scope: an attacker who already controls the user's account or operating s
 - Property tests, stress tests, and fuzz targets: the `imaguncula-core` unit and integration tests and `fuzz/fuzz_targets`, run in CI and in the bounded fuzz workflow.
 - Byte-for-byte output determinism: [determinism.md](determinism.md).
 - Release provenance and verification: [distribution.md](distribution.md#verifying-a-release).
+- Repeatable builds, checked on every pull request: [distribution.md](distribution.md#repeatable-builds).
 - A pre-beta security review in November 2026 found no critical issues; its six findings were fixed before the 1.0.0-beta.1 release and are listed in the Security section of [CHANGELOG.md](../CHANGELOG.md).
